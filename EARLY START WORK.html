@@ -946,6 +946,8 @@
             height: 100%;
             cursor: pointer;
             accent-color: var(--primary);
+        }
+
         @media (max-width: 992px) {
             body {
                 overflow: auto;
@@ -968,21 +970,24 @@
                 transform: none !important;
                 overflow: visible;
                 display: none;
-                box-shadow: 0 10px 30px rgba(0, 30, 60, 0.1);
-                border-radius: 20px;
+                box-shadow: none;
+                border-radius: 0;
+                background: transparent;
             }
             .slide.active {
-                display: flex;
+                display: flex !important;
+                flex-direction: column !important;
             }
             .body-content {
-                flex-direction: column;
-                height: auto;
-                overflow: visible;
+                flex-direction: column !important;
+                height: auto !important;
+                overflow: visible !important;
             }
             .left-content, .right-sidebar {
-                flex: none;
-                width: 100%;
-                height: auto;
+                flex: none !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
             }
             .chart-box {
                 height: 380px; 
