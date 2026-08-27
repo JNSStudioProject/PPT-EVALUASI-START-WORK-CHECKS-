@@ -1034,7 +1034,7 @@
 </head>
 
 <body>
-    <div class="nav-hint">Gunakan &larr; (Kiri) dan &rarr; (Kanan) pada keyboard untuk pindah slide
+    <div class="nav-hint">Gunakan &larr; &rarr; pada keyboard atau usap (swipe) layar untuk pindah slide
     </div>
     <div class="presentation-container" id="presentation-container">
         <div class="slide active" id="slide-main">
@@ -1712,6 +1712,25 @@ ${mk.statsTitle}
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { nextSlide(); }
             else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { prevSlide(); }
+        });
+
+        // ── Touch Swipe Navigation for Mobile ──────────────────────────────
+        let touchStartX = 0;
+        let touchEndX = 0;
+        document.addEventListener('touchstart', e => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+        document.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            // Ignore swipe if tapping/swiping inside interactive elements
+            if (e.target.tagName.toLowerCase() === 'canvas') return;
+            if (e.target.closest('.chart-focus-overlay')) return;
+            if (e.target.closest('.chart-box')) return;
+            if (e.target.closest('button')) return;
+            if (e.target.closest('select') || e.target.closest('input')) return;
+            
+            if (touchEndX < touchStartX - 50) nextSlide(); // Swipe Left
+            if (touchEndX > touchStartX + 50) prevSlide(); // Swipe Right
         });
 
         function resizePresentation() {
