@@ -1,0 +1,1799 @@
+<!-- developer : Jessica Nathania ( 0812 7586 0255 ) -->
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EARLY START WORK</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <style>
+        :root {
+            --primary: #00529b;
+            --primary-dark: #061d33;
+            --secondary: #78be20;
+            --accent-1: #008751;
+            --accent-2: #f37021;
+            --phr-red: #ef3340;
+            --text-dark: #0c233d;
+            --text-muted: #475569;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #cbd5e1;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .presentation-container {
+            width: 1280px;
+            height: 720px;
+            position: relative;
+            transform-origin: center;
+        }
+
+        .nav-hint {
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9999;
+            color: var(--primary-dark);
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            pointer-events: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            animation: fadeOut 0.5s forwards 5s;
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        @keyframes mesh-pulse {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 0.7;
+            }
+
+            33% {
+                transform: scale(1.05) translate(2%, 2%);
+                opacity: 1;
+            }
+
+            66% {
+                transform: scale(0.95) translate(-1%, 3%);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1) translate(0, 0);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes float-slow {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(1deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        @keyframes blink-slow {
+
+            0%,
+            100% {
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        @keyframes spin-slow {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f4f7fa;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 30, 60, 0.2), 0 10px 30px rgba(0, 30, 60, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px 20px 40px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(40px) scale(0.97);
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+            z-index: 10;
+        }
+
+        .hud-cross {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            z-index: 2;
+            opacity: 0.3;
+        }
+
+        .hud-cross::before,
+        .hud-cross::after {
+            content: '';
+            position: absolute;
+            background: var(--primary);
+        }
+
+        .hud-cross::before {
+            top: 11px;
+            left: 0;
+            width: 24px;
+            height: 2px;
+        }
+
+        .hud-cross::after {
+            left: 11px;
+            top: 0;
+            width: 2px;
+            height: 24px;
+        }
+
+        .cross-1 {
+            top: 60px;
+            right: 400px;
+        }
+
+        .cross-2 {
+            top: 220px;
+            left: 50px;
+        }
+
+        .cross-3 {
+            bottom: 120px;
+            left: 50px;
+        }
+
+        .ornament-circle {
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 250px;
+            height: 250px;
+            border: 2px dashed rgba(0, 82, 155, 0.15);
+            border-radius: 50%;
+            z-index: 0;
+            animation: spin-slow 60s linear infinite;
+        }
+
+        .ornament-circle::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(120, 190, 32, 0.15);
+            border-radius: 50%;
+        }
+
+        .data-nodes {
+            position: absolute;
+            top: 150px;
+            right: 40px;
+            display: flex;
+            gap: 8px;
+            z-index: 5;
+        }
+
+        .node {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: blink-slow 3s infinite ease-in-out;
+        }
+
+        .node:nth-child(1) {
+            opacity: 0.8;
+            animation-delay: 0s;
+        }
+
+        .node:nth-child(2) {
+            opacity: 0.4;
+            animation-delay: 1s;
+        }
+
+        .node:nth-child(3) {
+            opacity: 0.2;
+            animation-delay: 2s;
+            background: var(--accent-1);
+        }
+
+        .vertical-text {
+            position: absolute;
+            left: 15px;
+            bottom: 250px;
+            transform: rotate(-90deg);
+            transform-origin: left bottom;
+            font-size: 10px;
+            font-weight: 800;
+            color: rgba(0, 82, 155, 0.3);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .tech-lines {
+            position: absolute;
+            top: 0;
+            right: 320px;
+            width: 120px;
+            height: 60px;
+            background: repeating-linear-gradient(90deg, rgba(0, 82, 155, 0.05), rgba(0, 82, 155, 0.05) 2px, transparent 2px, transparent 8px);
+            z-index: 0;
+        }
+
+        .hex-ornament {
+            position: absolute;
+            top: -40px;
+            right: 150px;
+            width: 180px;
+            height: 180px;
+            border: 1.5px solid rgba(0, 82, 155, 0.08);
+            transform: rotate(30deg);
+            z-index: 0;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: float-slow 15s infinite ease-in-out;
+        }
+
+        .hex-ornament-2 {
+            position: absolute;
+            top: -20px;
+            right: 170px;
+            width: 120px;
+            height: 120px;
+            border: 1.5px dashed rgba(120, 190, 32, 0.15);
+            transform: rotate(15deg);
+            z-index: 0;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: spin-slow 100s infinite linear reverse;
+        }
+
+        .bracket-tl {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(0, 82, 155, 0.2);
+            border-right: none;
+            border-bottom: none;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .bracket-br {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(0, 82, 155, 0.2);
+            border-left: none;
+            border-top: none;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .status-ui {
+            position: absolute;
+            bottom: 35px;
+            left: 45px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            color: rgba(0, 82, 155, 0.5);
+            letter-spacing: 2px;
+            z-index: 5;
+            text-transform: uppercase;
+        }
+
+        .status-ui .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--secondary);
+            box-shadow: 0 0 10px rgba(120, 190, 32, 0.6);
+            animation: blink-slow 2s infinite;
+        }
+
+        .hash-marks {
+            position: absolute;
+            top: 50%;
+            left: 25px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 2;
+        }
+
+        .hash-marks span {
+            width: 12px;
+            height: 2px;
+            background: rgba(0, 82, 155, 0.15);
+        }
+
+        .hash-marks span:nth-child(even) {
+            width: 6px;
+        }
+
+        .diagonal-stripes {
+            position: absolute;
+            bottom: 0;
+            left: 250px;
+            width: 300px;
+            height: 15px;
+            background: repeating-linear-gradient(45deg, rgba(0, 82, 155, 0.05), rgba(0, 82, 155, 0.05) 2px, transparent 2px, transparent 8px);
+            z-index: 1;
+        }
+
+        .bg-mesh-1 {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(0, 82, 155, 0.25) 0%, rgba(0, 82, 155, 0) 70%);
+            z-index: -1;
+            animation: mesh-pulse 15s infinite ease-in-out alternate;
+        }
+
+        .bg-mesh-2 {
+            position: absolute;
+            bottom: -30%;
+            right: -10%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(120, 190, 32, 0.15) 0%, rgba(120, 190, 32, 0) 70%);
+            z-index: -1;
+            animation: mesh-pulse 18s infinite ease-in-out alternate-reverse;
+        }
+
+        .huge-bg-text {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 160px;
+            font-weight: 900;
+            color: rgba(0, 50, 100, 0.04);
+            line-height: 0.8;
+            letter-spacing: -4px;
+            z-index: -1;
+            pointer-events: none;
+            text-transform: uppercase;
+            animation: float-slow 10s infinite ease-in-out;
+        }
+
+        .bottom-image-container {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 650px;
+            height: 550px;
+            z-index: 1;
+            -webkit-mask-image: radial-gradient(ellipse at bottom right, black 20%, rgba(0, 0, 0, 0.4) 65%, transparent 85%);
+            mask-image: radial-gradient(ellipse at bottom right, black 20%, rgba(0, 0, 0, 0.4) 65%, transparent 85%);
+        }
+
+        .bottom-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: bottom right;
+            filter: saturate(0.65) brightness(0.9) contrast(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 50, 100, 0.4), rgba(0, 82, 155, 0.15));
+            pointer-events: none;
+            mix-blend-mode: hard-light;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .main-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+            text-shadow: 0 4px 15px rgba(0, 50, 100, 0.1);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle::before {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .logos {
+            display: flex;
+            align-items: center;
+            mix-blend-mode: multiply;
+        }
+
+        .logos img {
+            height: 55px;
+            object-fit: contain;
+        }
+
+        .body-content {
+            display: flex;
+            gap: 20px;
+            flex-grow: 1;
+            min-height: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .left-content {
+            flex: 8;
+            min-width: 0;
+            min-height: 0;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            padding: 15px 20px;
+            gap: 10px;
+            box-shadow: 0 15px 35px rgba(0, 50, 100, 0.05);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .left-content:hover {
+            box-shadow: 0 20px 50px rgba(0, 82, 155, 0.08);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .chart-box {
+            flex: 1;
+            min-height: 0;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .canvas-wrapper {
+            flex: 1;
+            position: relative;
+            width: 100%;
+            min-height: 0;
+        }
+
+        .right-sidebar {
+            flex: 2.8;
+            min-width: 0;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        .key-message-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 50, 100, 0.08);
+            border: 1px solid rgba(255, 255, 255, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .key-message-box::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+        }
+
+        .key-message-header {
+            padding: 16px 20px 10px 26px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-wrapper {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--primary), #061d33);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 82, 155, 0.3);
+            flex-shrink: 0;
+        }
+
+        .key-message-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--primary-dark);
+        }
+
+        .key-message-content {
+            padding: 0 20px 18px 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+
+        .message-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 82, 155, 0.08);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .message-item:hover {
+            transform: translateX(-5px) translateY(-3px);
+            box-shadow: 8px 12px 25px rgba(0, 82, 155, 0.12);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .check-icon {
+            color: var(--primary);
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        .check-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .message-item p {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .message-item p strong {
+            color: var(--primary-dark);
+            font-weight: 800;
+        }
+
+        .kpi-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 50, 100, 0.08);
+            border: 1px solid rgba(255, 255, 255, 1);
+            padding: 10px 16px 10px 22px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .interactive-stats-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 50, 100, 0.08);
+            border: 1px solid rgba(255, 255, 255, 1);
+            padding: 15px 20px 15px 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .interactive-stats-box::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--secondary), var(--accent-1));
+        }
+
+        .stats-header-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: #008751;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            background: rgba(120, 190, 32, 0.15);
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-card {
+            background: rgba(0, 82, 155, 0.03);
+            border: 1px solid rgba(0, 82, 155, 0.08);
+            border-radius: 10px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-card .stat-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            font-family: 'Outfit', sans-serif;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Chart Expand Button (Power BI style) */
+        .chart-expand-btn {
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, #f37021, #ef3340);
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 3px 10px rgba(239, 51, 64, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            z-index: 20;
+            flex-shrink: 0;
+        }
+        .chart-expand-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 5px 18px rgba(239, 51, 64, 0.6);
+        }
+        .chart-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        /* Chart Focus Modal */
+        .chart-focus-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 29, 51, 0.93);
+            backdrop-filter: blur(12px);
+            z-index: 999999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+        .chart-focus-overlay.open { display: flex; }
+        .chart-focus-modal {
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 22px 26px 20px;
+            width: 88%;
+            height: 82%;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .chart-focus-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+        .chart-focus-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: #061d33;
+            text-transform: uppercase;
+            letter-spacing: -0.3px;
+        }
+        .chart-focus-close {
+            background: linear-gradient(135deg, #f37021, #ef3340);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            width: 34px;
+            height: 34px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(239,51,64,0.4);
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+        .chart-focus-close:hover { transform: scale(1.1); }
+        .chart-focus-canvas-wrap {
+            flex: 1;
+            position: relative;
+            min-height: 0;
+        }
+        #chart-focus-canvas { display: block; }
+        .comparison-table-wrapper {
+            flex-shrink: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 50, 30, 0.12);
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Outfit', sans-serif;
+        }
+        .comparison-table .ct-h1 {
+            background: #1c3d1c;
+            color: white;
+            text-align: center;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 5px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+        .comparison-table .ct-h1-change {
+            background: #1c3d1c;
+            color: #ffffff;
+            text-align: center;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 4px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            outline: 2px solid #ef3340;
+            outline-offset: -2px;
+        }
+        .comparison-table .ct-h2 {
+            background: #2e5c2e;
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 4px 6px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+        .comparison-table .ct-h2-change {
+            background: #2e5c2e;
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 4px 6px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            border-left: 2px solid #ef3340;
+        }
+        .comparison-table .ct-val {
+            background: #f3f7ee;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 800;
+            color: #1c3d1c;
+            padding: 6px 8px;
+            border: 1px solid rgba(44,92,44,0.12);
+        }
+        .comparison-table .ct-chg {
+            background: #f3f7ee;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 8px;
+            border: 1px solid rgba(44,92,44,0.12);
+            border-left: 2px solid rgba(239,51,64,0.35);
+        }
+        .chart-controls-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .date-filter-select {
+            font-size: 10px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 82, 155, 0.2);
+            color: var(--primary-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .powerbi-slider {
+            width: 100%;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .powerbi-slider-v {
+            -webkit-appearance: slider-vertical;
+            width: 20px;
+            height: 100%;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nav-hint">Gunakan &larr; (Kiri) dan &rarr; (Kanan) pada keyboard atau klik layar untuk pindah slide
+    </div>
+    <div class="presentation-container" id="presentation-container">
+        <div class="slide active" id="slide-main">
+            <div class="bracket-tl"></div>
+            <div class="bracket-br"></div>
+            <div class="hex-ornament"></div>
+            <div class="hex-ornament-2"></div>
+            <div class="status-ui">
+                <div class="dot"></div> DATA SYNC
+            </div>
+            <div class="hash-marks"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="diagonal-stripes"></div>
+            <div class="hud-cross cross-1"></div>
+            <div class="hud-cross cross-2"></div>
+            <div class="hud-cross cross-3"></div>
+            <div class="ornament-circle"></div>
+            <div class="tech-lines"></div>
+            <div class="vertical-text">SYS.09.2026.ID</div>
+            <div class="data-nodes">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+            </div>
+            <div class="bg-mesh-1"></div>
+            <div class="bg-mesh-2"></div>
+            <div class="huge-bg-text">EXECUTIVE<br>SUMMARY</div>
+            <div class="bottom-image-container">
+                <img src="busy_hauling_operation.jpg" alt="Busy Operations">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="header">
+                <div class="title-area">
+                    <h1 class="main-title">EARLY START WORK</h1>
+                    <p class="subtitle">Periode 3 - 26 Agustus 2026</p>
+                </div>
+                <div class="logos"><img src="real_logos.png" alt="Logo Pertamina & Tripatra"></div>
+            </div>
+            <div class="body-content">
+                <div class="left-content">
+                    <div class="chart-box" style="position: relative; padding-right: 20px; padding-bottom: 20px;">
+                        <div class="chart-title-row">
+                            <div class="chart-title" style="margin-bottom:0;">TOTAL TRIP HAULING BY MITRA KERJA</div>
+                            <div class="chart-controls-group" style="z-index: 50;">
+                                <span style="font-size: 10px; font-weight: 800; color: #0c233d;">FILTER DATE:</span>
+                                <select class="date-filter-select" data-target="chart1_main" onchange="filterChartDates(this)">
+                                    <option value="all">Semua (3 - 26 Ags)</option>
+                                    <option value="p1">3 - 8 Ags</option>
+                                    <option value="p2">10 - 15 Ags</option>
+                                    <option value="p3">18 - 23 Ags</option>
+                                </select>
+                                <button class="chart-expand-btn" data-canvas="chart1_main" data-title="TOTAL TRIP HAULING BY MITRA KERJA" title="Fokus Grafik">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="chart1_main"></canvas>
+                        </div>
+                        <div style="position: absolute; bottom: -2px; left: 16px; right: 28px;">
+                            <input type="range" class="powerbi-slider" min="5" max="19" value="19" data-target="chart1_main" oninput="slideChartWindowX(this)">
+                        </div>
+                        <div style="position: absolute; top: 40px; bottom: 20px; right: 8px;">
+                            <input type="range" class="powerbi-slider-v" min="50" max="100" value="100" orient="vertical" data-target="chart1_main" oninput="slideChartWindowY(this)">
+                        </div>
+                    </div>
+                    <div class="chart-box">
+                        <div class="chart-title-row">
+                            <div class="chart-title" style="margin-bottom:0;">NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)</div>
+                            <button class="chart-expand-btn" data-canvas="chart2_main" data-title="NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)" title="Fokus Grafik">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            </button>
+                        </div>
+                        <div class="canvas-wrapper" id="npt-canvas-wrap">
+                            <canvas id="chart2_main"></canvas>
+                        </div>
+                        <div id="npt-no-data-msg" style="display:none; flex:1; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+                            <span style="font-size:12px; font-weight:700; color:#94a3b8;">Tidak ada data NPT untuk MK ini</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-sidebar">
+                    <div class="kpi-box">
+                        <div style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: linear-gradient(180deg, var(--phr-red), var(--accent-2));"></div>
+                        <div style="background: #eef6e8; color: var(--primary-dark); font-size: 11px; font-weight: 800; text-align: center; padding: 6px 12px; border-radius: 10px; margin-bottom: 4px; border: 1px dashed rgba(120, 190, 32, 0.3);">
+                            TOTAL PRODUKTIVITAS HAULING
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 0 8px 4px 8px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; width: 60px;">PERIODE</div>
+                                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: center; width: 75px; line-height: 1.2;">TOTAL TRIP<br>HAULING</div>
+                                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: right; flex: 1;">DEVIASI (%)</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">3 - 8 AGS</div>
+                                <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">4.286</div>
+                                <div style="flex: 1; text-align: right; font-size: 12px; font-weight: 700; color: #cbd5e1;">-</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">10 - 15 AGS</div>
+                                <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">3.996</div>
+                                <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: #ef3340; background: rgba(239, 51, 64, 0.1); padding: 3px 6px; border-radius: 6px;">▼ -290 (-6,8%)</span></div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">18 - 23 AGS</div>
+                                <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">4.933</div>
+                                <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">▲ +937 (+23,4%)</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="key-message-box" style="flex-grow: 1; overflow-y: auto;">
+                        <div class="key-message-header">
+                            <div class="icon-wrapper"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z">
+                                    </path>
+                                    <path d="M12 8v4"></path>
+                                    <path d="M12 16h.01"></path>
+                                </svg></div>
+                            <h3>Summary Highlights </h3>
+                        </div>
+                        <div class="key-message-content">
+                            <div class="message-item">
+                                <div class="check-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg></div>
+                                <p>Total produktivitas hauling secara keseluruhan naik dari tanggal 3 - 10 Agustus 2026
+                                    ( sebelum Eary Work Start)
+                                    dari 4286 trip menjadi <strong>4.933</strong> trip mengalami kenaikan sebanyak +937
+                                    trip atau +23,40%.
+
+                                </p>
+
+                            </div>
+                            <div class="message-item">
+                                <div class="check-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg></div>
+                                <p><strong>451 Jam NPT Wait for Man Power:</strong> dikarenakan adanya Driver DT yang
+                                    izin sakit dan kurangnya jumlah spotter & flagman yang ada di lokasi.</p>
+                            </div>
+                            <div class="message-item">
+                                <div class="check-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg></div>
+                                <p><strong>352 Jam NPT Wait for Others Work:</strong> dikarenakan DT standby menunggu
+                                    Clearing Area dan penutupan akses jalan akibat pekerjaan lain.</p>
+                            </div>
+                            <div class="message-item">
+                                <div class="check-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+                                        stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
+                                        stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg></div>
+                                <p><strong>293 Jam NPT Wait for Instruction:</strong> dikarenakan DT Standby menunggu
+                                    mobilisasi ke lokasi baru dan adanya Issue Internal Ramping Down team.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        Chart.register(ChartDataLabels);
+        Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+        Chart.defaults.color = "#0c233d";
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: { font: { size: 10, weight: '600' }, boxWidth: 10, usePointStyle: true, pointStyle: 'rectRounded' }
+                },
+                datalabels: {
+                    color: '#0c233d', anchor: 'end', align: 'top', font: { size: 6.5, weight: '600' },
+                    rotation: -90, offset: 4, formatter: Math.round, padding: 0,
+                    display: function (context) { return context.dataset.data[context.dataIndex] !== 0; }
+                }
+            },
+            scales: {
+                x: { grid: { display: false }, ticks: { font: { size: 9, weight: '600' }, maxRotation: 0, minRotation: 0, color: function (ctx) { const label = ctx.tick && ctx.tick.label ? ctx.tick.label : ''; return ['15-Aug', '22-Aug', '23-Aug'].includes(label) ? '#ef3340' : '#0c233d'; } } },
+                y: { grid: { color: 'rgba(0, 82, 155, 0.1)', drawBorder: false }, ticks: { font: { size: 10 } }, beginAtZero: true, min: 0 }
+            },
+            layout: { padding: { top: 15 } },
+            elements: { bar: { borderRadius: 3 } },
+            datasets: { bar: { categoryPercentage: 0.9, barPercentage: 1.0 } }
+        };
+        const verticalLinePlugin = {
+            id: 'verticalLine',
+            afterDraw: (chart) => {
+                const xAxis = chart.scales.x;
+                const yAxis = chart.scales.y;
+                const gaps = [[5, 6], [11, 12]];
+                const ctx = chart.ctx;
+                ctx.save();
+                gaps.forEach(gap => {
+                    const leftX = xAxis.getPixelForValue(gap[0]);
+                    const rightX = xAxis.getPixelForValue(gap[1]);
+                    if (leftX === undefined || rightX === undefined) return;
+                    const x = (leftX + rightX) / 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x, yAxis.top - 10);
+                    ctx.lineTo(x, yAxis.bottom);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#ef3340';
+                    ctx.setLineDash([5, 5]);
+                    ctx.stroke();
+                    ctx.fillStyle = '#ef3340';
+                    ctx.textAlign = 'center';
+                    ctx.font = 'bold 11px "Plus Jakarta Sans"';
+                    ctx.fillText('VS', x, yAxis.top - 15);
+                });
+                ctx.restore();
+            }
+        };
+        const verticalLinePluginChart2 = {
+            id: 'verticalLineChart2',
+            afterDraw: (chart) => {
+                const xAxis = chart.scales.x;
+                const yAxis = chart.scales.y;
+                const indicesToDraw = [2, 5];
+                const ctx = chart.ctx;
+                ctx.save();
+                indicesToDraw.forEach(idx => {
+                    const leftX = xAxis.getPixelForValue(idx);
+                    const rightX = xAxis.getPixelForValue(idx + 1);
+                    if (leftX === undefined || rightX === undefined) return;
+                    const x = (leftX + rightX) / 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x, yAxis.top - 10);
+                    ctx.lineTo(x, yAxis.bottom + 25);
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = 'rgba(0, 82, 155, 0.4)';
+                    ctx.setLineDash([5, 5]);
+                    ctx.stroke();
+                });
+                ctx.restore();
+            }
+        };
+        // --- Lazy chart system ---
+        // Charts are created only when their slide first becomes active.
+        const slideChartCreators = {}; // slideIndex -> array of () => Chart
+        const slideChartInstances = {}; // slideIndex -> array of Chart (created lazily)
+        const _chartModalConfigs = {};  // canvasId -> { title, type, data, options, plugins }
+
+        function registerChart(slideIndex, canvasId, title, type, data, options, plugins) {
+            _chartModalConfigs[canvasId] = { title, type, data, options: options || {}, plugins: plugins || [] };
+            slideChartCreators[slideIndex] = slideChartCreators[slideIndex] || [];
+            slideChartCreators[slideIndex].push(() =>
+                new Chart(document.getElementById(canvasId).getContext('2d'), { type, data, options, plugins })
+            );
+        }
+
+        function createChartsForSlide(slideIndex) {
+            if (slideChartInstances[slideIndex]) return; // already created
+            slideChartInstances[slideIndex] = [];
+            (slideChartCreators[slideIndex] || []).forEach(fn => {
+                slideChartInstances[slideIndex].push(fn());
+            });
+        }
+
+        // NPT source data (for cross-chart filtering)
+        const _nptAllLabels = ['AKM 18-Aug','AKM 19-Aug','AKM 20-Aug','BRA 18-Aug','BRA 19-Aug','BRA 23-Aug','NKHO 18-Aug','NKHO 20-Aug'];
+        const _nptAllData   = [
+            [0,  0,   0,   0,  40,  0,  9,  0],   // Equipment Under Repair
+            [104,0,   0,   0,  0,   0,  189,0],    // Wait for Instruction
+            [0,  0,   224, 0,  0,   0,  0,  128],  // Wait for others work
+            [0,  0,   0,   56, 32,  168,27, 0],    // Wait for Manpower
+            [24, 16,  0,   0,  0,   24, 0,  16]    // Permitting/Licence
+        ];
+        const _mksWithNPT = ['AKM','BRA','NKHO'];
+
+        function updateNPTFilter(visibleMks) {
+            const charts = slideChartInstances[0];
+            if (!charts || charts.length < 2) return;
+            const chart2 = charts[1];
+            const canvasWrap = document.getElementById('npt-canvas-wrap');
+            const noDataEl  = document.getElementById('npt-no-data-msg');
+
+            const active = visibleMks.filter(mk => _mksWithNPT.includes(mk));
+            if (active.length === 0) {
+                canvasWrap.style.display = 'none';
+                noDataEl.style.display = 'flex';
+                return;
+            }
+            canvasWrap.style.display = '';
+            noDataEl.style.display = 'none';
+
+            const indices = _nptAllLabels
+                .map((lbl, i) => active.some(mk => lbl.startsWith(mk)) ? i : -1)
+                .filter(i => i !== -1);
+
+            chart2.data.labels = indices.map(i => _nptAllLabels[i]);
+            chart2.data.datasets.forEach((ds, di) => {
+                ds.data = indices.map(i => _nptAllData[di][i]);
+            });
+            chart2.update('none');
+        }
+
+        registerChart(0, 'chart1_main', 'TOTAL TRIP HAULING BY MITRA KERJA', 'bar', {
+                labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '24-Aug', '26-Aug'],
+                datasets: [
+                    { label: 'AKM', backgroundColor: '#00529b', data: [241, 455, 322, 362, 404, 226, 204, 103, 184, 327, 313, 213, 219, 303, 265, 288, 378, 471, 403, 0] },
+                    { label: 'BRA', backgroundColor: '#f37021', data: [89, 89, 101, 119, 128, 115, 121, 146, 188, 136, 144, 24, 161, 138, 132, 61, 144, 78, 118, 0] },
+                    { label: 'NKHO', backgroundColor: '#a3a3a3', data: [60, 63, 69, 159, 101, 54, 123, 157, 76, 173, 173, 0, 157, 130, 28, 62, 256, 254, 132, 59] },
+                    { label: 'RDPE', backgroundColor: '#ffc000', data: [115, 132, 129, 164, 158, 160, 158, 114, 165, 154, 169, 135, 143, 121, 153, 174, 205, 197, 47, 3] },
+                    { label: 'SGIR', backgroundColor: '#5b9bd5', data: [24, 26, 44, 54, 50, 77, 32, 35, 45, 58, 44, 82, 79, 73, 117, 51, 95, 0, 0, 0] }
+                ]
+            }, {
+                ...commonOptions,
+                plugins: {
+                    ...commonOptions.plugins,
+                    legend: {
+                        ...commonOptions.plugins.legend,
+                        onClick: function(e, legendItem, legend) {
+                            const idx = legendItem.datasetIndex;
+                            const chart = legend.chart;
+                            const totalDatasets = chart.data.datasets.length;
+                            
+                            // Count visible datasets
+                            let visibleCount = 0;
+                            let onlyVisibleIdx = -1;
+                            for (let i = 0; i < totalDatasets; i++) {
+                                if (chart.isDatasetVisible(i)) {
+                                    visibleCount++;
+                                    onlyVisibleIdx = i;
+                                }
+                            }
+                            
+                            if (visibleCount === 1 && onlyVisibleIdx === idx) {
+                                // If ONLY the clicked one is visible, show all
+                                for (let i = 0; i < totalDatasets; i++) {
+                                    chart.show(i);
+                                }
+                            } else {
+                                // Otherwise, isolate the clicked one
+                                for (let i = 0; i < totalDatasets; i++) {
+                                    if (i === idx) chart.show(i);
+                                    else chart.hide(i);
+                                }
+                            }
+                            
+                            // Sync NPT chart
+                            const visibleMks = chart.data.datasets
+                                .filter((_, i) => chart.isDatasetVisible(i))
+                                .map(ds => ds.label);
+                            updateNPTFilter(visibleMks);
+                        }
+                    }
+                }
+            }, [verticalLinePlugin]);
+        registerChart(0, 'chart2_main', 'NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)', 'bar', {
+                labels: ['AKM 18-Aug', 'AKM 19-Aug', 'AKM 20-Aug', 'BRA 18-Aug', 'BRA 19-Aug', 'BRA 23-Aug', 'NKHO 18-Aug', 'NKHO 20-Aug'],
+                datasets: [
+                    { label: 'Equipment Under Repair', backgroundColor: '#061d33', data: [0, 0, 0, 0, 40, 0, 9, 0] },
+                    { label: 'Wait for Instruction', backgroundColor: '#f37021', data: [104, 0, 0, 0, 0, 0, 189, 0] },
+                    { label: 'Wait for others work', backgroundColor: '#008751', data: [0, 0, 224, 0, 0, 0, 0, 128] },
+                    { label: 'Wait for Manpower', backgroundColor: '#00529b', data: [0, 0, 0, 56, 32, 168, 27, 0] },
+                    { label: 'Permitting/Licence', backgroundColor: '#ef3340', data: [24, 16, 0, 0, 0, 24, 0, 16] }
+                ]
+            }, {
+                ...commonOptions,
+                plugins: { ...commonOptions.plugins, legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } } }
+            }, [verticalLinePluginChart2]);
+        const mks = [
+            {
+                id: 'AKM', color: '#00529b', title: 'PT. ANDALAS KARYA MULIA (AKM)', statsTitle: 'PT. ANDALAS KARYA MULIA',
+                first_swc: "06:49:00 AM", avg_first_swc: "07:31:10 AM", avg_first_tag: "06:57:10 AM", avg_jam_berangkat: "06:07:51 AM",
+                trip_p1: "2.010", trip_p2: "1.344", trip_p3: "1.924",
+                change1_text: "▼ -666 (-33,1%)", change1_color: "#ef3340", change1_bg: "rgba(239, 51, 64, 0.1)",
+                change2_text: "▲ +580 (+43,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                insights: [
+                    "Terdapat fluktuasi signifikan pada produktivitas hauling. Dari <strong>2.010</strong> trip (3-8 Ags) turun menjadi <strong>1.344</strong> trip (10-15 Ags), atau <strong>-33,1%</strong>.",
+                    "Namun, produktivitas berhasil <strong>RECOVERY</strong> ke angka <strong>1.924</strong> trip (18-23 Ags), mencatatkan kenaikan impresif <strong>+43,2%</strong>.",
+                    "<strong>224 Jam NPT Wait for others work:</strong> DT standby menunggu Clearing Area.",
+                    "<strong>104 Jam NPT Wait for Instruction:</strong> DT Standby menunggu mobilisasi ke lokasi yang baru.",
+                    "<strong>40 Jam NPT Permitting/License:</strong> DT Standby menunggu proses KP dan CCPM."
+                ],
+                chart1Data: [241, 455, 322, 362, 404, 226, 204, 103, 184, 327, 313, 213, 219, 303, 265, 288, 378, 471, 403, 0],
+                issuesDates: ['18-Aug', '19-Aug', '20-Aug'],
+                issuesData: {
+                    'Equipment Under Repair': [0, 0, 0],
+                    'Wait for Instruction': [104, 0, 0],
+                    'Wait for others work': [0, 0, 224],
+                    'Wait for Manpower': [0, 0, 0],
+                    'Permitting/Licence': [24, 16, 0]
+                }
+            },
+            {
+                id: 'BRA', color: '#f37021', title: 'PT. BINA REKAYASA ANUGRAH (BRA)', statsTitle: 'PT. BINA REKAYASA ANUGRAH',
+                first_swc: "07:31:00 AM", avg_first_swc: "08:14:30 AM", avg_first_tag: "06:55:50 AM", avg_jam_berangkat: "06:30:22 AM",
+                trip_p1: "641", trip_p2: "759", trip_p3: "714",
+                change1_text: "▲ +118 (+18,4%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "▼ -45 (-5,9%)", change2_color: "#ef3340", change2_bg: "rgba(239, 51, 64, 0.1)",
+                insights: [
+                    "Produktivitas hauling sempat naik dari <strong>641</strong> trip (3-8 Ags) ke <strong>759</strong> trip (10-15 Ags), naik <strong>+18,4%</strong>.",
+                    "Namun pada periode terbaru (18-23 Ags), produktivitas kembali turun tipis ke <strong>714</strong> trip (<strong>-5,9%</strong>).",
+                    "<strong>336 Jam NPT Wait for Man Power:</strong> 28 DT standby karena kurangnya personel Spotter dan Flagman. 88 Jam NPT karena Driver DT izin Sakit.",
+                    "<strong>40 Jam NPT Equipment Under Repairs:</strong> 1 Unit FT mengalami kerusakan, terkendala untuk pengisian solar ke unit di lokasi kerja.",
+                    "<strong>24 Jam NPT Permitting/License:</strong> DT Standby karena Greenpass Expired."
+                ],
+                chart1Data: [89, 89, 101, 119, 128, 115, 121, 146, 188, 136, 144, 24, 161, 138, 132, 61, 144, 78, 118, 0],
+                issuesDates: ['18-Aug', '19-Aug', '23-Aug'],
+                issuesData: {
+                    'Equipment Under Repair': [0, 40, 0],
+                    'Wait for Instruction': [0, 0, 0],
+                    'Wait for others work': [0, 0, 0],
+                    'Wait for Manpower': [56, 32, 168],
+                    'Permitting/Licence': [0, 0, 24]
+                }
+            },
+            {
+                id: 'NKHO', color: '#a3a3a3', title: 'PT. NINDYA KARYA (NKHO)', statsTitle: 'PT. NINDYA KARYA',
+                first_swc: "07:07:00 AM", avg_first_swc: "07:42:10 AM", avg_first_tag: "07:25:50 AM", avg_jam_berangkat: "06:11:07 AM",
+                trip_p1: "502", trip_p2: "702", trip_p3: "887",
+                change1_text: "▲ +200 (+39,8%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "▲ +185 (+26,4%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                insights: [
+                    "Kinerja luar biasa! Menunjukkan tren <strong>POSITIF KONSISTEN</strong> selama 3 periode berturut-turut.",
+                    "Naik dari <strong>502</strong> trip (3-8 Ags) ke <strong>702</strong> trip (<strong>+39,8%</strong>), dan terus melesat ke <strong>887</strong> trip di 18-23 Ags (<strong>+26,4%</strong>).",
+                    "<strong>189 Jam NPT Wait for Instruction:</strong> Issue Internal Ramping Down team Standby, 21 Unit Standby.",
+                    "<strong>128 Jam NPT Wait for others Work:</strong> DT Standby karena penutupan akses jalan akibat pekerjaan lain.",
+                    "<strong>27 Jam NPT Waiting Man Power:</strong> 2 Operator Menunggu Nomer Request KP dari Security admin, 1 Operator Izin.",
+                    "<strong>16 Jam NPT Permitting/License:</strong> dikarenakan Proses KP Driver.",
+                    "<strong>9 Jam NPT Equipment Under Repairs:</strong> 1 Unit DT Service Rutin."
+                ],
+                chart1Data: [60, 63, 69, 159, 101, 54, 123, 157, 76, 173, 173, 0, 157, 130, 28, 62, 256, 254, 132, 59],
+                issuesDates: ['18-Aug', '20-Aug'],
+                issuesData: {
+                    'Equipment Under Repair': [9, 0],
+                    'Wait for Instruction': [189, 0],
+                    'Wait for others work': [0, 128],
+                    'Wait for Manpower': [27, 0],
+                    'Permitting/Licence': [0, 16]
+                }
+            },
+            {
+                id: 'RDPE', color: '#ffc000', title: 'PT. RIFANSI DWI PUTRA (RDPE)', statsTitle: 'PT. RIFANSI DWI PUTRA',
+                first_swc: "07:03:00 AM", avg_first_swc: "07:13:20 AM", avg_first_tag: "06:48:30 AM", avg_jam_berangkat: "06:21:25 AM",
+                trip_p1: "858", trip_p2: "895", trip_p3: "993",
+                change1_text: "▲ +37 (+4,3%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "▲ +98 (+10,9%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                insights: [
+                    "Menunjukkan <strong>PERTUMBUHAN SOLID</strong>. Dimulai dari <strong>858</strong> trip pada awal bulan (3-8 Ags).",
+                    "Naik perlahan ke <strong>895</strong> trip (<strong>+4,3%</strong>) pada pertengahan bulan.",
+                    "Puncaknya pada 18-23 Ags, produktivitas melesat ke <strong>993</strong> trip dengan kenaikan <strong>+10,9%</strong>.",
+                    "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:03:00 AM</strong>."
+                ],
+                chart1Data: [115, 132, 129, 164, 158, 160, 158, 114, 165, 154, 169, 135, 143, 121, 153, 174, 205, 197, 47, 3],
+                issuesDates: [],
+                issuesData: {}
+            },
+            {
+                id: 'SGIR', color: '#5b9bd5', title: 'PT. SUMI GITA JAYA (SGIR)', statsTitle: 'PT. SUMI GITA JAYA',
+                first_swc: "07:33:00 AM", avg_first_swc: "07:55:20 AM", avg_first_tag: "07:06:30 AM", avg_jam_berangkat: "06:25:43 AM",
+                trip_p1: "275", trip_p2: "296", trip_p3: "415",
+                change1_text: "▲ +21 (+7,6%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "▲ +119 (+40,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                insights: [
+                    "Menunjukkan <strong>LONJAKAN KINERJA</strong> yang sangat impresif di akhir bulan.",
+                    "Berawal dari stagnansi <strong>275</strong> ke <strong>296</strong> trip (<strong>+7,6%</strong>) di pertengahan bulan.",
+                    "Produktivitas meroket tajam menjadi <strong>415</strong> trip pada 18-23 Ags, yang merupakan peningkatan masif <strong>+40,2%</strong>.",
+                    "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:33:00 AM</strong>."
+                ],
+                chart1Data: [24, 26, 44, 54, 50, 77, 32, 35, 45, 58, 44, 82, 79, 73, 117, 51, 95, 0, 0, 0],
+                issuesDates: [],
+                issuesData: {}
+            }
+        ];
+        const issueColors = {
+            'Equipment Under Repair': '#061d33',
+            'Wait for Instruction': '#f37021',
+            'Wait for others work': '#008751',
+            'Wait for Manpower': '#00529b',
+            'Permitting/Licence': '#ef3340'
+        };
+        const container = document.getElementById('presentation-container');
+        mks.forEach((mk, index) => {
+            const slideIndex = index + 1; // slide 0 is main
+            const slide = document.createElement('div');
+            slide.className = 'slide';
+            slide.innerHTML = `
+<div class="bracket-tl"></div> <div class="bracket-br"></div>
+<div class="hex-ornament"></div> <div class="hex-ornament-2"></div>
+<div class="status-ui"><div class="dot"></div> DATA SYNC</div>
+<div class="hash-marks"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+<div class="diagonal-stripes"></div>
+<div class="hud-cross cross-1"></div> <div class="hud-cross cross-2"></div> <div class="hud-cross cross-3"></div>
+<div class="ornament-circle"></div> <div class="tech-lines"></div>
+<div class="vertical-text">SYS.09.2026.ID</div>
+<div class="data-nodes"><div class="node"></div><div class="node"></div><div class="node"></div></div>
+<div class="bg-mesh-1"></div> <div class="bg-mesh-2"></div>
+<div class="huge-bg-text">MK DETAIL</div>
+<div class="bottom-image-container">
+<img src="busy_hauling_operation.jpg" alt="Busy Operations">
+<div class="image-overlay"></div>
+</div>
+<div class="header">
+<div class="title-area">
+<h1 class="main-title">PRODUCTIVITY DETAIL - ${mk.id}</h1>
+<p class="subtitle">Periode 3 - 26 Agustus 2026</p>
+</div>
+<div class="logos"><img src="real_logos.png" alt="Logo"></div>
+</div>
+<div class="body-content">
+<div class="left-content">
+<div class="chart-box" style="position: relative; padding-right: 20px; padding-bottom: 20px;">
+<div class="chart-title-row">
+<div class="chart-title" style="margin-bottom:0;">TOTAL TRIP HAULING - ${mk.id}</div>
+<div class="chart-controls-group" style="z-index: 50;">
+    <span style="font-size: 10px; font-weight: 800; color: #0c233d;">FILTER DATE:</span>
+    <select class="date-filter-select" data-target="chart1_mk_${mk.id}" onchange="filterChartDates(this)">
+        <option value="all">Semua (3 - 26 Ags)</option>
+        <option value="p1">3 - 8 Ags</option>
+        <option value="p2">10 - 15 Ags</option>
+        <option value="p3">18 - 23 Ags</option>
+    </select>
+    <button class="chart-expand-btn" data-canvas="chart1_mk_${mk.id}" data-title="TOTAL TRIP HAULING - ${mk.id}" title="Fokus Grafik">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+    </button>
+</div>
+</div>
+<div class="canvas-wrapper"><canvas id="chart1_mk_${mk.id}"></canvas></div>
+<div style="position: absolute; bottom: -2px; left: 16px; right: 28px;">
+    <input type="range" class="powerbi-slider" min="5" max="19" value="19" data-target="chart1_mk_${mk.id}" oninput="slideChartWindowX(this)">
+</div>
+<div style="position: absolute; top: 40px; bottom: 20px; right: 8px;">
+    <input type="range" class="powerbi-slider-v" min="50" max="100" value="100" orient="vertical" data-target="chart1_mk_${mk.id}" oninput="slideChartWindowY(this)">
+</div>
+</div>
+
+${mk.issuesDates.length > 0 ? `
+<div class="chart-box">
+<div class="chart-title-row">
+<div class="chart-title" style="margin-bottom:0;">NON PRODUCTIVITY TIME - ${mk.id} (18-23 AUG)</div>
+<button class="chart-expand-btn" data-canvas="chart2_mk_${mk.id}" data-title="NON PRODUCTIVITY TIME - ${mk.id} (18-23 AUG)" title="Fokus Grafik">
+<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+</button>
+</div>
+<div class="canvas-wrapper">
+<canvas id="chart2_mk_${mk.id}"></canvas>
+</div>
+</div>
+` : ''}
+</div>
+<div class="right-sidebar" style="overflow: hidden;">
+<div class="kpi-box">
+      <div style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: linear-gradient(180deg, var(--phr-red), var(--accent-2));"></div>
+      <div style="background: #eef6e8; color: var(--primary-dark); font-size: 11px; font-weight: 800; text-align: center; padding: 6px 12px; border-radius: 10px; margin-bottom: 4px; border: 1px dashed rgba(120, 190, 32, 0.3);">
+          TREND PRODUKTIVITAS HAULING
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 3px;">
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 0 8px 4px 8px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+              <div style="font-size: 8.5px; font-weight: 800; color: #64748b; width: 60px;">PERIODE</div>
+              <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: center; width: 75px; line-height: 1.2;">JUMLAH HAUL<br>TRIP</div>
+              <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: right; flex: 1;">DEVIASI (%)</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+              <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">3 - 8 AGS</div>
+              <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">${mk.trip_p1}</div>
+              <div style="flex: 1; text-align: right; font-size: 12px; font-weight: 700; color: #cbd5e1;">-</div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+              <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">10 - 15 AGS</div>
+              <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">${mk.trip_p2}</div>
+              <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: ${mk.change1_color}; background: ${mk.change1_bg}; padding: 3px 6px; border-radius: 6px;">${mk.change1_text}</span></div>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+              <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">18 - 23 AGS</div>
+              <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">${mk.trip_p3}</div>
+              <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: ${mk.change2_color}; background: ${mk.change2_bg}; padding: 3px 6px; border-radius: 6px;">${mk.change2_text}</span></div>
+          </div>
+      </div>
+  </div>
+<div class="key-message-box" style="flex: 3 1 0; min-height: 0; overflow: hidden; padding-bottom: 5px;">
+<div class="key-message-header" style="padding: 14px 20px 8px 26px;">
+<div class="icon-wrapper" style="width: 28px; height: 28px; border-radius: 8px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg></div>
+<h3 style="font-size: 16px;">Insight Kinerja</h3>
+</div>
+<div class="key-message-content" style="padding: 0 20px 10px 26px; gap: 4px; overflow-y: auto; flex: 1; min-height: 0;">
+${mk.insights.map(text => `
+<div class="message-item" style="padding: 6px 10px; gap: 8px; border-radius: 10px;">
+<div class="check-icon" style="margin-top: 2px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+<p style="font-size: 10.5px; line-height: 1.3;">${text}</p>
+</div>
+`).join('')}
+</div>
+</div>
+<div class="interactive-stats-box" style="flex-shrink: 0; flex-grow: 0; padding: 8px 12px 8px 16px;">
+<div class="stats-header-title" style="font-size: 10px; padding: 5px;">
+${mk.statsTitle}
+</div>
+<div class="stats-grid" style="gap: 3px;">
+<div class="stat-card" style="padding: 4px 10px;">
+<div class="stat-title" style="font-size: 9px;">FIRST SWC</div>
+<div class="stat-value" style="font-size: 13px;">${mk.first_swc}</div>
+</div>
+<div class="stat-card" style="padding: 4px 10px;">
+<div class="stat-title" style="font-size: 9px;">AVG FIRST SWC</div>
+<div class="stat-value" style="font-size: 13px;">${mk.avg_first_swc}</div>
+</div>
+<div class="stat-card" style="padding: 4px 10px;">
+<div class="stat-title" style="font-size: 9px;">AVG FIRST TAG</div>
+<div class="stat-value" style="font-size: 13px;">${mk.avg_first_tag}</div>
+</div>
+<div class="stat-card" style="padding: 4px 10px;">
+<div class="stat-title" style="font-size: 9px;">AVG BERANGKAT DRIVER</div>
+<div class="stat-value" style="font-size: 13px;">${mk.avg_jam_berangkat}</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+`;
+            container.appendChild(slide);
+            // Capture mk values in closure for lazy creation
+            (function(mkCopy, sIdx) {
+                registerChart(sIdx, `chart1_mk_${mkCopy.id}`, `TOTAL TRIP HAULING - ${mkCopy.id}`, 'bar', {
+                    labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '24-Aug', '26-Aug'],
+                    datasets: [{ label: mkCopy.id, backgroundColor: mkCopy.color, data: mkCopy.chart1Data }]
+                }, {
+                    ...commonOptions,
+                    plugins: { ...commonOptions.plugins, legend: { display: false } }
+                }, [verticalLinePlugin]);
+            if (mkCopy.issuesDates.length > 0) {
+                const issueDatasets = Object.keys(mkCopy.issuesData).map(issueName => ({
+                    label: issueName,
+                    backgroundColor: issueColors[issueName],
+                    data: mkCopy.issuesData[issueName]
+                }));
+                registerChart(sIdx, `chart2_mk_${mkCopy.id}`, `NON PRODUCTIVITY TIME - ${mkCopy.id} (18-23 AUG)`, 'bar',
+                    { labels: mkCopy.issuesDates, datasets: issueDatasets }, {
+                        ...commonOptions,
+                        plugins: { ...commonOptions.plugins, legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } } }
+                    }
+                );
+            }
+            }(mk, slideIndex));
+        }); // end mks.forEach
+        const allSlides = document.querySelectorAll('.slide');
+        let currentSlideIndex = 0;
+        function showSlide(index) {
+            allSlides.forEach((slide, i) => {
+                if (i === index) { slide.classList.add('active'); }
+                else { slide.classList.remove('active'); }
+            });
+            // Create charts lazily when slide is first shown, then render
+            setTimeout(() => {
+                createChartsForSlide(index);
+            }, 100);
+        }
+        // Create charts for the initial slide immediately
+        createChartsForSlide(0);
+        function nextSlide() {
+            if (currentSlideIndex < allSlides.length - 1) {
+                currentSlideIndex++;
+                showSlide(currentSlideIndex);
+            }
+        }
+        function prevSlide() {
+            if (currentSlideIndex > 0) {
+                currentSlideIndex--;
+                showSlide(currentSlideIndex);
+            }
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { nextSlide(); }
+            else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { prevSlide(); }
+        });
+        document.addEventListener('click', (e) => { 
+            if (e.target.tagName.toLowerCase() === 'canvas') return;
+            if (e.target.closest('.chart-focus-overlay')) return;
+            if (e.target.closest('.chart-box')) return;
+            if (e.target.closest('button')) return;
+            if (e.target.closest('select') || e.target.closest('input')) return;
+            nextSlide(); 
+        });
+
+        function resizePresentation() {
+            const scale = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
+            container.style.transform = `scale(${scale})`;
+        }
+        window.addEventListener('resize', resizePresentation);
+        resizePresentation();
+
+        // ── Chart Focus Modal (Power BI style) ──────────────────────────────
+        const _focusOverlay = document.createElement('div');
+        _focusOverlay.className = 'chart-focus-overlay';
+        _focusOverlay.innerHTML = `
+            <div class="chart-focus-modal">
+                <div class="chart-focus-header">
+                    <div class="chart-focus-title" id="_focus-title">Chart</div>
+                    <button class="chart-focus-close" id="_focus-close">✕</button>
+                </div>
+                <div class="chart-focus-canvas-wrap">
+                    <canvas id="chart-focus-canvas"></canvas>
+                </div>
+            </div>`;
+        document.body.appendChild(_focusOverlay);
+        let _focusChart = null;
+
+        function openFocusChart(canvasId) {
+            const cfg = _chartModalConfigs[canvasId];
+            if (!cfg) return;
+            if (_focusChart) { _focusChart.destroy(); _focusChart = null; }
+            document.getElementById('_focus-title').textContent = cfg.title;
+            _focusOverlay.classList.add('open');
+            requestAnimationFrame(() => {
+                const ctx = document.getElementById('chart-focus-canvas').getContext('2d');
+                _focusChart = new Chart(ctx, {
+                    type: cfg.type,
+                    data: JSON.parse(JSON.stringify(cfg.data)), // deep clone data
+                    options: { ...cfg.options, animation: false },
+                    plugins: cfg.plugins || []
+                });
+            });
+        }
+
+        function closeFocusChart() {
+            _focusOverlay.classList.remove('open');
+            if (_focusChart) { _focusChart.destroy(); _focusChart = null; }
+        }
+
+        document.getElementById('_focus-close').addEventListener('click', closeFocusChart);
+        _focusOverlay.addEventListener('click', e => { if (e.target === _focusOverlay) closeFocusChart(); });
+
+        // Expand button click via delegation (intercept before nextSlide)
+        document.addEventListener('click', e => {
+            const btn = e.target.closest('.chart-expand-btn');
+            if (btn) {
+                e.stopImmediatePropagation();
+                openFocusChart(btn.dataset.canvas);
+            }
+        }, true); // capture phase — runs before nextSlide
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && _focusOverlay.classList.contains('open')) {
+                e.stopPropagation();
+                closeFocusChart();
+            }
+        }, true);
+
+        // ── Chart Date Filtering and Slider Logic ──────────────────────────────
+        window.filterChartDates = function(selectEl) {
+            const canvasId = selectEl.dataset.target;
+            const val = selectEl.value;
+            const slider = selectEl.closest('.chart-box').querySelector('.powerbi-slider');
+            
+            let chart;
+            for(let key in slideChartInstances) {
+                let arr = slideChartInstances[key];
+                if(!arr) continue;
+                for(let c of arr) {
+                    if(c && c.canvas.id === canvasId) { chart = c; break; }
+                }
+                if(chart) break;
+            }
+            if (!chart) return;
+
+            let min = 0; let max = 19;
+            if (val === 'p1') { min = 0; max = 5; }
+            else if (val === 'p2') { min = 6; max = 11; }
+            else if (val === 'p3') { min = 12; max = 17; }
+            
+            if (slider && val !== 'all') {
+                slider.value = max;
+            } else if (slider) {
+                slider.value = 19;
+            }
+
+            chart.options.scales.x.min = min;
+            chart.options.scales.x.max = max;
+            chart.update();
+        };
+
+        window.slideChartWindowX = function(sliderEl) {
+            const canvasId = sliderEl.dataset.target;
+            const targetMax = parseInt(sliderEl.value); 
+            
+            let chart;
+            for(let key in slideChartInstances) {
+                let arr = slideChartInstances[key];
+                if(!arr) continue;
+                for(let c of arr) {
+                    if(c && c.canvas.id === canvasId) { chart = c; break; }
+                }
+                if(chart) break;
+            }
+            if (!chart) return;
+            
+            chart.options.scales.x.min = 0;
+            chart.options.scales.x.max = targetMax;
+            chart.update();
+
+            const selectEl = sliderEl.closest('.chart-box').querySelector('.date-filter-select');
+            if (selectEl) selectEl.value = 'all'; 
+        };
+
+        window.slideChartWindowY = function(sliderEl) {
+            try {
+                const canvasId = sliderEl.dataset.target;
+                const pct = parseInt(sliderEl.value); 
+                
+                let chart;
+                for(let key in slideChartInstances) {
+                    let arr = slideChartInstances[key];
+                    if(!arr) continue;
+                    for(let c of arr) {
+                        if(c && c.canvas.id === canvasId) { chart = c; break; }
+                    }
+                    if(chart) break;
+                }
+                if (!chart) return;
+                
+                // Cari nilai tertinggi dari data yang sedang aktif (terlihat)
+                let maxVal = 0;
+                chart.data.datasets.forEach((ds, idx) => {
+                    if (chart.isDatasetVisible(idx)) {
+                        ds.data.forEach(v => { if (v > maxVal) maxVal = v; });
+                    }
+                });
+                
+                // Menentukan batas atas berdasarkan persentase tarikan slider
+                const scaleFactor = 100 / pct; 
+                const targetMax = Math.max(10, Math.round((maxVal * 1.1) / scaleFactor));
+                
+                chart.options.scales.y.max = targetMax;
+                chart.update('none'); // Update tanpa animasi agar slider tidak patah-patah
+            } catch (e) {
+                console.error("Error sliding Y axis:", e);
+            }
+        };
+    </script>
+</body>
+
+</html>
