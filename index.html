@@ -946,12 +946,95 @@
             height: 100%;
             cursor: pointer;
             accent-color: var(--primary);
+        @media (max-width: 992px) {
+            body {
+                overflow: auto;
+                align-items: flex-start;
+                padding: 10px;
+                height: auto;
+                background-color: #f4f7fa;
+            }
+            .presentation-container {
+                width: 100%;
+                height: auto;
+                transform: none !important;
+            }
+            .slide {
+                position: relative;
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                padding: 15px;
+                transform: none !important;
+                overflow: visible;
+                display: none;
+                box-shadow: 0 10px 30px rgba(0, 30, 60, 0.1);
+                border-radius: 20px;
+            }
+            .slide.active {
+                display: flex;
+            }
+            .body-content {
+                flex-direction: column;
+                height: auto;
+                overflow: visible;
+            }
+            .left-content, .right-sidebar {
+                flex: none;
+                width: 100%;
+                height: auto;
+            }
+            .chart-box {
+                height: 380px; 
+                margin-bottom: 20px;
+                padding: 12px;
+            }
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                padding-right: 0;
+            }
+            .logos {
+                align-self: flex-start;
+            }
+            .logos img {
+                height: 30px;
+            }
+            .main-title {
+                font-size: 22px;
+            }
+            .subtitle {
+                font-size: 12px;
+            }
+            .nav-hint {
+                bottom: 5px;
+                font-size: 10px;
+                padding: 6px 12px;
+            }
+            .chart-title-row {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+            .chart-title {
+                font-size: 12px;
+            }
+            .comparison-table .ct-val {
+                font-size: 12px;
+                padding: 4px;
+            }
+            .kpi-box {
+                padding: 12px;
+            }
+            .hud-cross, .bracket-tl, .bracket-br, .hex-ornament, .hex-ornament-2, .hash-marks, .diagonal-stripes, .ornament-circle {
+                display: none; /* Hide heavy ornaments on mobile */
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="nav-hint">Gunakan &larr; (Kiri) dan &rarr; (Kanan) pada keyboard atau klik layar untuk pindah slide
+    <div class="nav-hint">Gunakan &larr; (Kiri) dan &rarr; (Kanan) pada keyboard untuk pindah slide
     </div>
     <div class="presentation-container" id="presentation-container">
         <div class="slide active" id="slide-main">
@@ -1630,16 +1713,12 @@ ${mk.statsTitle}
             if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { nextSlide(); }
             else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { prevSlide(); }
         });
-        document.addEventListener('click', (e) => { 
-            if (e.target.tagName.toLowerCase() === 'canvas') return;
-            if (e.target.closest('.chart-focus-overlay')) return;
-            if (e.target.closest('.chart-box')) return;
-            if (e.target.closest('button')) return;
-            if (e.target.closest('select') || e.target.closest('input')) return;
-            nextSlide(); 
-        });
 
         function resizePresentation() {
+            if (window.innerWidth <= 992) {
+                container.style.transform = 'none';
+                return;
+            }
             const scale = Math.min(window.innerWidth / 1280, window.innerHeight / 720);
             container.style.transform = `scale(${scale})`;
         }
