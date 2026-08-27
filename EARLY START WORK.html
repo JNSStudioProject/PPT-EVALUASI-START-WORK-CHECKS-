@@ -949,8 +949,11 @@
         }
 
         @media (max-width: 992px) {
+            html, body {
+                overflow-x: hidden;
+            }
             body {
-                overflow: auto;
+                overflow-y: auto;
                 align-items: flex-start;
                 padding: 10px;
                 height: auto;
@@ -1031,8 +1034,8 @@
             .kpi-box {
                 padding: 12px;
             }
-            .hud-cross, .bracket-tl, .bracket-br, .hex-ornament, .hex-ornament-2, .hash-marks, .diagonal-stripes, .ornament-circle {
-                display: none; /* Hide heavy ornaments on mobile */
+            .hud-cross, .bracket-tl, .bracket-br, .hex-ornament, .hex-ornament-2, .hash-marks, .diagonal-stripes, .ornament-circle, .huge-bg-text, .bottom-image-container, .bg-mesh-1, .bg-mesh-2, .data-nodes {
+                display: none !important; /* Hide heavy/overflowing ornaments on mobile */
             }
         }
     </style>
