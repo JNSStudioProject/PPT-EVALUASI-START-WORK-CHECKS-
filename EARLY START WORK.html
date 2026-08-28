@@ -1389,12 +1389,12 @@
                 if (!labels || labels.length === 0) return;
 
                 ctx.save();
-                
+
                 // Calculate groups dynamically based on the current labels
                 const groups = [];
                 let currentMK = Array.isArray(labels[0]) ? labels[0][1] : '';
                 let startIdx = 0;
-                
+
                 for (let i = 1; i <= labels.length; i++) {
                     const mk = (i < labels.length && Array.isArray(labels[i])) ? labels[i][1] : '';
                     if (i === labels.length || mk !== currentMK) {
@@ -1405,7 +1405,7 @@
                         }
                     }
                 }
-                
+
                 // 1. Vertical dashed separators between groups
                 const indicesToDraw = groups.slice(0, -1).map(g => g.end);
                 indicesToDraw.forEach(idx => {
@@ -1426,29 +1426,29 @@
                 ctx.strokeStyle = '#cccccc';
                 ctx.lineWidth = 1.5;
                 ctx.setLineDash([]); // Reset to solid line
-                
+
                 let halfTick = 20;
                 if (xAxis.ticks.length > 1) {
                     halfTick = (xAxis.getPixelForTick(1) - xAxis.getPixelForTick(0)) / 2;
                 }
-                
+
                 groups.forEach(g => {
                     if (g.end >= xAxis.ticks.length) return;
-                    
+
                     const startX = xAxis.getPixelForTick(g.start);
                     const endX = xAxis.getPixelForTick(g.end);
                     const left = startX - halfTick + 12;
                     const right = endX + halfTick - 12;
-                    
+
                     // Place the line below the dates to avoid overlap
                     const y = yAxis.bottom + 21;
-                    
+
                     // Horizontal line
                     ctx.beginPath();
                     ctx.moveTo(left, y);
                     ctx.lineTo(right, y);
                     ctx.stroke();
-                    
+
                     // Group MK text centered below the line
                     if (g.label) {
                         ctx.font = 'bold 10px "Plus Jakarta Sans"';
@@ -1457,7 +1457,7 @@
                         ctx.fillText(g.label, (left + right) / 2, y + 12);
                     }
                 });
-                
+
                 ctx.restore();
             }
         };
@@ -1603,28 +1603,28 @@
                     },
                     ticks: {
                         ...commonOptions.scales.x.ticks,
-                        callback: function(val, index) {
+                        callback: function (val, index) {
                             const label = this.getLabelForValue(val);
                             return Array.isArray(label) ? label[0] : label;
                         }
                     }
                 }
             },
-            plugins: { 
-                ...commonOptions.plugins, 
-                datalabels: { 
-                    ...commonOptions.plugins.datalabels, 
-                    rotation: 0, 
-                    formatter: function(value) { return value + ',00'; }
+            plugins: {
+                ...commonOptions.plugins,
+                datalabels: {
+                    ...commonOptions.plugins.datalabels,
+                    rotation: 0,
+                    formatter: function (value) { return value + ',00'; }
                 },
-                legend: { 
-                    position: 'bottom', 
+                legend: {
+                    position: 'bottom',
                     labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true },
                     onClick: function (e, legendItem, legend) {
                         const idx = legendItem.datasetIndex;
                         const chart = legend.chart;
                         const totalDatasets = chart.data.datasets.length;
-                        
+
                         let visibleCount = 0;
                         let onlyVisibleIdx = -1;
                         for (let i = 0; i < totalDatasets; i++) {
@@ -1633,7 +1633,7 @@
                                 onlyVisibleIdx = i;
                             }
                         }
-                        
+
                         if (visibleCount === 1 && onlyVisibleIdx === idx) {
                             for (let i = 0; i < totalDatasets; i++) {
                                 chart.setDatasetVisibility(i, true);
@@ -1645,7 +1645,7 @@
                         }
                         chart.update();
                     }
-                } 
+                }
             }
         }, [verticalLinePluginChart2]);
         const mks = [
@@ -1890,7 +1890,7 @@ ${mk.statsTitle}
 <div class="stat-value" style="font-size: 13px;">${mk.avg_first_tag}</div>
 </div>
 <div class="stat-card" style="padding: 4px 10px;">
-<div class="stat-title" style="font-size: 9px;">AVG BERANGKAT DRIVER</div>
+<div class="stat-title" style="font-size: 9px;">AVG BERANGKAT AA/SWV</div>
 <div class="stat-value" style="font-size: 13px;">${mk.avg_jam_berangkat}</div>
 </div>
 </div>
