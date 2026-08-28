@@ -771,10 +771,12 @@
             z-index: 20;
             flex-shrink: 0;
         }
+
         .chart-expand-btn:hover {
             transform: scale(1.15);
             box-shadow: 0 5px 18px rgba(239, 51, 64, 0.6);
         }
+
         .chart-title-row {
             display: flex;
             align-items: center;
@@ -794,7 +796,11 @@
             align-items: center;
             justify-content: center;
         }
-        .chart-focus-overlay.open { display: flex; }
+
+        .chart-focus-overlay.open {
+            display: flex;
+        }
+
         .chart-focus-modal {
             background: #ffffff;
             border-radius: 22px;
@@ -804,15 +810,17 @@
             display: flex;
             flex-direction: column;
             gap: 14px;
-            box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+            box-shadow: 0 40px 120px rgba(0, 0, 0, 0.6);
             position: relative;
         }
+
         .chart-focus-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-shrink: 0;
         }
+
         .chart-focus-title {
             font-family: 'Outfit', sans-serif;
             font-size: 20px;
@@ -821,6 +829,7 @@
             text-transform: uppercase;
             letter-spacing: -0.3px;
         }
+
         .chart-focus-close {
             background: linear-gradient(135deg, #f37021, #ef3340);
             border: none;
@@ -834,28 +843,38 @@
             justify-content: center;
             font-size: 17px;
             font-weight: 800;
-            box-shadow: 0 4px 12px rgba(239,51,64,0.4);
+            box-shadow: 0 4px 12px rgba(239, 51, 64, 0.4);
             transition: transform 0.2s ease;
             flex-shrink: 0;
         }
-        .chart-focus-close:hover { transform: scale(1.1); }
+
+        .chart-focus-close:hover {
+            transform: scale(1.1);
+        }
+
         .chart-focus-canvas-wrap {
             flex: 1;
             position: relative;
             min-height: 0;
         }
-        #chart-focus-canvas { display: block; }
+
+        #chart-focus-canvas {
+            display: block;
+        }
+
         .comparison-table-wrapper {
             flex-shrink: 0;
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0, 50, 30, 0.12);
         }
+
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
             font-family: 'Outfit', sans-serif;
         }
+
         .comparison-table .ct-h1 {
             background: #1c3d1c;
             color: white;
@@ -866,6 +885,7 @@
             text-transform: uppercase;
             letter-spacing: 0.6px;
         }
+
         .comparison-table .ct-h1-change {
             background: #1c3d1c;
             color: #ffffff;
@@ -878,25 +898,28 @@
             outline: 2px solid #ef3340;
             outline-offset: -2px;
         }
+
         .comparison-table .ct-h2 {
             background: #2e5c2e;
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
             text-align: center;
             font-size: 8px;
             font-weight: 700;
             padding: 4px 6px;
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
         }
+
         .comparison-table .ct-h2-change {
             background: #2e5c2e;
-            color: rgba(255,255,255,0.9);
+            color: rgba(255, 255, 255, 0.9);
             text-align: center;
             font-size: 8px;
             font-weight: 700;
             padding: 4px 6px;
-            border-top: 1px solid rgba(255,255,255,0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
             border-left: 2px solid #ef3340;
         }
+
         .comparison-table .ct-val {
             background: #f3f7ee;
             text-align: center;
@@ -904,17 +927,19 @@
             font-weight: 800;
             color: #1c3d1c;
             padding: 6px 8px;
-            border: 1px solid rgba(44,92,44,0.12);
+            border: 1px solid rgba(44, 92, 44, 0.12);
         }
+
         .comparison-table .ct-chg {
             background: #f3f7ee;
             text-align: center;
             font-size: 12px;
             font-weight: 800;
             padding: 6px 8px;
-            border: 1px solid rgba(44,92,44,0.12);
-            border-left: 2px solid rgba(239,51,64,0.35);
+            border: 1px solid rgba(44, 92, 44, 0.12);
+            border-left: 2px solid rgba(239, 51, 64, 0.35);
         }
+
         .chart-controls-group {
             display: flex;
             gap: 8px;
@@ -949,9 +974,12 @@
         }
 
         @media (max-width: 992px) {
-            html, body {
+
+            html,
+            body {
                 overflow-x: hidden;
             }
+
             body {
                 overflow-y: auto;
                 align-items: flex-start;
@@ -959,11 +987,13 @@
                 height: auto;
                 background-color: #f4f7fa;
             }
+
             .presentation-container {
                 width: 100%;
                 height: auto;
                 transform: none !important;
             }
+
             .slide {
                 position: relative;
                 width: 100%;
@@ -977,65 +1007,94 @@
                 border-radius: 0;
                 background: transparent;
             }
+
             .slide.active {
                 display: flex !important;
                 flex-direction: column !important;
             }
+
             .body-content {
                 flex-direction: column !important;
                 height: auto !important;
                 overflow: visible !important;
             }
-            .left-content, .right-sidebar {
+
+            .left-content,
+            .right-sidebar {
                 flex: none !important;
                 width: 100% !important;
                 max-width: 100% !important;
                 height: auto !important;
             }
+
             .chart-box {
-                height: 550px !important; 
+                height: 550px !important;
                 margin-bottom: 20px !important;
                 padding: 12px !important;
             }
+
             .header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
                 padding-right: 0;
             }
+
             .logos {
                 align-self: flex-start;
             }
+
             .logos img {
                 height: 30px;
             }
+
             .main-title {
                 font-size: 22px;
             }
+
             .subtitle {
                 font-size: 12px;
             }
+
             .nav-hint {
                 bottom: 5px;
                 font-size: 10px;
                 padding: 6px 12px;
             }
+
             .chart-title-row {
                 flex-wrap: wrap;
                 gap: 8px;
             }
+
             .chart-title {
                 font-size: 12px;
             }
+
             .comparison-table .ct-val {
                 font-size: 12px;
                 padding: 4px;
             }
+
             .kpi-box {
                 padding: 12px;
             }
-            .hud-cross, .bracket-tl, .bracket-br, .hex-ornament, .hex-ornament-2, .hash-marks, .diagonal-stripes, .ornament-circle, .huge-bg-text, .bottom-image-container, .bg-mesh-1, .bg-mesh-2, .data-nodes {
-                display: none !important; /* Hide heavy/overflowing ornaments on mobile */
+
+            .hud-cross,
+            .bracket-tl,
+            .bracket-br,
+            .hex-ornament,
+            .hex-ornament-2,
+            .hash-marks,
+            .diagonal-stripes,
+            .ornament-circle,
+            .huge-bg-text,
+            .bottom-image-container,
+            .bg-mesh-1,
+            .bg-mesh-2,
+            .data-nodes {
+                display: none !important;
+                /* Hide heavy/overflowing ornaments on mobile */
             }
         }
     </style>
@@ -1087,14 +1146,19 @@
                             <div class="chart-title" style="margin-bottom:0;">TOTAL TRIP HAULING BY MITRA KERJA</div>
                             <div class="chart-controls-group" style="z-index: 50;">
                                 <span style="font-size: 10px; font-weight: 800; color: #0c233d;">FILTER DATE:</span>
-                                <select class="date-filter-select" data-target="chart1_main" onchange="filterChartDates(this)">
+                                <select class="date-filter-select" data-target="chart1_main"
+                                    onchange="filterChartDates(this)">
                                     <option value="all">Semua (3 - 26 Ags)</option>
                                     <option value="p1">3 - 8 Ags</option>
                                     <option value="p2">10 - 15 Ags</option>
                                     <option value="p3">18 - 23 Ags</option>
                                 </select>
-                                <button class="chart-expand-btn" data-canvas="chart1_main" data-title="TOTAL TRIP HAULING BY MITRA KERJA" title="Fokus Grafik">
-                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                <button class="chart-expand-btn" data-canvas="chart1_main"
+                                    data-title="TOTAL TRIP HAULING BY MITRA KERJA" title="Fokus Grafik">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -1102,54 +1166,94 @@
                             <canvas id="chart1_main"></canvas>
                         </div>
                         <div style="position: absolute; bottom: -2px; left: 16px; right: 28px;">
-                            <input type="range" class="powerbi-slider" min="5" max="19" value="19" data-target="chart1_main" oninput="slideChartWindowX(this)">
+                            <input type="range" class="powerbi-slider" min="5" max="19" value="19"
+                                data-target="chart1_main" oninput="slideChartWindowX(this)">
                         </div>
                         <div style="position: absolute; top: 40px; bottom: 20px; right: 8px;">
-                            <input type="range" class="powerbi-slider-v" min="50" max="100" value="100" orient="vertical" data-target="chart1_main" oninput="slideChartWindowY(this)">
+                            <input type="range" class="powerbi-slider-v" min="50" max="100" value="100"
+                                orient="vertical" data-target="chart1_main" oninput="slideChartWindowY(this)">
                         </div>
                     </div>
                     <div class="chart-box">
                         <div class="chart-title-row">
-                            <div class="chart-title" style="margin-bottom:0;">NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)</div>
-                            <button class="chart-expand-btn" data-canvas="chart2_main" data-title="NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)" title="Fokus Grafik">
-                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                            <div class="chart-title" style="margin-bottom:0;">NON PRODUCTIVITY TIME BY MITRA KERJA
+                                (18-23 AUG)</div>
+                            <button class="chart-expand-btn" data-canvas="chart2_main"
+                                data-title="NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)" title="Fokus Grafik">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7" />
+                                </svg>
                             </button>
                         </div>
                         <div class="canvas-wrapper" id="npt-canvas-wrap">
                             <canvas id="chart2_main"></canvas>
                         </div>
-                        <div id="npt-no-data-msg" style="display:none; flex:1; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
-                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
-                            <span style="font-size:12px; font-weight:700; color:#94a3b8;">Tidak ada data NPT untuk MK ini</span>
+                        <div id="npt-no-data-msg"
+                            style="display:none; flex:1; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="8" y1="12" x2="16" y2="12" />
+                            </svg>
+                            <span style="font-size:12px; font-weight:700; color:#94a3b8;">Tidak ada data NPT untuk MK
+                                ini</span>
                         </div>
                     </div>
                 </div>
                 <div class="right-sidebar">
                     <div class="kpi-box">
-                        <div style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: linear-gradient(180deg, var(--phr-red), var(--accent-2));"></div>
-                        <div style="background: #eef6e8; color: var(--primary-dark); font-size: 11px; font-weight: 800; text-align: center; padding: 6px 12px; border-radius: 10px; margin-bottom: 4px; border: 1px dashed rgba(120, 190, 32, 0.3);">
+                        <div
+                            style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: linear-gradient(180deg, var(--phr-red), var(--accent-2));">
+                        </div>
+                        <div
+                            style="background: #eef6e8; color: var(--primary-dark); font-size: 11px; font-weight: 800; text-align: center; padding: 6px 12px; border-radius: 10px; margin-bottom: 4px; border: 1px dashed rgba(120, 190, 32, 0.3);">
                             TOTAL PRODUKTIVITAS HAULING
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 3px;">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 0 8px 4px 8px; border-bottom: 1px solid rgba(0,0,0,0.06);">
-                                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; width: 60px;">PERIODE</div>
-                                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: center; width: 75px; line-height: 1.2;">TOTAL TRIP<br>HAULING</div>
-                                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: right; flex: 1;">DEVIASI (%)</div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: flex-end; padding: 0 8px 4px 8px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; width: 60px;">PERIODE
+                                </div>
+                                <div
+                                    style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: center; width: 75px; line-height: 1.2;">
+                                    TOTAL TRIP<br>HAULING</div>
+                                <div
+                                    style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: right; flex: 1;">
+                                    DEVIASI (%)</div>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
-                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">3 - 8 AGS</div>
-                                <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">4.286</div>
-                                <div style="flex: 1; text-align: right; font-size: 12px; font-weight: 700; color: #cbd5e1;">-</div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">3 - 8 AGS
+                                </div>
+                                <div
+                                    style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
+                                    4.286</div>
+                                <div
+                                    style="flex: 1; text-align: right; font-size: 12px; font-weight: 700; color: #cbd5e1;">
+                                    -</div>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
-                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">10 - 15 AGS</div>
-                                <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">3.996</div>
-                                <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: #ef3340; background: rgba(239, 51, 64, 0.1); padding: 3px 6px; border-radius: 6px;">▼ -290 (-6,8%)</span></div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">10 - 15 AGS
+                                </div>
+                                <div
+                                    style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
+                                    3.996</div>
+                                <div style="flex: 1; display: flex; justify-content: flex-end;"><span
+                                        style="font-size: 10px; font-weight: 700; color: #ef3340; background: rgba(239, 51, 64, 0.1); padding: 3px 6px; border-radius: 6px;">▼
+                                        -290 (-6,8%)</span></div>
                             </div>
-                            <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
-                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">18 - 23 AGS</div>
-                                <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">4.933</div>
-                                <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">▲ +937 (+23,4%)</span></div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">18 - 23 AGS
+                                </div>
+                                <div
+                                    style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
+                                    4.933</div>
+                                <div style="flex: 1; display: flex; justify-content: flex-end;"><span
+                                        style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">▲
+                                        +937 (+23,4%)</span></div>
                             </div>
                         </div>
                     </div>
@@ -1172,7 +1276,11 @@
                                         stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg></div>
-                                <p>Produktivitas hauling menunjukkan fluktuasi selama periode 3–23 Agustus 2026, dari 4.286 trip pada 3–8 Agustus turun menjadi 3.996 trip pada 10–15 Agustus, atau menurun sebesar 290 trip (-6,8%). Selanjutnya, produktivitas kembali meningkat menjadi 4.933 trip pada 18–23 Agustus, naik sebesar 937 trip (+23,4%) dibandingkan periode sebelumnya.</p>
+                                <p> Produktivitas hauling menunjukkan fluktuasi selama periode 3–23 Agustus 2026, dari
+                                    4.286 trip pada 3–8 Agustus turun menjadi 3.996 trip pada 10–15 Agustus, atau
+                                    menurun sebesar 290 trip (-6,8%). Selanjutnya, produktivitas kembali meningkat
+                                    menjadi 4.933 trip pada 18–23 Agustus, naik sebesar 937 trip (+23,4%) dibandingkan
+                                    periode sebelumnya.</p>
 
                             </div>
                             <div class="message-item">
@@ -1314,21 +1422,21 @@
             ['18-Aug-26', 'BKA'], ['19-Aug-26', 'BKA'], ['21-Aug-26', 'BKA'], ['23-Aug-26', 'BKA'],
             ['18-Aug-26', 'NKHO'], ['20-Aug-26', 'NKHO']
         ];
-        const _nptAllData   = [
-            [0,  0,   0,   0,  40,  0,   0,  9,  0],   // Equipment Under Repair (Navy)
-            [104,0,   0,   0,  0,   0,   0,  189,0],    // Wait for Instruction (Brown)
-            [0,  0,   224, 0,  0,   0,   0,  0,  128],  // Wait for others work (Dark Green)
-            [0,  0,   0,   56, 32,  168, 168,27, 0],    // Wait for Manpower (Teal/Medium Blue)
-            [24, 16,  0,   0,  0,   24,  0,  0,  16]    // Permitting/Licence (Purple)
+        const _nptAllData = [
+            [0, 0, 0, 0, 40, 0, 0, 9, 0],   // Equipment Under Repair (Navy)
+            [104, 0, 0, 0, 0, 0, 0, 189, 0],    // Wait for Instruction (Brown)
+            [0, 0, 224, 0, 0, 0, 0, 0, 128],  // Wait for others work (Dark Green)
+            [0, 0, 0, 56, 32, 168, 168, 27, 0],    // Wait for Manpower (Teal/Medium Blue)
+            [24, 16, 0, 0, 0, 24, 0, 0, 16]    // Permitting/Licence (Purple)
         ];
-        const _mksWithNPT = ['AYM','BKA','NKHO'];
+        const _mksWithNPT = ['AYM', 'BKA', 'NKHO'];
 
         function updateNPTFilter(visibleMks) {
             const charts = slideChartInstances[0];
             if (!charts || charts.length < 2) return;
             const chart2 = charts[1];
             const canvasWrap = document.getElementById('npt-canvas-wrap');
-            const noDataEl  = document.getElementById('npt-no-data-msg');
+            const noDataEl = document.getElementById('npt-no-data-msg');
 
             const active = visibleMks.filter(mk => _mksWithNPT.includes(mk));
             if (active.length === 0) {
@@ -1351,74 +1459,74 @@
         }
 
         registerChart(0, 'chart1_main', 'TOTAL TRIP HAULING BY MITRA KERJA', 'bar', {
-                labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '24-Aug', '26-Aug'],
-                datasets: [
-                    { label: 'AKM', backgroundColor: '#00529b', data: [241, 455, 322, 362, 404, 226, 204, 103, 184, 327, 313, 213, 219, 303, 265, 288, 378, 471, 403, 0] },
-                    { label: 'BRA', backgroundColor: '#f37021', data: [89, 89, 101, 119, 128, 115, 121, 146, 188, 136, 144, 24, 161, 138, 132, 61, 144, 78, 118, 0] },
-                    { label: 'NKHO', backgroundColor: '#a3a3a3', data: [60, 63, 69, 159, 101, 54, 123, 157, 76, 173, 173, 0, 157, 130, 28, 62, 256, 254, 132, 59] },
-                    { label: 'RDPE', backgroundColor: '#ffc000', data: [115, 132, 129, 164, 158, 160, 158, 114, 165, 154, 169, 135, 143, 121, 153, 174, 205, 197, 47, 3] },
-                    { label: 'SGIR', backgroundColor: '#5b9bd5', data: [24, 26, 44, 54, 50, 77, 32, 35, 45, 58, 44, 82, 79, 73, 117, 51, 95, 0, 0, 0] }
-                ]
-            }, {
-                ...commonOptions,
-                plugins: {
-                    ...commonOptions.plugins,
-                    legend: {
-                        ...commonOptions.plugins.legend,
-                        onClick: function(e, legendItem, legend) {
-                            const idx = legendItem.datasetIndex;
-                            const chart = legend.chart;
-                            const totalDatasets = chart.data.datasets.length;
-                            
-                            // Count visible datasets
-                            let visibleCount = 0;
-                            let onlyVisibleIdx = -1;
-                            for (let i = 0; i < totalDatasets; i++) {
-                                if (chart.isDatasetVisible(i)) {
-                                    visibleCount++;
-                                    onlyVisibleIdx = i;
-                                }
+            labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '24-Aug', '26-Aug'],
+            datasets: [
+                { label: 'AKM', backgroundColor: '#00529b', data: [241, 455, 322, 362, 404, 226, 204, 103, 184, 327, 313, 213, 219, 303, 265, 288, 378, 471, 403, 0] },
+                { label: 'BRA', backgroundColor: '#f37021', data: [89, 89, 101, 119, 128, 115, 121, 146, 188, 136, 144, 24, 161, 138, 132, 61, 144, 78, 118, 0] },
+                { label: 'NKHO', backgroundColor: '#a3a3a3', data: [60, 63, 69, 159, 101, 54, 123, 157, 76, 173, 173, 0, 157, 130, 28, 62, 256, 254, 132, 59] },
+                { label: 'RDPE', backgroundColor: '#ffc000', data: [115, 132, 129, 164, 158, 160, 158, 114, 165, 154, 169, 135, 143, 121, 153, 174, 205, 197, 47, 3] },
+                { label: 'SGIR', backgroundColor: '#5b9bd5', data: [24, 26, 44, 54, 50, 77, 32, 35, 45, 58, 44, 82, 79, 73, 117, 51, 95, 0, 0, 0] }
+            ]
+        }, {
+            ...commonOptions,
+            plugins: {
+                ...commonOptions.plugins,
+                legend: {
+                    ...commonOptions.plugins.legend,
+                    onClick: function (e, legendItem, legend) {
+                        const idx = legendItem.datasetIndex;
+                        const chart = legend.chart;
+                        const totalDatasets = chart.data.datasets.length;
+
+                        // Count visible datasets
+                        let visibleCount = 0;
+                        let onlyVisibleIdx = -1;
+                        for (let i = 0; i < totalDatasets; i++) {
+                            if (chart.isDatasetVisible(i)) {
+                                visibleCount++;
+                                onlyVisibleIdx = i;
                             }
-                            
-                            if (visibleCount === 1 && onlyVisibleIdx === idx) {
-                                // If ONLY the clicked one is visible, show all
-                                for (let i = 0; i < totalDatasets; i++) {
-                                    chart.show(i);
-                                }
-                            } else {
-                                // Otherwise, isolate the clicked one
-                                for (let i = 0; i < totalDatasets; i++) {
-                                    if (i === idx) chart.show(i);
-                                    else chart.hide(i);
-                                }
-                            }
-                            
-                            // Sync NPT chart
-                            const visibleMks = chart.data.datasets
-                                .filter((_, i) => chart.isDatasetVisible(i))
-                                .map(ds => ds.label);
-                            updateNPTFilter(visibleMks);
                         }
+
+                        if (visibleCount === 1 && onlyVisibleIdx === idx) {
+                            // If ONLY the clicked one is visible, show all
+                            for (let i = 0; i < totalDatasets; i++) {
+                                chart.show(i);
+                            }
+                        } else {
+                            // Otherwise, isolate the clicked one
+                            for (let i = 0; i < totalDatasets; i++) {
+                                if (i === idx) chart.show(i);
+                                else chart.hide(i);
+                            }
+                        }
+
+                        // Sync NPT chart
+                        const visibleMks = chart.data.datasets
+                            .filter((_, i) => chart.isDatasetVisible(i))
+                            .map(ds => ds.label);
+                        updateNPTFilter(visibleMks);
                     }
                 }
-            }, [verticalLinePlugin]);
+            }
+        }, [verticalLinePlugin]);
         registerChart(0, 'chart2_main', 'NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)', 'bar', {
-                labels: [
-                    ['18-Aug-26', 'AYM'], ['19-Aug-26', 'AYM'], ['20-Aug-26', 'AYM'],
-                    ['18-Aug-26', 'BKA'], ['19-Aug-26', 'BKA'], ['21-Aug-26', 'BKA'], ['23-Aug-26', 'BKA'],
-                    ['18-Aug-26', 'NKHO'], ['20-Aug-26', 'NKHO']
-                ],
-                datasets: [
-                    { label: 'Equipment Under Repair', backgroundColor: '#0b2948', data: [0, 0, 0, 0, 40, 0, 0, 9, 0] },
-                    { label: 'Wait for Instruction', backgroundColor: '#994e15', data: [104, 0, 0, 0, 0, 0, 0, 189, 0] },
-                    { label: 'Wait for others work', backgroundColor: '#1b4c20', data: [0, 0, 224, 0, 0, 0, 0, 0, 128] },
-                    { label: 'Wait for Manpower', backgroundColor: '#126487', data: [0, 0, 0, 56, 32, 168, 168, 27, 0] },
-                    { label: 'Permitting/Licence', backgroundColor: '#732168', data: [24, 16, 0, 0, 0, 24, 0, 0, 16] }
-                ]
-            }, {
-                ...commonOptions,
-                plugins: { ...commonOptions.plugins, legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } } }
-            }, [verticalLinePluginChart2]);
+            labels: [
+                ['18-Aug-26', 'AYM'], ['19-Aug-26', 'AYM'], ['20-Aug-26', 'AYM'],
+                ['18-Aug-26', 'BKA'], ['19-Aug-26', 'BKA'], ['21-Aug-26', 'BKA'], ['23-Aug-26', 'BKA'],
+                ['18-Aug-26', 'NKHO'], ['20-Aug-26', 'NKHO']
+            ],
+            datasets: [
+                { label: 'Equipment Under Repair', backgroundColor: '#0b2948', data: [0, 0, 0, 0, 40, 0, 0, 9, 0] },
+                { label: 'Wait for Instruction', backgroundColor: '#994e15', data: [104, 0, 0, 0, 0, 0, 0, 189, 0] },
+                { label: 'Wait for others work', backgroundColor: '#1b4c20', data: [0, 0, 224, 0, 0, 0, 0, 0, 128] },
+                { label: 'Wait for Manpower', backgroundColor: '#126487', data: [0, 0, 0, 56, 32, 168, 168, 27, 0] },
+                { label: 'Permitting/Licence', backgroundColor: '#732168', data: [24, 16, 0, 0, 0, 24, 0, 0, 16] }
+            ]
+        }, {
+            ...commonOptions,
+            plugins: { ...commonOptions.plugins, legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } } }
+        }, [verticalLinePluginChart2]);
         const mks = [
             {
                 id: 'AYM', color: '#00529b', title: 'PT. ARMADA KARYA MAKMUR (AYM)', statsTitle: 'PT. ARMADA KARYA MAKMUR',
@@ -1671,7 +1779,7 @@ ${mk.statsTitle}
 `;
             container.appendChild(slide);
             // Capture mk values in closure for lazy creation
-            (function(mkCopy, sIdx) {
+            (function (mkCopy, sIdx) {
                 registerChart(sIdx, `chart1_mk_${mkCopy.id}`, `TOTAL TRIP HAULING - ${mkCopy.id}`, 'bar', {
                     labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '24-Aug', '26-Aug'],
                     datasets: [{ label: mkCopy.id, backgroundColor: mkCopy.color, data: mkCopy.chart1Data }]
@@ -1679,19 +1787,19 @@ ${mk.statsTitle}
                     ...commonOptions,
                     plugins: { ...commonOptions.plugins, legend: { display: false } }
                 }, [verticalLinePlugin]);
-            if (mkCopy.issuesDates.length > 0) {
-                const issueDatasets = Object.keys(mkCopy.issuesData).map(issueName => ({
-                    label: issueName,
-                    backgroundColor: issueColors[issueName],
-                    data: mkCopy.issuesData[issueName]
-                }));
-                registerChart(sIdx, `chart2_mk_${mkCopy.id}`, `NON PRODUCTIVITY TIME - ${mkCopy.id} (18-23 AUG)`, 'bar',
-                    { labels: mkCopy.issuesDates, datasets: issueDatasets }, {
+                if (mkCopy.issuesDates.length > 0) {
+                    const issueDatasets = Object.keys(mkCopy.issuesData).map(issueName => ({
+                        label: issueName,
+                        backgroundColor: issueColors[issueName],
+                        data: mkCopy.issuesData[issueName]
+                    }));
+                    registerChart(sIdx, `chart2_mk_${mkCopy.id}`, `NON PRODUCTIVITY TIME - ${mkCopy.id} (18-23 AUG)`, 'bar',
+                        { labels: mkCopy.issuesDates, datasets: issueDatasets }, {
                         ...commonOptions,
                         plugins: { ...commonOptions.plugins, legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } } }
                     }
-                );
-            }
+                    );
+                }
             }(mk, slideIndex));
         }); // end mks.forEach
         const allSlides = document.querySelectorAll('.slide');
@@ -1739,7 +1847,7 @@ ${mk.statsTitle}
             if (e.target.closest('.chart-box')) return;
             if (e.target.closest('button')) return;
             if (e.target.closest('select') || e.target.closest('input')) return;
-            
+
             if (touchEndX < touchStartX - 50) nextSlide(); // Swipe Left
             if (touchEndX > touchStartX + 50) prevSlide(); // Swipe Right
         });
@@ -1813,19 +1921,19 @@ ${mk.statsTitle}
         }, true);
 
         // ── Chart Date Filtering and Slider Logic ──────────────────────────────
-        window.filterChartDates = function(selectEl) {
+        window.filterChartDates = function (selectEl) {
             const canvasId = selectEl.dataset.target;
             const val = selectEl.value;
             const slider = selectEl.closest('.chart-box').querySelector('.powerbi-slider');
-            
+
             let chart;
-            for(let key in slideChartInstances) {
+            for (let key in slideChartInstances) {
                 let arr = slideChartInstances[key];
-                if(!arr) continue;
-                for(let c of arr) {
-                    if(c && c.canvas.id === canvasId) { chart = c; break; }
+                if (!arr) continue;
+                for (let c of arr) {
+                    if (c && c.canvas.id === canvasId) { chart = c; break; }
                 }
-                if(chart) break;
+                if (chart) break;
             }
             if (!chart) return;
 
@@ -1833,7 +1941,7 @@ ${mk.statsTitle}
             if (val === 'p1') { min = 0; max = 5; }
             else if (val === 'p2') { min = 6; max = 11; }
             else if (val === 'p3') { min = 12; max = 17; }
-            
+
             if (slider && val !== 'all') {
                 slider.value = max;
             } else if (slider) {
@@ -1845,45 +1953,45 @@ ${mk.statsTitle}
             chart.update();
         };
 
-        window.slideChartWindowX = function(sliderEl) {
+        window.slideChartWindowX = function (sliderEl) {
             const canvasId = sliderEl.dataset.target;
-            const targetMax = parseInt(sliderEl.value); 
-            
+            const targetMax = parseInt(sliderEl.value);
+
             let chart;
-            for(let key in slideChartInstances) {
+            for (let key in slideChartInstances) {
                 let arr = slideChartInstances[key];
-                if(!arr) continue;
-                for(let c of arr) {
-                    if(c && c.canvas.id === canvasId) { chart = c; break; }
+                if (!arr) continue;
+                for (let c of arr) {
+                    if (c && c.canvas.id === canvasId) { chart = c; break; }
                 }
-                if(chart) break;
+                if (chart) break;
             }
             if (!chart) return;
-            
+
             chart.options.scales.x.min = 0;
             chart.options.scales.x.max = targetMax;
             chart.update();
 
             const selectEl = sliderEl.closest('.chart-box').querySelector('.date-filter-select');
-            if (selectEl) selectEl.value = 'all'; 
+            if (selectEl) selectEl.value = 'all';
         };
 
-        window.slideChartWindowY = function(sliderEl) {
+        window.slideChartWindowY = function (sliderEl) {
             try {
                 const canvasId = sliderEl.dataset.target;
-                const pct = parseInt(sliderEl.value); 
-                
+                const pct = parseInt(sliderEl.value);
+
                 let chart;
-                for(let key in slideChartInstances) {
+                for (let key in slideChartInstances) {
                     let arr = slideChartInstances[key];
-                    if(!arr) continue;
-                    for(let c of arr) {
-                        if(c && c.canvas.id === canvasId) { chart = c; break; }
+                    if (!arr) continue;
+                    for (let c of arr) {
+                        if (c && c.canvas.id === canvasId) { chart = c; break; }
                     }
-                    if(chart) break;
+                    if (chart) break;
                 }
                 if (!chart) return;
-                
+
                 // Cari nilai tertinggi dari data yang sedang aktif (terlihat)
                 let maxVal = 0;
                 chart.data.datasets.forEach((ds, idx) => {
@@ -1891,11 +1999,11 @@ ${mk.statsTitle}
                         ds.data.forEach(v => { if (v > maxVal) maxVal = v; });
                     }
                 });
-                
+
                 // Menentukan batas atas berdasarkan persentase tarikan slider
-                const scaleFactor = 100 / pct; 
+                const scaleFactor = 100 / pct;
                 const targetMax = Math.max(10, Math.round((maxVal * 1.1) / scaleFactor));
-                
+
                 chart.options.scales.y.max = targetMax;
                 chart.update('none'); // Update tanpa animasi agar slider tidak patah-patah
             } catch (e) {
