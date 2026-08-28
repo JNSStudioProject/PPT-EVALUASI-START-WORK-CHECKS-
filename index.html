@@ -1314,15 +1314,19 @@
         }
 
         // NPT source data (for cross-chart filtering)
-        const _nptAllLabels = ['AKM 18-Aug','AKM 19-Aug','AKM 20-Aug','BRA 18-Aug','BRA 19-Aug','BRA 23-Aug','NKHO 18-Aug','NKHO 20-Aug'];
-        const _nptAllData   = [
-            [0,  0,   0,   0,  40,  0,  9,  0],   // Equipment Under Repair
-            [104,0,   0,   0,  0,   0,  189,0],    // Wait for Instruction
-            [0,  0,   224, 0,  0,   0,  0,  128],  // Wait for others work
-            [0,  0,   0,   56, 32,  168,27, 0],    // Wait for Manpower
-            [24, 16,  0,   0,  0,   24, 0,  16]    // Permitting/Licence
+        const _nptAllLabels = [
+            ['18-Aug-26', 'AYM'], ['19-Aug-26', 'AYM'], ['20-Aug-26', 'AYM'],
+            ['18-Aug-26', 'BKA'], ['19-Aug-26', 'BKA'], ['21-Aug-26', 'BKA'], ['23-Aug-26', 'BKA'],
+            ['18-Aug-26', 'NKHO'], ['20-Aug-26', 'NKHO']
         ];
-        const _mksWithNPT = ['AKM','BRA','NKHO'];
+        const _nptAllData   = [
+            [0,  0,   0,   0,  40,  0,   0,  9,  0],   // Equipment Under Repair (Navy)
+            [104,0,   0,   0,  0,   0,   0,  189,0],    // Wait for Instruction (Brown)
+            [0,  0,   224, 0,  0,   0,   0,  0,  128],  // Wait for others work (Dark Green)
+            [0,  0,   0,   56, 32,  168, 168,27, 0],    // Wait for Manpower (Teal/Medium Blue)
+            [24, 16,  0,   0,  0,   24,  0,  0,  16]    // Permitting/Licence (Purple)
+        ];
+        const _mksWithNPT = ['AYM','BKA','NKHO'];
 
         function updateNPTFilter(visibleMks) {
             const charts = slideChartInstances[0];
@@ -1341,7 +1345,7 @@
             noDataEl.style.display = 'none';
 
             const indices = _nptAllLabels
-                .map((lbl, i) => active.some(mk => lbl.startsWith(mk)) ? i : -1)
+                .map((lbl, i) => active.some(mk => lbl[1].includes(mk)) ? i : -1)
                 .filter(i => i !== -1);
 
             chart2.data.labels = indices.map(i => _nptAllLabels[i]);
@@ -1404,13 +1408,17 @@
                 }
             }, [verticalLinePlugin]);
         registerChart(0, 'chart2_main', 'NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)', 'bar', {
-                labels: ['AKM 18-Aug', 'AKM 19-Aug', 'AKM 20-Aug', 'BRA 18-Aug', 'BRA 19-Aug', 'BRA 23-Aug', 'NKHO 18-Aug', 'NKHO 20-Aug'],
+                labels: [
+                    ['18-Aug-26', 'AYM'], ['19-Aug-26', 'AYM'], ['20-Aug-26', 'AYM'],
+                    ['18-Aug-26', 'BKA'], ['19-Aug-26', 'BKA'], ['21-Aug-26', 'BKA'], ['23-Aug-26', 'BKA'],
+                    ['18-Aug-26', 'NKHO'], ['20-Aug-26', 'NKHO']
+                ],
                 datasets: [
-                    { label: 'Equipment Under Repair', backgroundColor: '#061d33', data: [0, 0, 0, 0, 40, 0, 9, 0] },
-                    { label: 'Wait for Instruction', backgroundColor: '#f37021', data: [104, 0, 0, 0, 0, 0, 189, 0] },
-                    { label: 'Wait for others work', backgroundColor: '#008751', data: [0, 0, 224, 0, 0, 0, 0, 128] },
-                    { label: 'Wait for Manpower', backgroundColor: '#00529b', data: [0, 0, 0, 56, 32, 168, 27, 0] },
-                    { label: 'Permitting/Licence', backgroundColor: '#ef3340', data: [24, 16, 0, 0, 0, 24, 0, 16] }
+                    { label: 'Equipment Under Repair', backgroundColor: '#0b2948', data: [0, 0, 0, 0, 40, 0, 0, 9, 0] },
+                    { label: 'Wait for Instruction', backgroundColor: '#994e15', data: [104, 0, 0, 0, 0, 0, 0, 189, 0] },
+                    { label: 'Wait for others work', backgroundColor: '#1b4c20', data: [0, 0, 224, 0, 0, 0, 0, 0, 128] },
+                    { label: 'Wait for Manpower', backgroundColor: '#126487', data: [0, 0, 0, 56, 32, 168, 168, 27, 0] },
+                    { label: 'Permitting/Licence', backgroundColor: '#732168', data: [24, 16, 0, 0, 0, 24, 0, 0, 16] }
                 ]
             }, {
                 ...commonOptions,
@@ -1418,7 +1426,7 @@
             }, [verticalLinePluginChart2]);
         const mks = [
             {
-                id: 'AKM', color: '#00529b', title: 'PT. ANDALAS KARYA MULIA (AKM)', statsTitle: 'PT. ANDALAS KARYA MULIA',
+                id: 'AYM', color: '#00529b', title: 'PT. ARMADA KARYA MAKMUR (AYM)', statsTitle: 'PT. ARMADA KARYA MAKMUR',
                 first_swc: "06:49:00 AM", avg_first_swc: "07:31:10 AM", avg_first_tag: "06:57:10 AM", avg_jam_berangkat: "06:07:51 AM",
                 trip_p1: "2.010", trip_p2: "1.344", trip_p3: "1.924",
                 change1_text: "▼ -666 (-33,1%)", change1_color: "#ef3340", change1_bg: "rgba(239, 51, 64, 0.1)",
@@ -1431,7 +1439,7 @@
                     "<strong>40 Jam NPT Permitting/License:</strong> DT Standby menunggu proses KP dan CCPM."
                 ],
                 chart1Data: [241, 455, 322, 362, 404, 226, 204, 103, 184, 327, 313, 213, 219, 303, 265, 288, 378, 471, 403, 0],
-                issuesDates: ['18-Aug', '19-Aug', '20-Aug'],
+                issuesDates: ['18-Aug-26', '19-Aug-26', '20-Aug-26'],
                 issuesData: {
                     'Equipment Under Repair': [0, 0, 0],
                     'Wait for Instruction': [104, 0, 0],
@@ -1441,7 +1449,7 @@
                 }
             },
             {
-                id: 'BRA', color: '#f37021', title: 'PT. BINA REKAYASA ANUGRAH (BRA)', statsTitle: 'PT. BINA REKAYASA ANUGRAH',
+                id: 'BKA', color: '#f37021', title: 'PT. BINA KARYA ANUGRAH (BKA)', statsTitle: 'PT. BINA KARYA ANUGRAH',
                 first_swc: "07:31:00 AM", avg_first_swc: "08:14:30 AM", avg_first_tag: "06:55:50 AM", avg_jam_berangkat: "06:30:22 AM",
                 trip_p1: "641", trip_p2: "759", trip_p3: "714",
                 change1_text: "▲ +118 (+18,4%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
@@ -1454,13 +1462,13 @@
                     "<strong>24 Jam NPT Permitting/License:</strong> DT Standby karena Greenpass Expired."
                 ],
                 chart1Data: [89, 89, 101, 119, 128, 115, 121, 146, 188, 136, 144, 24, 161, 138, 132, 61, 144, 78, 118, 0],
-                issuesDates: ['18-Aug', '19-Aug', '23-Aug'],
+                issuesDates: ['18-Aug-26', '19-Aug-26', '21-Aug-26', '23-Aug-26'],
                 issuesData: {
-                    'Equipment Under Repair': [0, 40, 0],
-                    'Wait for Instruction': [0, 0, 0],
-                    'Wait for others work': [0, 0, 0],
-                    'Wait for Manpower': [56, 32, 168],
-                    'Permitting/Licence': [0, 0, 24]
+                    'Equipment Under Repair': [0, 40, 0, 0],
+                    'Wait for Instruction': [0, 0, 0, 0],
+                    'Wait for others work': [0, 0, 0, 0],
+                    'Wait for Manpower': [56, 32, 168, 168],
+                    'Permitting/Licence': [0, 0, 24, 0]
                 }
             },
             {
@@ -1479,7 +1487,7 @@
                     "<strong>9 Jam NPT Equipment Under Repairs:</strong> 1 Unit DT Service Rutin."
                 ],
                 chart1Data: [60, 63, 69, 159, 101, 54, 123, 157, 76, 173, 173, 0, 157, 130, 28, 62, 256, 254, 132, 59],
-                issuesDates: ['18-Aug', '20-Aug'],
+                issuesDates: ['18-Aug-26', '20-Aug-26'],
                 issuesData: {
                     'Equipment Under Repair': [9, 0],
                     'Wait for Instruction': [189, 0],
