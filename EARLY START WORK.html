@@ -1561,7 +1561,35 @@
                     rotation: 0, 
                     formatter: function(value) { return value + ',00'; }
                 },
-                legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true }, display: false } 
+                legend: { 
+                    position: 'bottom', 
+                    labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true },
+                    onClick: function (e, legendItem, legend) {
+                        const idx = legendItem.datasetIndex;
+                        const chart = legend.chart;
+                        const totalDatasets = chart.data.datasets.length;
+                        
+                        let visibleCount = 0;
+                        let onlyVisibleIdx = -1;
+                        for (let i = 0; i < totalDatasets; i++) {
+                            if (chart.isDatasetVisible(i)) {
+                                visibleCount++;
+                                onlyVisibleIdx = i;
+                            }
+                        }
+                        
+                        if (visibleCount === 1 && onlyVisibleIdx === idx) {
+                            for (let i = 0; i < totalDatasets; i++) {
+                                chart.show(i);
+                            }
+                        } else {
+                            for (let i = 0; i < totalDatasets; i++) {
+                                if (i === idx) chart.show(i);
+                                else chart.hide(i);
+                            }
+                        }
+                    }
+                } 
             }
         }, [verticalLinePluginChart2]);
         const mks = [
