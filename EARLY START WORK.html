@@ -1378,7 +1378,7 @@
                 const ctx = chart.ctx;
                 ctx.save();
                 ctx.strokeStyle = '#cccccc';
-                ctx.lineWidth = 1;
+                ctx.lineWidth = 1.5;
                 
                 // Calculate spacing
                 let halfTick = 20;
@@ -1397,9 +1397,11 @@
                     
                     const startX = xAxis.getPixelForTick(g.start);
                     const endX = xAxis.getPixelForTick(g.end);
-                    const left = startX - halfTick + 5;
-                    const right = endX + halfTick - 5;
-                    const y = yAxis.bottom + 14;
+                    const left = startX - halfTick + 8;
+                    const right = endX + halfTick - 8;
+                    
+                    // Place the line below the dates, above the MK labels
+                    const y = yAxis.bottom + 21;
                     
                     // Horizontal line
                     ctx.beginPath();
@@ -1407,16 +1409,16 @@
                     ctx.lineTo(right, y);
                     ctx.stroke();
                     
-                    // Left vertical tick
+                    // Left vertical tick (pointing up towards the dates)
                     ctx.beginPath();
                     ctx.moveTo(left, y);
-                    ctx.lineTo(left, y - 4);
+                    ctx.lineTo(left, y - 5);
                     ctx.stroke();
                     
                     // Right vertical tick
                     ctx.beginPath();
                     ctx.moveTo(right, y);
-                    ctx.lineTo(right, y - 4);
+                    ctx.lineTo(right, y - 5);
                     ctx.stroke();
                 });
                 
