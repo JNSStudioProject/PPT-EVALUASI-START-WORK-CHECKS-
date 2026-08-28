@@ -1377,8 +1377,27 @@
                 const yAxis = chart.scales.y;
                 const ctx = chart.ctx;
                 ctx.save();
+                
+                // 1. Vertical dashed separators between groups (after index 2 and 6)
+                const indicesToDraw = [2, 6];
+                indicesToDraw.forEach(idx => {
+                    const leftX = xAxis.getPixelForTick(idx);
+                    const rightX = xAxis.getPixelForTick(idx + 1);
+                    if (leftX === undefined || rightX === undefined) return;
+                    const x = (leftX + rightX) / 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x, yAxis.top - 10);
+                    ctx.lineTo(x, yAxis.bottom + 45); // Extend past the labels
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = 'rgba(0, 82, 155, 0.4)';
+                    ctx.setLineDash([5, 5]);
+                    ctx.stroke();
+                });
+
+                // 2. Horizontal grouping lines
                 ctx.strokeStyle = '#cccccc';
                 ctx.lineWidth = 1.5;
+                ctx.setLineDash([]); // Reset to solid line
                 
                 // Calculate spacing
                 let halfTick = 20;
@@ -1400,25 +1419,13 @@
                     const left = startX - halfTick + 8;
                     const right = endX + halfTick - 8;
                     
-                    // Place the line below the dates, above the MK labels
-                    const y = yAxis.bottom + 21;
+                    // Place the line significantly below the dates to avoid overlap
+                    const y = yAxis.bottom + 27;
                     
-                    // Horizontal line
+                    // Horizontal line only (no vertical ticks for a cleaner look)
                     ctx.beginPath();
                     ctx.moveTo(left, y);
                     ctx.lineTo(right, y);
-                    ctx.stroke();
-                    
-                    // Left vertical tick (pointing up towards the dates)
-                    ctx.beginPath();
-                    ctx.moveTo(left, y);
-                    ctx.lineTo(left, y - 5);
-                    ctx.stroke();
-                    
-                    // Right vertical tick
-                    ctx.beginPath();
-                    ctx.moveTo(right, y);
-                    ctx.lineTo(right, y - 5);
                     ctx.stroke();
                 });
                 
