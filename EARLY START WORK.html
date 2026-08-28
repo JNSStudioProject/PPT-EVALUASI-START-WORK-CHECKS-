@@ -1431,7 +1431,8 @@
                     const left = startX - halfTick + 8;
                     const right = endX + halfTick - 8;
                     
-                    const y = yAxis.bottom + 25;
+                    // Place the line below the dates to avoid overlap
+                    const y = yAxis.bottom + 21;
                     
                     // Horizontal line
                     ctx.beginPath();
@@ -1444,7 +1445,7 @@
                         ctx.font = 'bold 10px "Plus Jakarta Sans"';
                         ctx.fillStyle = '#0c233d';
                         ctx.textAlign = 'center';
-                        ctx.fillText(g.label, (left + right) / 2, y + 14);
+                        ctx.fillText(g.label, (left + right) / 2, y + 12);
                     }
                 });
                 
@@ -1586,6 +1587,11 @@
                 ...commonOptions.scales,
                 x: {
                     ...commonOptions.scales.x,
+                    title: {
+                        display: true,
+                        text: '',
+                        padding: { top: 25, bottom: 0 }
+                    },
                     ticks: {
                         ...commonOptions.scales.x.ticks,
                         callback: function(val, index) {
