@@ -1375,22 +1375,51 @@
             afterDraw: (chart) => {
                 const xAxis = chart.scales.x;
                 const yAxis = chart.scales.y;
-                const indicesToDraw = [2, 5];
                 const ctx = chart.ctx;
                 ctx.save();
-                indicesToDraw.forEach(idx => {
-                    const leftX = xAxis.getPixelForValue(idx);
-                    const rightX = xAxis.getPixelForValue(idx + 1);
-                    if (leftX === undefined || rightX === undefined) return;
-                    const x = (leftX + rightX) / 2;
+                ctx.strokeStyle = '#cccccc';
+                ctx.lineWidth = 1;
+                
+                // Calculate spacing
+                let halfTick = 20;
+                if (xAxis.ticks.length > 1) {
+                    halfTick = (xAxis.getPixelForTick(1) - xAxis.getPixelForTick(0)) / 2;
+                }
+                
+                const groups = [
+                    { start: 0, end: 2 },
+                    { start: 3, end: 6 },
+                    { start: 7, end: 8 }
+                ];
+                
+                groups.forEach(g => {
+                    if (g.end >= xAxis.ticks.length) return;
+                    
+                    const startX = xAxis.getPixelForTick(g.start);
+                    const endX = xAxis.getPixelForTick(g.end);
+                    const left = startX - halfTick + 5;
+                    const right = endX + halfTick - 5;
+                    const y = yAxis.bottom + 14;
+                    
+                    // Horizontal line
                     ctx.beginPath();
-                    ctx.moveTo(x, yAxis.top - 10);
-                    ctx.lineTo(x, yAxis.bottom + 25);
-                    ctx.lineWidth = 1.5;
-                    ctx.strokeStyle = 'rgba(0, 82, 155, 0.4)';
-                    ctx.setLineDash([5, 5]);
+                    ctx.moveTo(left, y);
+                    ctx.lineTo(right, y);
+                    ctx.stroke();
+                    
+                    // Left vertical tick
+                    ctx.beginPath();
+                    ctx.moveTo(left, y);
+                    ctx.lineTo(left, y - 4);
+                    ctx.stroke();
+                    
+                    // Right vertical tick
+                    ctx.beginPath();
+                    ctx.moveTo(right, y);
+                    ctx.lineTo(right, y - 4);
                     ctx.stroke();
                 });
+                
                 ctx.restore();
             }
         };
@@ -1418,9 +1447,9 @@
 
         // NPT source data (for cross-chart filtering)
         const _nptAllLabels = [
-            ['18-Aug-26', 'AYM'], ['19-Aug-26', 'AYM'], ['20-Aug-26', 'AYM'],
-            ['18-Aug-26', 'BKA'], ['19-Aug-26', 'BKA'], ['21-Aug-26', 'BKA'], ['23-Aug-26', 'BKA'],
-            ['18-Aug-26', 'NKHO'], ['20-Aug-26', 'NKHO']
+            ['18-Aug-26', ''], ['19-Aug-26', 'AYM'], ['20-Aug-26', ''],
+            ['18-Aug-26', ''], ['19-Aug-26', ''], ['21-Aug-26', 'BKA'], ['23-Aug-26', ''],
+            ['18-Aug-26', ''], ['20-Aug-26', 'NKHO']
         ];
         const _nptAllData = [
             [0, 0, 0, 0, 40, 0, 0, 9, 0],   // Equipment Under Repair (Navy)
@@ -1512,20 +1541,28 @@
         }, [verticalLinePlugin]);
         registerChart(0, 'chart2_main', 'NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)', 'bar', {
             labels: [
-                ['18-Aug-26', 'AYM'], ['19-Aug-26', 'AYM'], ['20-Aug-26', 'AYM'],
-                ['18-Aug-26', 'BKA'], ['19-Aug-26', 'BKA'], ['21-Aug-26', 'BKA'], ['23-Aug-26', 'BKA'],
-                ['18-Aug-26', 'NKHO'], ['20-Aug-26', 'NKHO']
+                ['18-Aug-26', ''], ['19-Aug-26', 'AYM'], ['20-Aug-26', ''],
+                ['18-Aug-26', ''], ['19-Aug-26', ''], ['21-Aug-26', 'BKA'], ['23-Aug-26', ''],
+                ['18-Aug-26', ''], ['20-Aug-26', 'NKHO']
             ],
             datasets: [
-                { label: 'Equipment Under Repair', backgroundColor: '#0b2948', data: [0, 0, 0, 0, 40, 0, 0, 9, 0] },
-                { label: 'Wait for Instruction', backgroundColor: '#994e15', data: [104, 0, 0, 0, 0, 0, 0, 189, 0] },
-                { label: 'Wait for others work', backgroundColor: '#1b4c20', data: [0, 0, 224, 0, 0, 0, 0, 0, 128] },
-                { label: 'Wait for Manpower', backgroundColor: '#126487', data: [0, 0, 0, 56, 32, 168, 168, 27, 0] },
-                { label: 'Permitting/Licence', backgroundColor: '#732168', data: [24, 16, 0, 0, 0, 24, 0, 0, 16] }
+                { label: 'Equipment Under Repair', backgroundColor: '#1F497D', data: [0, 0, 0, 0, 40, 0, 0, 9, 0] },
+                { label: 'Wait for Instruction', backgroundColor: '#ED7D31', data: [104, 0, 0, 0, 0, 0, 0, 189, 0] },
+                { label: 'Wait for others work', backgroundColor: '#385723', data: [0, 0, 224, 0, 0, 0, 0, 0, 128] },
+                { label: 'Wait for Manpower', backgroundColor: '#00B0F0', data: [0, 0, 0, 56, 32, 168, 168, 27, 0] },
+                { label: 'Permitting/Licence', backgroundColor: '#9B2D8C', data: [24, 16, 0, 0, 0, 24, 0, 0, 16] }
             ]
         }, {
             ...commonOptions,
-            plugins: { ...commonOptions.plugins, legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } } }
+            plugins: { 
+                ...commonOptions.plugins, 
+                datalabels: { 
+                    ...commonOptions.plugins.datalabels, 
+                    rotation: 0, 
+                    formatter: function(value) { return value + ',00'; }
+                },
+                legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true }, display: false } 
+            }
         }, [verticalLinePluginChart2]);
         const mks = [
             {
