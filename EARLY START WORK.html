@@ -1406,7 +1406,7 @@
                     const x = (leftX + rightX) / 2;
                     ctx.beginPath();
                     ctx.moveTo(x, yAxis.top - 10);
-                    ctx.lineTo(x, yAxis.bottom + 45); // Extend past the labels
+                    ctx.lineTo(x, yAxis.bottom); // Stop at the x-axis, do not extend past labels
                     ctx.lineWidth = 1.5;
                     ctx.strokeStyle = 'rgba(0, 82, 155, 0.4)';
                     ctx.setLineDash([5, 5]);
@@ -1428,8 +1428,8 @@
                     
                     const startX = xAxis.getPixelForTick(g.start);
                     const endX = xAxis.getPixelForTick(g.end);
-                    const left = startX - halfTick + 8;
-                    const right = endX + halfTick - 8;
+                    const left = startX - halfTick + 12;
+                    const right = endX + halfTick - 12;
                     
                     // Place the line below the dates to avoid overlap
                     const y = yAxis.bottom + 21;
@@ -1589,8 +1589,8 @@
                     ...commonOptions.scales.x,
                     title: {
                         display: true,
-                        text: '',
-                        padding: { top: 25, bottom: 0 }
+                        text: ' ', // Use a space so Chart.js actually renders it and applies padding
+                        padding: { top: 20, bottom: 0 }
                     },
                     ticks: {
                         ...commonOptions.scales.x.ticks,
