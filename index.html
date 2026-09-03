@@ -1241,10 +1241,21 @@
                                 </button>
                             </div>
                         </div>
-                        <div class="canvas-wrapper">
-                            <canvas id="chart1_main"></canvas>
+                        <div style="display: flex; flex-direction: row; flex: 1; min-height: 0; position: relative;">
+                            <div class="custom-legend-container" style="width: 110px; display: flex; flex-direction: column; padding: 10px 5px 10px 0; font-size: 11.5px; overflow-y: auto; flex-shrink: 0; user-select: none;">
+                                <div style="font-weight: 600; margin-bottom: 8px; color: #333;">Mitra Kerja</div>
+                                <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px; cursor: pointer; color: #555;">
+                                    <input type="checkbox" id="legend-select-all" checked onchange="toggleAllLegend(this)" style="cursor: pointer; width: 14px; height: 14px; margin: 0; accent-color: #0078d4;"> Select all
+                                </label>
+                                <div id="custom-legend-items" style="display: flex; flex-direction: column; gap: 8px;">
+                                    <!-- injected via JS -->
+                                </div>
+                            </div>
+                            <div class="canvas-wrapper" style="flex: 1;">
+                                <canvas id="chart1_main"></canvas>
+                            </div>
                         </div>
-                        <div style="position: absolute; bottom: -2px; left: 16px; right: 28px;">
+                        <div style="position: absolute; bottom: -2px; left: 130px; right: 28px;">
                             <input type="range" class="powerbi-slider" min="5" max="19" value="19"
                                 data-target="chart1_main" oninput="slideChartWindowX(this)">
                         </div>
@@ -1768,46 +1779,7 @@ const _nptCategoryMap = {
                         .filter((_, i) => chart.isDatasetVisible(i))
                         .map(ds => ds.label);
                     if (typeof updateNPTFilter === 'function') updateNPTFilter(visibleMks);
-                }
-            },
-            plugins: {
-                ...commonOptions.plugins,
-                legend: {
-                    ...commonOptions.plugins.legend,
-                    onClick: function (e, legendItem, legend) {
-                        const idx = legendItem.datasetIndex;
-                        const chart = legend.chart;
-                        const totalDatasets = chart.data.datasets.length;
-
-                        // Count visible datasets
-                        let visibleCount = 0;
-                        let onlyVisibleIdx = -1;
-                        for (let i = 0; i < totalDatasets; i++) {
-                            if (chart.isDatasetVisible(i)) {
-                                visibleCount++;
-                                onlyVisibleIdx = i;
-                            }
-                        }
-
-                        if (visibleCount === 1 && onlyVisibleIdx === idx) {
-                            // If ONLY the clicked one is visible, show all
-                            for (let i = 0; i < totalDatasets; i++) {
-                                chart.show(i);
-                            }
-                        } else {
-                            // Otherwise, isolate the clicked one
-                            for (let i = 0; i < totalDatasets; i++) {
-                                if (i === idx) chart.show(i);
-                                else chart.hide(i);
-                            }
-                        }
-
-                        // Sync NPT chart
-                        const visibleMks = chart.data.datasets
-                            .filter((_, i) => chart.isDatasetVisible(i))
-                            .map(ds => ds.label);
-                        updateNPTFilter(visibleMks);
-                    }
+                    buildCustomLegend();
                 }
             }
         });
@@ -2227,6 +2199,9 @@ ${mk.statsTitle}
                 }
             }(mk, slideIndex));
         }); // end mks.forEach
+        
+
+
         const allSlides = document.querySelectorAll('.slide');
         let currentSlideIndex = 0;
         function showSlide(index) {
@@ -2237,6 +2212,7 @@ ${mk.statsTitle}
             // Create charts lazily when slide is first shown, then render
             setTimeout(() => {
                 createChartsForSlide(index);
+                if (index === 0) buildCustomLegend();
             }, 100);
         }
         // Create charts for the initial slide immediately
@@ -2436,7 +2412,82 @@ ${mk.statsTitle}
                 console.error("Error sliding Y axis:", e);
             }
         };
+        // CUSTOM LEGEND LOGIC
+        window.buildCustomLegend = function() {
+            const chart = Chart.getChart('chart1_main');
+            if (!chart) return;
+            const container = document.getElementById('custom-legend-items');
+            if (!container) return;
+            container.innerHTML = '';
+            
+            chart.data.datasets.forEach((ds, i) => {
+                const meta = chart.getDatasetMeta(i);
+                const isHidden = meta.hidden === true || (meta.hidden === null && ds.hidden);
+                
+                const labelHTML = `
+                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #555;">
+                        <input type="checkbox" class="legend-checkbox" data-index="${i}" ${!isHidden ? 'checked' : ''} onchange="toggleLegendItem(this)" style="cursor: pointer; width: 14px; height: 14px; margin: 0; accent-color: #0078d4;">
+                        ${ds.label}
+                    </label>
+                `;
+                container.insertAdjacentHTML('beforeend', labelHTML);
+            });
+            
+            updateSelectAllState();
+        };
+        
+        window.toggleLegendItem = function(checkbox) {
+            const chart = Chart.getChart('chart1_main');
+            if (!chart) return;
+            const idx = parseInt(checkbox.getAttribute('data-index'));
+            const meta = chart.getDatasetMeta(idx);
+            meta.hidden = !checkbox.checked;
+            chart.update();
+            
+            updateSelectAllState();
+            triggerNPTFilter(chart);
+        };
+        
+        window.toggleAllLegend = function(selectAllCheckbox) {
+            const chart = Chart.getChart('chart1_main');
+            if (!chart) return;
+            
+            const isChecked = selectAllCheckbox.checked;
+            const checkboxes = document.querySelectorAll('.legend-checkbox');
+            checkboxes.forEach(cb => {
+                cb.checked = isChecked;
+                const idx = parseInt(cb.getAttribute('data-index'));
+                const meta = chart.getDatasetMeta(idx);
+                meta.hidden = !isChecked;
+            });
+            chart.update();
+            triggerNPTFilter(chart);
+        };
+        
+        window.updateSelectAllState = function() {
+            const checkboxes = document.querySelectorAll('.legend-checkbox');
+            const selectAllCheckbox = document.getElementById('legend-select-all');
+            if (!selectAllCheckbox || checkboxes.length === 0) return;
+            
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            const someChecked = Array.from(checkboxes).some(cb => cb.checked);
+            
+            selectAllCheckbox.checked = allChecked;
+            selectAllCheckbox.indeterminate = !allChecked && someChecked;
+        };
+        
+        window.triggerNPTFilter = function(chart) {
+            const visibleMks = chart.data.datasets.filter((ds, i) => {
+                const dsMeta = chart.getDatasetMeta(i);
+                return !(dsMeta.hidden === true || (dsMeta.hidden === null && ds.hidden));
+            }).map(ds => ds.label);
+            if (typeof updateNPTFilter === 'function') updateNPTFilter(visibleMks);
+        };
+
         window.onload = function() {
+            if (typeof buildCustomLegend === 'function') {
+                setTimeout(buildCustomLegend, 100);
+            }
             if (typeof updateNPTFilter === 'function' && typeof _mksWithNPT !== 'undefined') {
                 updateNPTFilter(_mksWithNPT);
             }
