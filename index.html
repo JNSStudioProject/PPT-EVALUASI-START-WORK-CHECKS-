@@ -1501,8 +1501,8 @@
         }
 
                 // NPT source data (for cross-chart filtering)
-        const _nptAllLabels = [["01-Aug-26","AYM"],["02-Aug-26","AYM"],["03-Aug-26","AYM"],["04-Aug-26","AYM"],["05-Aug-26","AYM"],["06-Aug-26","AYM"],["07-Aug-26","AYM"],["08-Aug-26","AYM"],["10-Aug-26","AYM"],["11-Aug-26","AYM"],["13-Aug-26","AYM"],["14-Aug-26","AYM"],["15-Aug-26","AYM"],["18-Aug-26","AYM"],["19-Aug-26","AYM"],["20-Aug-26","AYM"],["26-Aug-26","AYM"],["27-Aug-26","AYM"],["28-Aug-26","AYM"],["29-Aug-26","AYM"],["30-Aug-26","AYM"],["31-Aug-26","AYM"],["01-Sep-26","AYM"],["02-Sep-26","AYM"],["01-Aug-26","BRA"],["03-Aug-26","BRA"],["05-Aug-26","BRA"],["07-Aug-26","BRA"],["10-Aug-26","BRA"],["15-Aug-26","BRA"],["18-Aug-26","BRA"],["19-Aug-26","BRA"],["21-Aug-26","BRA"],["23-Aug-26","BRA"],["24-Aug-26","BRA"],["26-Aug-26","BRA"],["27-Aug-26","BRA"],["29-Aug-26","BRA"],["30-Aug-26","BRA"],["02-Sep-26","BRA"],["26-Aug-26","KPRE01"],["01-Aug-26","NKHO"],["02-Aug-26","NKHO"],["03-Aug-26","NKHO"],["04-Aug-26","NKHO"],["05-Aug-26","NKHO"],["06-Aug-26","NKHO"],["07-Aug-26","NKHO"],["09-Aug-26","NKHO"],["10-Aug-26","NKHO"],["11-Aug-26","NKHO"],["12-Aug-26","NKHO"],["13-Aug-26","NKHO"],["14-Aug-26","NKHO"],["15-Aug-26","NKHO"],["17-Aug-26","NKHO"],["20-Aug-26","NKHO"],["27-Aug-26","NKHO"],["01-Sep-26","NKHO"],["02-Sep-26","NKHO"],["26-Aug-26","RDPE"]];
-        const _nptAllData = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,96,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,904,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,392,0,0,0,0,264,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,360],[0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,90,0,108,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,96,0,0,8,0,0,40,0,0,32,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0],[0,0,0,176,0,0,0,0,0,688,0,0,48,104,0,0,0,0,184,0,0,430,313,100,0,0,0,0,0,0,0,0,0,0,0,0,0,40,40,0,0,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,344,0,0,0,0,0,224,0,35,328,328,80,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,185,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,0,144,136,0],[0,0,0,0,0,0,0,46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,56,32,168,168,32,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,32,0,0,0],[16,32,72,0,24,0,48,0,144,24,24,16,0,24,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0]];
+        const _nptAllLabels = [["01-Aug-26","AYM"],["02-Aug-26","AYM"],["03-Aug-26","AYM"],["04-Aug-26","AYM"],["05-Aug-26","AYM"],["06-Aug-26","AYM"],["07-Aug-26","AYM"],["08-Aug-26","AYM"],["10-Aug-26","AYM"],["11-Aug-26","AYM"],["13-Aug-26","AYM"],["14-Aug-26","AYM"],["15-Aug-26","AYM"],["18-Aug-26","AYM"],["19-Aug-26","AYM"],["20-Aug-26","AYM"],["26-Aug-26","AYM"],["27-Aug-26","AYM"],["28-Aug-26","AYM"],["29-Aug-26","AYM"],["30-Aug-26","AYM"],["31-Aug-26","AYM"],["01-Sep-26","AYM"],["02-Sep-26","AYM"],["01-Aug-26","BRA"],["03-Aug-26","BRA"],["05-Aug-26","BRA"],["07-Aug-26","BRA"],["10-Aug-26","BRA"],["15-Aug-26","BRA"],["18-Aug-26","BRA"],["19-Aug-26","BRA"],["21-Aug-26","BRA"],["23-Aug-26","BRA"],["24-Aug-26","BRA"],["26-Aug-26","BRA"],["27-Aug-26","BRA"],["29-Aug-26","BRA"],["30-Aug-26","BRA"],["02-Sep-26","BRA"],["26-Aug-26","KPRE01"],["01-Aug-26","NKHO"],["02-Aug-26","NKHO"],["03-Aug-26","NKHO"],["04-Aug-26","NKHO"],["05-Aug-26","NKHO"],["06-Aug-26","NKHO"],["07-Aug-26","NKHO"],["09-Aug-26","NKHO"],["10-Aug-26","NKHO"],["11-Aug-26","NKHO"],["12-Aug-26","NKHO"],["13-Aug-26","NKHO"],["14-Aug-26","NKHO"],["15-Aug-26","NKHO"],["17-Aug-26","NKHO"],["20-Aug-26","NKHO"],["27-Aug-26","NKHO"],["01-Sep-26","NKHO"],["02-Sep-26","NKHO"],["26-Aug-26","RDPE"],["01-Aug-26","SGJR"],["02-Aug-26","SGJR"],["10-Aug-26","SGJR"],["11-Aug-26","SGJR"],["12-Aug-26","SGJR"],["13-Aug-26","SGJR"],["14-Aug-26","SGJR"],["29-Aug-26","SGJR"],["30-Aug-26","SGJR"]];
+        const _nptAllData = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,96,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,904,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,392,0,0,0,0,264,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,360,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,90,0,108,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,96,0,0,8,0,0,40,0,0,32,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,176,0,0,0,0,0,688,0,0,48,104,0,0,0,0,184,0,0,430,313,100,0,0,0,0,0,0,0,0,0,0,0,0,0,40,40,0,0,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,0,0,0,0,0,0,0,64,80,0,0,32,40,48],[0,0,0,0,0,0,0,0,0,344,0,0,0,0,0,224,0,35,328,328,80,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,185,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,0,144,136,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,56,32,168,168,32,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,32,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,96,96,0,0,0],[16,32,72,0,24,0,48,0,144,24,24,16,0,24,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0]];
         const _mksWithNPT = ["AYM","BRA","KPRE01","NKHO","RDPE","SGJR"];
 
         function updateNPTFilter(visibleMks) {
@@ -1670,13 +1670,18 @@
                     "<strong>40 Jam NPT Permitting/License:</strong> DT Standby menunggu proses KP dan CCPM."
                 ],
                 chart1Data: [241, 455, 322, 362, 404, 226, null, 204, 103, 184, 327, 313, 213, null, 219, 303, 265, 288, 378, 471, null, 403, 0, 323, 394, 453, 449, 383, 314, 183],
-                issuesDates: ['18-Aug-26', '19-Aug-26', '20-Aug-26'],
+                                issuesDates: ["01-Aug-26","02-Aug-26","03-Aug-26","04-Aug-26","05-Aug-26","06-Aug-26","07-Aug-26","08-Aug-26","10-Aug-26","11-Aug-26","13-Aug-26","14-Aug-26","15-Aug-26","18-Aug-26","19-Aug-26","20-Aug-26","26-Aug-26","27-Aug-26","28-Aug-26","29-Aug-26","30-Aug-26","31-Aug-26","01-Sep-26","02-Sep-26"],
                 issuesData: {
-                    'Equipment Under Repair': [0, 0, 0],
-                    'Wait for Instruction': [104, 0, 0],
-                    'Wait for others work': [0, 0, 224],
-                    'Wait for Manpower': [0, 0, 0],
-                    'Permitting/Licence': [24, 16, 0]
+                    'SWA/SSWA': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'Access road blockage': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'SWA-Rain': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,904,0,0,0,0,0,0,0],
+                    'Wait for Supplies/Tools': [0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'Equipment Under Repair': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'Wait for Instruction': [0,0,0,176,0,0,0,0,0,688,0,0,48,104,0,0,0,0,184,0,0,430,313,100],
+                    'Wait for others work': [0,0,0,0,0,0,0,0,0,344,0,0,0,0,0,224,0,35,328,328,80,0,40,0],
+                    'Wait for Manpower': [0,0,0,0,0,0,0,46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'Wait For Equipment': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'Permitting/Licence': [16,32,72,0,24,0,48,0,144,24,24,16,0,24,16,0,0,0,0,0,0,0,0,0],
                 }
             },
             {
@@ -1721,17 +1726,19 @@ issuesData: {
                     "<strong>9 Jam NPT Equipment Under Repairs:</strong> 1 Unit DT Service Rutin."
                 ],
                 chart1Data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 132, 59, 151, 186, 259, 223, 41, 100, 169],
-                issuesDates: ["01-Aug-26","02-Aug-26","03-Aug-26","04-Aug-26","05-Aug-26","06-Aug-26","07-Aug-26","09-Aug-26","10-Aug-26","11-Aug-26","12-Aug-26","13-Aug-26","14-Aug-26","15-Aug-26","17-Aug-26","20-Aug-26","27-Aug-26","01-Sep-26","02-Sep-26"],
-issuesData: {
-    'Access road blockage': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,0],
-    'SWA-Rain': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    'Wait for Supplies/Tools': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-    'Equipment Under Repair': [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0],
-    'Wait for Instruction': [189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,0,0,0,0],
-    'Wait for others work': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,0,144,136],
-    'Wait for Manpower': [27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,32,0,0],
-    'Permitting/Licence': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0],
-}
+                                issuesDates: ["01-Aug-26","02-Aug-26","03-Aug-26","04-Aug-26","05-Aug-26","06-Aug-26","07-Aug-26","09-Aug-26","10-Aug-26","11-Aug-26","12-Aug-26","13-Aug-26","14-Aug-26","15-Aug-26","17-Aug-26","20-Aug-26","27-Aug-26","01-Sep-26","02-Sep-26"],
+                issuesData: {
+                    'SWA/SSWA': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'Access road blockage': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,0],
+                    'SWA-Rain': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'Wait for Supplies/Tools': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'Equipment Under Repair': [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0],
+                    'Wait for Instruction': [189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,0,0,0,0],
+                    'Wait for others work': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,0,144,136],
+                    'Wait for Manpower': [27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,32,0,0],
+                    'Wait For Equipment': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+                    'Permitting/Licence': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0],
+                }
             },
             {
                 id: 'RDPE', color: '#ffc000', title: 'PT. RIFANSI DWI PUTRA (RDPE)', statsTitle: 'PT. RIFANSI DWI PUTRA',
@@ -1746,17 +1753,19 @@ issuesData: {
                     "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:03:00 AM</strong>."
                 ],
                 chart1Data: [115, 132, 129, 164, 158, 160, null, 158, 114, 165, 154, 169, 135, null, 143, 121, 153, 174, 205, 197, null, 47, 0, 96, 158, 158, 0, 139, 172, 0],
-                issuesDates: ["26-Aug-26"],
-issuesData: {
-    'Access road blockage': [0],
-    'SWA-Rain': [264],
-    'Wait for Supplies/Tools': [0],
-    'Equipment Under Repair': [0],
-    'Wait for Instruction': [0],
-    'Wait for others work': [0],
-    'Wait for Manpower': [0],
-    'Permitting/Licence': [0],
-}
+                                issuesDates: ["26-Aug-26"],
+                issuesData: {
+                    'SWA/SSWA': [0],
+                    'Access road blockage': [0],
+                    'SWA-Rain': [360],
+                    'Wait for Supplies/Tools': [0],
+                    'Equipment Under Repair': [0],
+                    'Wait for Instruction': [0],
+                    'Wait for others work': [0],
+                    'Wait for Manpower': [0],
+                    'Wait For Equipment': [0],
+                    'Permitting/Licence': [0],
+                }
             },
             {
                 id: 'SGJR', color: '#5b9bd5', title: 'PT. SUMI GITA JAYA (SGJR)', statsTitle: 'PT. SUMI GITA JAYA',
@@ -1771,17 +1780,19 @@ issuesData: {
                     "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:33:00 AM</strong>."
                 ],
                 chart1Data: [24, 26, 44, 54, 50, 77, null, 32, 35, 45, 58, 44, 82, null, 79, 73, 117, 51, 95, 0, null, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21],
-                issuesDates: ["26-Aug-26"],
-issuesData: {
-    'Access road blockage': [0],
-    'SWA-Rain': [360],
-    'Wait for Supplies/Tools': [0],
-    'Equipment Under Repair': [0],
-    'Wait for Instruction': [0],
-    'Wait for others work': [0],
-    'Wait for Manpower': [0],
-    'Permitting/Licence': [0],
-}
+                                issuesDates: ["01-Aug-26","02-Aug-26","10-Aug-26","11-Aug-26","12-Aug-26","13-Aug-26","14-Aug-26","29-Aug-26","30-Aug-26"],
+                issuesData: {
+                    'SWA/SSWA': [8,8,0,0,0,0,0,0,0],
+                    'Access road blockage': [0,0,0,0,0,0,0,0,0],
+                    'SWA-Rain': [0,0,0,0,0,0,0,0,0],
+                    'Wait for Supplies/Tools': [0,0,0,0,0,0,0,0,0],
+                    'Equipment Under Repair': [0,0,0,0,0,0,0,0,0],
+                    'Wait for Instruction': [0,0,64,80,0,0,32,40,48],
+                    'Wait for others work': [0,0,0,0,0,0,0,0,0],
+                    'Wait for Manpower': [0,0,0,0,0,0,0,0,0],
+                    'Wait For Equipment': [0,0,0,0,96,96,0,0,0],
+                    'Permitting/Licence': [0,0,0,0,0,0,0,0,0],
+                }
             },
             {
                 id: 'KPRE01', color: '#a3a3a3', title: 'PT. KALTIM PRIMA (KPRE01)', statsTitle: 'PT. KALTIM PRIMA',
@@ -1793,20 +1804,23 @@ issuesData: {
                     "Data terbaru telah ditambahkan untuk <strong>KPRE01</strong>."
                 ],
                 chart1Data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 109, 0, 74, 90, 147, 0, 50, 130, 0],
-                issuesDates: [],
-issuesData: {
-    'Access road blockage': [],
-    'SWA-Rain': [],
-    'Wait for Supplies/Tools': [],
-    'Equipment Under Repair': [],
-    'Wait for Instruction': [],
-    'Wait for others work': [],
-    'Wait for Manpower': [],
-    'Permitting/Licence': [],
-}
+                                issuesDates: ["26-Aug-26"],
+                issuesData: {
+                    'SWA/SSWA': [0],
+                    'Access road blockage': [0],
+                    'SWA-Rain': [264],
+                    'Wait for Supplies/Tools': [0],
+                    'Equipment Under Repair': [0],
+                    'Wait for Instruction': [0],
+                    'Wait for others work': [0],
+                    'Wait for Manpower': [0],
+                    'Wait For Equipment': [0],
+                    'Permitting/Licence': [0],
+                }
             }
         ];
         const issueColors = {
+            'SWA/SSWA': '#00B0F0',
             'Access road blockage': '#1F497D',
             'SWA-Rain': '#ED7D31',
             'Wait for Supplies/Tools': '#7030A0',
@@ -1814,6 +1828,7 @@ issuesData: {
             'Wait for Instruction': '#9B2D8C',
             'Wait for others work': '#FFC000',
             'Wait for Manpower': '#FF0000',
+            'Wait For Equipment': '#008080',
             'Permitting/Licence': '#00B050'
         };
         const container = document.getElementById('presentation-container');
