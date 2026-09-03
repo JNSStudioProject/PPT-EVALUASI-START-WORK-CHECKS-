@@ -1749,6 +1749,34 @@ const _nptCategoryMap = {
             ]
         }, {
             ...commonOptions,
+            onClick: function(e, elements, chart) {
+                if (elements.length > 0) {
+                    const datasetIndex = elements[0].datasetIndex;
+                    const totalDatasets = chart.data.datasets.length;
+                    let visibleCount = 0;
+                    let onlyVisibleIdx = -1;
+                    for (let i = 0; i < totalDatasets; i++) {
+                        if (chart.isDatasetVisible(i)) {
+                            visibleCount++;
+                            onlyVisibleIdx = i;
+                        }
+                    }
+                    if (visibleCount === 1 && onlyVisibleIdx === datasetIndex) {
+                        for (let i = 0; i < totalDatasets; i++) {
+                            chart.setDatasetVisibility(i, true);
+                        }
+                    } else {
+                        for (let i = 0; i < totalDatasets; i++) {
+                            chart.setDatasetVisibility(i, i === datasetIndex);
+                        }
+                    }
+                    chart.update();
+                    const visibleMks = chart.data.datasets
+                        .filter((_, i) => chart.isDatasetVisible(i))
+                        .map(ds => ds.label);
+                    if (typeof updateNPTFilter === 'function') updateNPTFilter(visibleMks);
+                }
+            },
             plugins: {
                 ...commonOptions.plugins,
                 legend: {
