@@ -1,0 +1,2932 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EARLY START WORK</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <style>
+        :root {
+            --primary: #00529b;
+            --primary-dark: #061d33;
+            --secondary: #78be20;
+            --accent-1: #008751;
+            --accent-2: #f37021;
+            --phr-red: #ef3340;
+            --text-dark: #0c233d;
+            --text-muted: #475569;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #cbd5e1;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .presentation-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        @keyframes mesh-pulse {
+            0% {
+                transform: scale(1) translate(0, 0);
+                opacity: 0.7;
+            }
+
+            33% {
+                transform: scale(1.05) translate(2%, 2%);
+                opacity: 1;
+            }
+
+            66% {
+                transform: scale(0.95) translate(-1%, 3%);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1) translate(0, 0);
+                opacity: 0.7;
+            }
+        }
+
+        @keyframes float-slow {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(12px) rotate(1deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        @keyframes blink-slow {
+
+            0%,
+            100% {
+                opacity: 0.8;
+            }
+
+            50% {
+                opacity: 0.2;
+            }
+        }
+
+        @keyframes spin-slow {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f4f7fa;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0, 30, 60, 0.2), 0 10px 30px rgba(0, 30, 60, 0.1);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 30px 20px 40px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transform: translateY(40px) scale(0.97);
+        }
+
+        .slide.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0) scale(1);
+            z-index: 10;
+        }
+
+        .hud-cross {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            z-index: 2;
+            opacity: 0.3;
+        }
+
+        .hud-cross::before,
+        .hud-cross::after {
+            content: '';
+            position: absolute;
+            background: var(--primary);
+        }
+
+        .hud-cross::before {
+            top: 11px;
+            left: 0;
+            width: 24px;
+            height: 2px;
+        }
+
+        .hud-cross::after {
+            left: 11px;
+            top: 0;
+            width: 2px;
+            height: 24px;
+        }
+
+        .cross-1 {
+            top: 60px;
+            right: 400px;
+        }
+
+        .cross-2 {
+            top: 220px;
+            left: 50px;
+        }
+
+        .cross-3 {
+            bottom: 120px;
+            left: 50px;
+        }
+
+        .ornament-circle {
+            position: absolute;
+            bottom: 50px;
+            left: -50px;
+            width: 250px;
+            height: 250px;
+            border: 2px dashed rgba(0, 82, 155, 0.15);
+            border-radius: 50%;
+            z-index: 0;
+            animation: spin-slow 60s linear infinite;
+        }
+
+        .ornament-circle::after {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(120, 190, 32, 0.15);
+            border-radius: 50%;
+        }
+
+        .data-nodes {
+            position: absolute;
+            top: 150px;
+            right: 40px;
+            display: flex;
+            gap: 8px;
+            z-index: 5;
+        }
+
+        .node {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: blink-slow 3s infinite ease-in-out;
+        }
+
+        .node:nth-child(1) {
+            opacity: 0.8;
+            animation-delay: 0s;
+        }
+
+        .node:nth-child(2) {
+            opacity: 0.4;
+            animation-delay: 1s;
+        }
+
+        .node:nth-child(3) {
+            opacity: 0.2;
+            animation-delay: 2s;
+            background: var(--accent-1);
+        }
+
+        .vertical-text {
+            position: absolute;
+            left: 15px;
+            bottom: 250px;
+            transform: rotate(-90deg);
+            transform-origin: left bottom;
+            font-size: 10px;
+            font-weight: 800;
+            color: rgba(0, 82, 155, 0.3);
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            z-index: 2;
+        }
+
+        .tech-lines {
+            position: absolute;
+            top: 0;
+            right: 320px;
+            width: 120px;
+            height: 60px;
+            background: repeating-linear-gradient(90deg, rgba(0, 82, 155, 0.05), rgba(0, 82, 155, 0.05) 2px, transparent 2px, transparent 8px);
+            z-index: 0;
+        }
+
+        .hex-ornament {
+            position: absolute;
+            top: 40px;
+            right: 150px;
+            width: 180px;
+            height: 180px;
+            border: 1.5px solid rgba(0, 82, 155, 0.08);
+            transform: rotate(30deg);
+            z-index: 0;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: float-slow 15s infinite ease-in-out;
+        }
+
+        .hex-ornament-2 {
+            position: absolute;
+            top: -20px;
+            right: 170px;
+            width: 120px;
+            height: 120px;
+            border: 1.5px dashed rgba(120, 190, 32, 0.15);
+            transform: rotate(-15deg);
+            z-index: 0;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            animation: spin-slow 100s infinite linear reverse;
+        }
+
+        .bracket-tl {
+            position: absolute;
+            top: 25px;
+            left: 25px;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(0, 82, 155, 0.2);
+            border-right: none;
+            border-bottom: none;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .bracket-br {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            width: 30px;
+            height: 30px;
+            border: 2px solid rgba(0, 82, 155, 0.2);
+            border-left: none;
+            border-top: none;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .status-ui {
+            position: absolute;
+            bottom: 35px;
+            left: 45px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 10px;
+            font-weight: 800;
+            color: rgba(0, 82, 155, 0.5);
+            letter-spacing: 2px;
+            z-index: 5;
+            text-transform: uppercase;
+        }
+
+        .status-ui .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--secondary);
+            box-shadow: 0 0 10px rgba(120, 190, 32, 0.6);
+            animation: blink-slow 2s infinite;
+        }
+
+        .hash-marks {
+            position: absolute;
+            top: 50%;
+            left: 25px;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            z-index: 2;
+        }
+
+        .hash-marks span {
+            width: 12px;
+            height: 2px;
+            background: rgba(0, 82, 155, 0.15);
+        }
+
+        .hash-marks span:nth-child(even) {
+            width: 6px;
+        }
+
+        .diagonal-stripes {
+            position: absolute;
+            bottom: 0;
+            left: 250px;
+            width: 300px;
+            height: 15px;
+            background: repeating-linear-gradient(45deg, rgba(0, 82, 155, 0.05), rgba(0, 82, 155, 0.05) 2px, transparent 2px, transparent 8px);
+            z-index: 1;
+        }
+
+        .bg-mesh-1 {
+            position: absolute;
+            top: -20%;
+            left: -10%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(0, 82, 155, 0.25) 0%, rgba(0, 82, 155, 0) 70%);
+            z-index: 1;
+            animation: mesh-pulse 15s infinite ease-in-out alternate;
+        }
+
+        .bg-mesh-2 {
+            position: absolute;
+            bottom: -30%;
+            right: -10%;
+            width: 80%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(120, 190, 32, 0.15) 0%, rgba(120, 190, 32, 0) 70%);
+            z-index: 1;
+            animation: mesh-pulse 18s infinite ease-in-out alternate-reverse;
+        }
+
+        .huge-bg-text {
+            position: absolute;
+            top: 20px;
+            left: 40px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 160px;
+            font-weight: 900;
+            color: rgba(0, 50, 100, 0.04);
+            line-height: 0.8;
+            letter-spacing: -4px;
+            z-index: 1;
+            pointer-events: none;
+            text-transform: uppercase;
+            animation: float-slow 10s infinite ease-in-out;
+        }
+
+        .bottom-image-container {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 650px;
+            height: 550px;
+            z-index: 1;
+            -webkit-mask-image: radial-gradient(ellipse at bottom right, black 20%, rgba(0, 0, 0, 0.4) 65%, transparent 85%);
+            mask-image: radial-gradient(ellipse at bottom right, black 20%, rgba(0, 0, 0, 0.4) 65%, transparent 85%);
+        }
+
+        .bottom-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: bottom right;
+            filter: saturate(0.65) brightness(0.9) contrast(1.1);
+        }
+
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 50, 100, 0.4), rgba(0, 82, 155, 0.15));
+            pointer-events: none;
+            mix-blend-mode: hard-light;
+        }
+
+        .header {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .main-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            text-shadow: 0 4px 15px rgba(0, 50, 100, 0.1);
+        }
+
+        .subtitle {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .subtitle::before {
+            content: '';
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .logos {
+            position: absolute;
+            left: 0;
+            top: 0;
+            display: flex;
+            align-items: center;
+            mix-blend-mode: multiply;
+        }
+
+        .logos img {
+            height: 55px;
+            object-fit: contain;
+        }
+
+        .body-content {
+            display: flex;
+            gap: 20px;
+            flex-grow: 1;
+            min-height: 0;
+            position: relative;
+            z-index: 10;
+        }
+
+        .left-content {
+            width: calc(73% - 10px);
+            flex: none;
+            min-width: 0;
+            min-height: 0;
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            padding: 15px 20px;
+            gap: 10px;
+            box-shadow: 0 15px 35px rgba(0, 50, 100, 0.05);
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .left-content:hover {
+            box-shadow: 0 20px 50px rgba(0, 82, 155, 0.08);
+            background: rgba(255, 255, 255, 0.85);
+        }
+
+        .chart-box {
+            flex: 1;
+            min-height: 0;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-title {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+            font-family: 'Outfit', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .canvas-wrapper {
+            flex: 1;
+            position: relative;
+            width: 100%;
+            min-height: 0;
+        }
+
+        .right-sidebar {
+            width: calc(27% - 10px);
+            flex: none;
+            min-width: 0;
+            min-height: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+        }
+
+        .key-message-box {
+            min-width: 0;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 50, 100, 0.08);
+            border: 1px solid rgba(255, 255, 255, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .key-message-box::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--primary-dark));
+        }
+
+        .key-message-header {
+            padding: 16px 20px 10px 26px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .icon-wrapper {
+            width: 34px;
+            height: 34px;
+            background: linear-gradient(135deg, var(--primary), #061d33);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 82, 155, 0.3);
+            flex-shrink: 0;
+        }
+
+        .key-message-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--primary-dark);
+        }
+
+        .key-message-content {
+            min-width: 0;
+            padding: 0 20px 18px 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: flex-start;
+        }
+
+        .message-item {
+            min-width: 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 12px 14px;
+            border-radius: 12px;
+            border: 1px solid rgba(0, 82, 155, 0.08);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, background 0.3s ease;
+        }
+
+        .message-item:hover {
+            transform: translateX(5px) translateY(-3px);
+            box-shadow: -8px 12px 25px rgba(0, 82, 155, 0.12);
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .check-icon {
+            color: var(--primary);
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        .check-icon svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .message-item p {
+            white-space: normal !important;
+            word-break: break-word;
+            min-width: 0;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .message-item p strong {
+            color: var(--primary-dark);
+            font-weight: 800;
+        }
+
+        .kpi-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 50, 100, 0.08);
+            border: 1px solid rgba(255, 255, 255, 1);
+            padding: 10px 16px 10px 22px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .interactive-stats-box {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(25px);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 50, 100, 0.08);
+            border: 1px solid rgba(255, 255, 255, 1);
+            padding: 15px 20px 15px 26px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .interactive-stats-box::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 8px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--secondary), var(--accent-1));
+        }
+
+        .stats-header-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: #008751;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: center;
+            background: rgba(120, 190, 32, 0.15);
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .stats-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .stat-card {
+            background: rgba(0, 82, 155, 0.03);
+            border: 1px solid rgba(0, 82, 155, 0.08);
+            border-radius: 10px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stat-card .stat-title {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-card .stat-value {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            font-family: 'Outfit', sans-serif;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Chart Expand Button (Power BI style) */
+        .chart-expand-btn {
+            width: 26px;
+            height: 26px;
+            background: linear-gradient(135deg, #f37021, #ef3340);
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 3px 10px rgba(239, 51, 64, 0.45);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            z-index: 20;
+            flex-shrink: 0;
+        }
+
+        .chart-expand-btn:hover {
+            transform: scale(1.15);
+            box-shadow: 0 5px 18px rgba(239, 51, 64, 0.6);
+        }
+
+        .chart-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            position: relative;
+        }
+
+        /* Chart Focus Modal */
+        .chart-focus-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(6, 29, 51, 0.93);
+            backdrop-filter: blur(12px);
+            z-index: 999999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-focus-overlay.open {
+            display: flex;
+        }
+
+        .chart-focus-modal {
+            background: #ffffff;
+            border-radius: 0;
+            padding: 20px;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            box-shadow: none;
+            position: relative;
+        }
+
+        .chart-focus-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-shrink: 0;
+        }
+
+        .chart-focus-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 20px;
+            font-weight: 800;
+            color: #061d33;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+
+        .chart-focus-close {
+            background: linear-gradient(135deg, #f37021, #ef3340);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            width: 34px;
+            height: 34px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            font-weight: 800;
+            box-shadow: 0 4px 12px rgba(239, 51, 64, 0.4);
+            transition: transform 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .chart-focus-close:hover {
+            transform: scale(1.1);
+        }
+
+        .chart-focus-canvas-wrap {
+            flex: 1;
+            position: relative;
+            min-height: 0;
+        }
+
+        #chart-focus-canvas {
+            display: block;
+        }
+
+        .comparison-table-wrapper {
+            flex-shrink: 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 50, 30, 0.12);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .comparison-table .ct-h1 {
+            background: #1c3d1c;
+            color: white;
+            text-align: center;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 5px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .comparison-table .ct-h1-change {
+            background: #1c3d1c;
+            color: #ffffff;
+            text-align: center;
+            font-size: 9.5px;
+            font-weight: 800;
+            padding: 4px 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            outline: 2px solid #ef3340;
+            outline-offset: -2px;
+        }
+
+        .comparison-table .ct-h2 {
+            background: #2e5c2e;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 4px 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .comparison-table .ct-h2-change {
+            background: #2e5c2e;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            font-size: 8px;
+            font-weight: 700;
+            padding: 4px 6px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 2px solid #ef3340;
+        }
+
+        .comparison-table .ct-val {
+            background: #f3f7ee;
+            text-align: center;
+            font-size: 15px;
+            font-weight: 800;
+            color: #1c3d1c;
+            padding: 6px 8px;
+            border: 1px solid rgba(44, 92, 44, 0.12);
+        }
+
+        .comparison-table .ct-chg {
+            background: #f3f7ee;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 800;
+            padding: 6px 8px;
+            border: 1px solid rgba(44, 92, 44, 0.12);
+            border-left: 2px solid rgba(239, 51, 64, 0.35);
+        }
+
+        .chart-controls-group {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .date-filter-select {
+            font-size: 10px;
+            padding: 4px 6px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 82, 155, 0.2);
+            color: var(--primary-dark);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            outline: none;
+            cursor: pointer;
+            background: #fff;
+        }
+
+        .powerbi-slider {
+            width: 100%;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        .powerbi-slider-v {
+            -webkit-appearance: slider-vertical;
+            width: 20px;
+            height: 100%;
+            cursor: pointer;
+            accent-color: var(--primary);
+        }
+
+        @media (max-width: 992px) {
+
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            body {
+                overflow-y: auto;
+                align-items: flex-start;
+                padding: 10px;
+                height: auto;
+                background-color: #f4f7fa;
+            }
+
+            .presentation-container {
+                width: 100%;
+                height: auto;
+                transform: none !important;
+            }
+
+            .slide {
+                position: relative;
+                width: 100%;
+                height: auto;
+                min-height: 100vh;
+                padding: 15px;
+                transform: none !important;
+                overflow: visible;
+                display: none;
+                box-shadow: none;
+                border-radius: 0;
+                background: transparent;
+            }
+
+            .slide.active {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+
+            .body-content {
+                flex-direction: column !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+
+            .left-content,
+            .right-sidebar {
+                flex: none !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+            }
+
+            .chart-box {
+                height: 550px !important;
+                margin-bottom: 20px !important;
+                padding: 12px !important;
+            }
+
+            .key-message-box,
+            .key-message-content,
+            .interactive-stats-box {
+                flex: none !important;
+                height: auto !important;
+                min-height: min-content !important;
+                overflow: visible !important;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                padding-right: 0;
+            }
+
+            .logos {
+                align-self: flex-start;
+            }
+
+            .logos img {
+                height: 30px;
+            }
+
+            .main-title {
+                font-size: 22px;
+            }
+
+            .subtitle {
+                font-size: 12px;
+            }
+
+            .chart-title-row {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .chart-title {
+                font-size: 12px;
+            }
+
+            .comparison-table .ct-val {
+                font-size: 12px;
+                padding: 4px;
+            }
+
+            .kpi-box {
+                padding: 12px;
+            }
+
+            .hud-cross,
+            .bracket-tl,
+            .bracket-br,
+            .hex-ornament,
+            .hex-ornament-2,
+            .hash-marks,
+            .diagonal-stripes,
+            .ornament-circle,
+            .huge-bg-text,
+            .bottom-image-container,
+            .bg-mesh-1,
+            .bg-mesh-2,
+            .data-nodes {
+                display: none !important;
+            }
+        }
+
+        .date-slicer-container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 4px 6px;
+            display: inline-flex;
+            flex-direction: column;
+            gap: 4px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .date-slicer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .date-slicer-header span {
+            font-size: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .date-slicer-clear {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            color: #94a3b8;
+        }
+
+        .date-slicer-clear:hover {
+            color: #ef4444;
+        }
+
+        .date-slicer-inputs {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .date-slicer-input {
+            font-size: 10px;
+            padding: 2px 4px;
+            border: 1px solid #cbd5e1;
+            border-radius: 2px;
+            color: #475569;
+            width: 85px;
+            font-family: inherit;
+        }
+
+        .date-slicer-input::-webkit-calendar-picker-indicator {
+            padding: 0;
+            margin: 0;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="presentation-container" id="presentation-container">
+        <div class="slide active" id="slide-main">
+            <div class="bracket-tl"></div>
+            <div class="bracket-br"></div>
+            <div class="hex-ornament"></div>
+            <div class="hex-ornament-2"></div>
+            <div class="status-ui">
+                <div class="dot"></div> DATA SYNC
+            </div>
+            <div class="hash-marks"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+            <div class="diagonal-stripes"></div>
+            <div class="hud-cross cross-1"></div>
+            <div class="hud-cross cross-2"></div>
+            <div class="hud-cross cross-3"></div>
+            <div class="ornament-circle"></div>
+            <div class="tech-lines"></div>
+            <div class="vertical-text">SYS.09.2026.ID</div>
+            <div class="data-nodes">
+                <div class="node"></div>
+                <div class="node"></div>
+                <div class="node"></div>
+            </div>
+            <div class="bg-mesh-1"></div>
+            <div class="bg-mesh-2"></div>
+            <div class="huge-bg-text" id="sidebar-title">EXECUTIVE<br>SUMMARY</div>
+            <div class="bottom-image-container">
+                <img src="busy_hauling_operation.jpg" alt="Busy Operations">
+                <div class="image-overlay"></div>
+            </div>
+            <div class="header">
+                <div class="title-area">
+                    <h1 class="main-title">EARLY START WORK</h1>
+                    <p class="subtitle">Periode 3 Ags - 2 Sep 2026</p>
+                </div>
+                <div class="logos"><img src="real_logos.png" alt="Logo Pertamina & Tripatra"></div>
+            </div>
+            <div class="body-content">
+                <div class="left-content">
+                    <div class="chart-box"
+                        style="position: relative; padding-right: 20px; padding-bottom: 25px; flex: 1; min-height: 200px;">
+                        <div class="chart-title-row">
+                            <div class="chart-title" style="margin-bottom:6px; margin-top: 5px;">NON PRODUCTIVITY TIME
+                                BY
+                                MITRA KERJA
+                                (3 AGS - 2 SEP)</div>
+                            <div class="chart-controls-group" style="z-index: 50;">
+                                <div class="date-slicer-container">
+                                    <div class="date-slicer-header">
+                                        <span>Tanggal</span>
+                                        <button class="date-slicer-clear" data-target="chart1_main"
+                                            onclick="clearDateFilter(this)" title="Clear filter">
+                                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                                                <line x1="18" y1="9" x2="12" y2="15"></line>
+                                                <line x1="12" y1="9" x2="18" y2="15"></line>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="date-slicer-inputs">
+                                        <input type="date" class="date-slicer-input start-date"
+                                            data-target="chart1_main" onchange="applyDateFilter(this)">
+                                        <input type="date" class="date-slicer-input end-date" data-target="chart1_main"
+                                            onchange="applyDateFilter(this)">
+                                    </div>
+                                </div>
+                                <button class="chart-expand-btn" data-canvas="chart1_main"
+                                    data-title="TOTAL TRIP HAULING BY MITRA KERJA" title="Fokus Grafik">
+                                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M15 3h6v6M9 21H3v6M21 3l-7 7M3 21l-7-7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="canvas-wrapper">
+                            <canvas id="chart1_main"></canvas>
+                        </div>
+                        <div style="position: absolute; bottom: 2px; left: 16px; right: 28px;">
+                            <input type="range" class="powerbi-slider" min="5" max="19" value="19"
+                                data-target="chart1_main" oninput="slideChartWindowX(this)">
+                        </div>
+                        <div style="position: absolute; top: 40px; bottom: 20px; right: 8px;">
+                            <input type="range" class="powerbi-slider-v" min="50" max="100" value="100"
+                                orient="vertical" data-target="chart1_main" oninput="slideChartWindowY(this)">
+                        </div>
+                    </div>
+                    <div class="chart-box" style="flex: 1; min-height: 200px;">
+                        <div class="chart-title-row">
+                            <div class="chart-title" style="margin-bottom:6px; margin-top: 20px;">NON PRODUCTIVITY TIME
+                                BY
+                                MITRA KERJA
+                                (3 AGS - 2 SEP)</div>
+                            <button class="chart-expand-btn" data-canvas="chart2_main"
+                                data-title="NON PRODUCTIVITY TIME BY MITRA KERJA (3 AGS - 2 SEP)" title="Fokus Grafik">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M15 3h6v6M9 21H3v6M21 3l-7 7M3 21l-7-7" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="canvas-wrapper" id="npt-canvas-wrap">
+                            <canvas id="chart2_main"></canvas>
+                        </div>
+                        <div id="npt-no-data-msg"
+                            style="display:none; flex:1; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1"
+                                stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="8" y1="12" x2="16" y2="12" />
+                            </svg>
+                            <span style="font-size:12px; font-weight:700; color:#94a3b8;">Tidak ada data NPT untuk MK
+                                ini</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="right-sidebar">
+                    <div class="kpi-box">
+                        <div
+                            style="position: absolute; left: 0; top: 0; width: 6px; height: 100%; background: linear-gradient(180deg, var(--phr-red), var(--accent-2));">
+                        </div>
+                        <div id="trend-title"
+                            style="background: #eef6e8; color: var(--primary-dark); font-size: 9px; font-weight: 800; text-align: center; padding: 4px 8px; border-radius: 10px; margin-bottom: 3px; border: 1px dashed rgba(120, 190, 32, 0.3);">
+                            TOTAL PRODUKTIVITAS HAULING
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 3px;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: flex-end; padding: 0 8px 4px 8px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; width: 60px;">PERIODE
+                                </div>
+                                <div
+                                    style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: center; width: 75px; line-height: 1.2;">
+                                    TOTAL TRIP<br>HAULING</div>
+                                <div
+                                    style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: right; flex: 1;">
+                                    DEVIASI (%)</div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">3 - 8 AGS
+                                </div>
+                                <div id="trend-p1"
+                                    style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
+                                    4.796</div>
+                                <div
+                                    style="flex: 1; text-align: right; font-size: 12px; font-weight: 700; color: #cbd5e1;">
+                                    -</div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">10 - 15 AGS
+                                </div>
+                                <div id="trend-p2"
+                                    style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
+                                    4.698</div>
+                                <div id="trend-change-1" style="flex: 1; display: flex; justify-content: flex-end;">
+                                    <span
+                                        style="font-size: 10px; font-weight: 700; color: #ef3340; background: rgba(239, 51, 64, 0.1); padding: 3px 6px; border-radius: 6px;">
+                                        -98 (-2,0%)</span>
+                                </div>
+                            </div>
+                            <div
+                                style="display: flex; justifycontent: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">18 - 23 AGS
+                                </div>
+                                <div id="trend-p3"
+                                    style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
+                                    5.820</div>
+                                <div id="trend-change-2" style="flex: 1; display: flex; justify-content: flex-end;">
+                                    <span
+                                        style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">
+                                        +1.122 (+23,9%)</span>
+                                </div>
+                            </div>
+                            <div id="trend-p4-row"
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">24 AGS - 2
+                                    SEP
+                                </div>
+                                <div id="trend-p4"
+                                    style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
+                                    6.794</div>
+                                <div id="trend-change-3" style="flex: 1; display: flex; justify-content: flex-end;">
+                                    <span
+                                        style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">
+                                        +974 (+16,7%)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="key-message-box" style="flex-grow: 1; overflow: hidden; padding-bottom: 5px;">
+                        <div class="key-message-header" style="padding: 10px 16px 6px 20px;">
+                            <div class="icon-wrapper" style="width: 24px; height: 24px; border-radius: 6px;"><svg
+                                    width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z">
+                                    </path>
+                                    <path d="M12 8v4"></path>
+                                    <path d="M12 16h.01"></path>
+                                </svg></div>
+                            <h3 style="font-size: 14px;">Insight Kinerja </h3>
+                        </div>
+                        <div class="key-message-content" id="insight-container"
+                            style="padding: 0 16px 8px 20px; gap: 8px; display: flex; flex-direction: column; justify-content: flex-start; flex: 1; overflow: hidden;">
+                            <div class="message-item" style="padding: 8px 12px; gap: 10px;">
+                                <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg></div>
+                                <p style="font-size: 11px; line-height: 1.4; margin: 0;"> Produktivitas hauling
+                                    menunjukkan fluktuasi selama periode 3 Agustus hingga 2 September 2026, dari
+                                    4.796 trip pada 3-8 Agustus turun menjadi 4.698 trip pada 10-15 Agustus, atau
+                                    menurun sebesar 98 trip (-2,0%). Selanjutnya, produktivitas kembali meningkat
+                                    menjadi 5.820 trip pada 18-23 Agustus (naik sebesar 1.122 trip / +23,9%) dan
+                                    mencapai
+                                    puncaknya sebesar 6.794 trip pada 24 Agustus - 2 September (+974 trip / +16,7%).</p>
+                            </div>
+                            <div class="message-item" style="padding: 8px 12px; gap: 10px;">
+                                <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg></div>
+                                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>-5.222 Jam NPT Wait
+                                        for Instruction:</strong> dikarenakan dominasi Standby menunggu mobilisasi ke
+                                    lokasi baru dan Issue Internal Ramping Down team di sebagian besar Mitra Kerja.</p>
+                            </div>
+                            <div class="message-item" style="padding: 8px 12px; gap: 10px;">
+                                <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg></div>
+                                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>-1.972 Jam NPT Wait
+                                        for Others Work:</strong> dikarenakan tingginya angka DT standby menunggu
+                                    Clearing Area dan penutupan akses jalan akibat pekerjaan lain.</p>
+                            </div>
+                            <div class="message-item" style="padding: 8px 12px; gap: 10px;">
+                                <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg></div>
+                                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>-1.920 Jam NPT
+                                        SWA-Rain:</strong> terjadi lonjakan tinggi di akhir bulan (khususnya 26 Agustus)
+                                    akibat curah hujan yang memicu Stop Work Authority (SWA).</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="interactive-stats-box"
+                        style="display: none; flex-shrink: 0; flex-grow: 0; padding: 12px 16px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(25px); border-radius: 16px; box-shadow: 0 10px 25px rgba(0, 50, 100, 0.05); border: 1px solid rgba(255, 255, 255, 1); margin-top: 4px; margin-bottom: 12px;">
+                        <div id="stats-header-title"
+                            style="font-size: 11px; font-weight: 800; color: #00529b; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;">
+                            STATS TITLE
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                <div style="font-size: 9.5px; font-weight: 700; color: #64748b;">FIRST SWC</div>
+                                <div id="stat-swc" style="font-size: 11px; font-weight: 800; color: #0f172a;"></div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                <div style="font-size: 9.5px; font-weight: 700; color: #64748b;">AVG FIRST SWC</div>
+                                <div id="stat-avg-swc" style="font-size: 11px; font-weight: 800; color: #0f172a;"></div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                <div style="font-size: 9.5px; font-weight: 700; color: #64748b;">AVG FIRST TAG</div>
+                                <div id="stat-avg-tag" style="font-size: 11px; font-weight: 800; color: #0f172a;"></div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; padding: 6px 10px; border-radius: 8px; border: 1px solid #e2e8f0;">
+                                <div style="font-size: 9.5px; font-weight: 700; color: #64748b;">AVG BERANGKAT AA/SWV
+                                </div>
+                                <div id="stat-berangkat" style="font-size: 11px; font-weight: 800; color: #0f172a;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        Chart.register(ChartDataLabels);
+        Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
+        Chart.defaults.color = "#0c233d";
+        const commonOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'right',
+                    labels: { font: { size: 10, weight: '600' }, boxWidth: 10, usePointStyle: true, pointStyle: 'rectRounded' }
+                },
+                datalabels: {
+                    color: '#0c233d', anchor: 'end', align: 'top', font: { size: 10, weight: 'bold' },
+                    rotation: 90, offset: 4, formatter: Math.round, padding: 0,
+                    display: function (context) {
+                        const val = context.dataset.data[context.dataIndex];
+                        return (!val || val === 0) ? false : 'auto';
+                    }
+                }
+            },
+            scales: {
+                x: { grid: { display: false, drawBorder: false }, border: { display: false }, ticks: { font: { size: 7.5, weight: '600' }, maxRotation: 45, minRotation: 0, color: function (ctx) { const label = ctx.tick && ctx.tick.label ? ctx.tick.label : ''; return ['09Aug', '16Aug', '17Aug', '23Aug', '30Aug'].includes(label) ? '#ef3340' : '#0c233d'; } } },
+                y: { grid: { color: 'rgba(0, 82, 155, 0.1)', drawBorder: false }, ticks: { font: { size: 10 } }, beginAtZero: true, min: 0 },
+                y1: { display: false, beginAtZero: true, min: 0 }
+            },
+            layout: { padding: { top: 45, bottom: 0, right: 20 } }, elements: { bar: { borderRadius: 3 } },
+            datasets: { bar: { categoryPercentage: 0.9, barPercentage: 1.0 } }
+        };
+        const verticalLinePlugin = {
+            id: 'verticalLine',
+            afterDraw: (chart) => {
+                const xAxis = chart.scales.x;
+                const yAxis = chart.scales.y;
+                const gaps = [[5, 6], [11, 12]];
+                const ctx = chart.ctx;
+                ctx.save();
+                gaps.forEach(gap => {
+                    const leftX = xAxis.getPixelForValue(gap[0]);
+                    const rightX = xAxis.getPixelForValue(gap[1]);
+                    if (leftX === undefined || rightX === undefined) return;
+                    const x = (leftX + rightX) / 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x, yAxis.top - 10);
+                    ctx.lineTo(x, yAxis.bottom);
+                    ctx.lineWidth = 2;
+                    ctx.strokeStyle = '#ef3340';
+                    ctx.setLineDash([5, 5]);
+                    ctx.stroke();
+                    ctx.fillStyle = '#ef3340';
+                    ctx.textAlign = 'center';
+                    ctx.font = 'bold 11px "Plus Jakarta Sans"';
+                    ctx.fillText('VS', x, yAxis.top - 15);
+                });
+                ctx.restore();
+            }
+        };
+        const verticalLinePluginChart2 = {
+            id: 'verticalLineChart2',
+            afterDraw: (chart) => {
+                const xAxis = chart.scales.x;
+                const yAxis = chart.scales.y;
+                const ctx = chart.ctx;
+                const labels = chart.data.labels;
+                if (!labels || labels.length === 0) return;
+
+                ctx.save();
+
+                // Calculate groups dynamically based on the current labels
+                const groups = [];
+                let currentMK = Array.isArray(labels[0]) ? labels[0][1] : '';
+                let startIdx = 0;
+
+                for (let i = 1; i <= labels.length; i++) {
+                    const mk = (i < labels.length && Array.isArray(labels[i])) ? labels[i][1] : '';
+                    if (i === labels.length || mk !== currentMK) {
+                        groups.push({ start: startIdx, end: i - 1, label: currentMK });
+                        if (i < labels.length) {
+                            currentMK = mk;
+                            startIdx = i;
+                        }
+                    }
+                }
+
+                // 1. Vertical dashed separators between groups
+                const indicesToDraw = groups.slice(0, -1).map(g => g.end);
+                indicesToDraw.forEach(idx => {
+                    const leftX = xAxis.getPixelForTick(idx);
+                    const rightX = xAxis.getPixelForTick(idx + 1);
+                    if (leftX === undefined || rightX === undefined) return;
+                    const x = (leftX + rightX) / 2;
+                    ctx.beginPath();
+                    ctx.moveTo(x, yAxis.top - 10);
+                    ctx.lineTo(x, yAxis.bottom); // Stop at the x-axis, do not extend past labels
+                    ctx.lineWidth = 1.5;
+                    ctx.strokeStyle = 'rgba(0, 82, 155, 0.4)';
+                    ctx.setLineDash([5, 5]);
+                    ctx.stroke();
+                });
+
+                // 2. Horizontal grouping lines and MK text
+                ctx.strokeStyle = '#cccccc';
+                ctx.lineWidth = 1.5;
+                ctx.setLineDash([]); // Reset to solid line
+
+                let halfTick = 20;
+                if (xAxis.ticks.length > 1) {
+                    halfTick = (xAxis.getPixelForTick(1) - xAxis.getPixelForTick(0)) / 2;
+                }
+
+                groups.forEach(g => {
+                    if (g.end >= xAxis.ticks.length) return;
+                    if (!g.label) return; // Don't draw grouping lines if there is no MK label (fixes grey line in NPT chart)
+
+                    const startX = xAxis.getPixelForTick(g.start);
+                    const endX = xAxis.getPixelForTick(g.end);
+                    const left = startX - halfTick + 12;
+                    const right = endX + halfTick - 12;
+
+                    // Place the line below the dates to avoid overlap
+                    const y = yAxis.bottom + 21;
+
+                    // Horizontal line
+                    ctx.beginPath();
+                    ctx.moveTo(left, y);
+                    ctx.lineTo(right, y);
+                    ctx.stroke();
+
+                    // Group MK text centered below the line
+                    if (g.label) {
+                        ctx.font = 'bold 10px "Plus Jakarta Sans"';
+                        ctx.fillStyle = '#0c233d';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(g.label, (left + right) / 2, y + 12);
+                    }
+                });
+
+                ctx.restore();
+            }
+        };
+        // --- Lazy chart system --- 
+        // Charts are created only when their slide first becomes active.
+        const slideChartCreators = {}; // slideIndex -> array of () => Chart
+        const slideChartInstances = {}; // slideIndex -> array of Chart (created lazily)
+        const _chartModalConfigs = {};  // canvasId -> { title, type, data, options, plugins }
+
+        function registerChart(slideIndex, canvasId, title, type, data, options, plugins) {
+            _chartModalConfigs[canvasId] = { title, type, data, options: options || {}, plugins: plugins || [] };
+            slideChartCreators[slideIndex] = slideChartCreators[slideIndex] || [];
+            slideChartCreators[slideIndex].push(() =>
+                new Chart(document.getElementById(canvasId).getContext('2d'), { type, data, options, plugins })
+            );
+        }
+
+        function createChartsForSlide(slideIndex) {
+            if (slideChartInstances[slideIndex]) return; // already created
+            slideChartInstances[slideIndex] = [];
+            (slideChartCreators[slideIndex] || []).forEach(fn => {
+                slideChartInstances[slideIndex].push(fn());
+            });
+        }
+
+        // NPT source data (for cross-chart filtering)
+        const nptCauses = [
+            { mk: 'AKM', date: '01Aug', cat: '52', cause: 'DT standby driver Proses KP & Badge' },
+            { mk: 'NKHO', date: '01Aug', cat: '44', cause: 'Issue Internal team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '01Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '01Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '01Aug', cat: '49', cause: 'Excavator Rusak sehingga DT standby' },
+            { mk: 'NKHO', date: '03Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource - team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '03Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '03Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '03Aug', cat: '41', cause: 'Terhambatnya Fuel Truck mensupply Solar ke Lokasi, mengakibatkan beberapa unit DT tidak dapat beroperasi optimal.' },
+            { mk: 'BKA', date: '03Aug', cat: '43', cause: 'Beberapa unit Dt sedang dalam perbaikan, dan menunggu spare part tersedia.' },
+            { mk: 'AKM', date: '03Aug', cat: '52', cause: 'DT standby driver Proses KP & Badge' },
+            { mk: 'AKM', date: '04Aug', cat: '52', cause: 'DT standby driver Proses KP, Badge & Green pass' },
+            { mk: 'NKHO', date: '04Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource - team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '04Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '04Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '04Aug', cat: '43', cause: 'Beberapa unit Dt sedang dalam perbaikan, dan menunggu spare part tersedia.' },
+            { mk: 'SGJR', date: '04Aug', cat: '23', cause: 'DT SSWA terpal DT tidak tersedia' },
+            { mk: 'NKHO', date: '05Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource - team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '05Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '05Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '05Aug', cat: '41', cause: 'TerLambatnya Fuel Truck mensupply Solar ke Lokasi, mengakibatkan Progres Hauling tidak maksimal' },
+            { mk: 'AKM', date: '05Aug', cat: '52', cause: 'DT standby driver Proses KP, Badge dan greenpass' },
+            { mk: 'SGJR', date: '05Aug', cat: '23', cause: 'DT SSWA terpal DT tidak tersedia' },
+            { mk: 'NKHO', date: '06Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource - team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '06Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '06Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '06Aug', cat: '41', cause: 'TerLambatnya Fuel Truck mensupply Solar ke Lokasi, mengakibatkan Progres Hauling tidak maksimal' },
+            { mk: 'AKM', date: '06Aug', cat: '52', cause: 'DT standby driver Proses KP, Badge' },
+            { mk: 'AKM', date: '06Aug', cat: '44', cause: 'DT Standby menunggu mobilisasi ke lokasi yang baru' },
+            { mk: 'AKM', date: '07Aug', cat: '52', cause: 'DT standby driver Proses KP, Badge' },
+            { mk: 'NKHO', date: '07Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource - team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '07Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '07Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'NKHO', date: '08Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource - team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '08Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '08Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '08Aug', cat: '48', cause: 'DT standby PMCoW tarining PACE' },
+            { mk: 'AKM', date: '07Aug', cat: '41', cause: 'DT standby BBM telat sampai Balam jam 15.30' },
+            { mk: 'AKM', date: '10Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP serta permit untuk CMP Candi Kwartet' },
+            { mk: 'NKHO', date: '10Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '10Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '10Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '10Aug', cat: '48', cause: 'Driver izin sakit' },
+            { mk: 'BKA', date: '10Aug', cat: '43', cause: 'Valve Bocor Butuh Perbaikan' },
+            { mk: 'SGJR', date: '10Aug', cat: '44', cause: 'DT SGJ menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'AKM', date: '11Aug', cat: '44', cause: 'DT standby menunggu kesiapan lokasi pekerjaan berikutnya (P_CAND25_0002, 0003, 0004, 0005)' },
+            { mk: 'AKM', date: '11Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP' },
+            { mk: 'NKHO', date: '11Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '11Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '11Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '11Aug', cat: '47', cause: 'DT standby Menunggu Install Geotex ' },
+            { mk: 'SGJR', date: '11Aug', cat: '44', cause: 'DT standby menunggu kesiapan borrow pit' },
+            { mk: 'AKM', date: '11Aug', cat: '52', cause: 'DT standby proses KP' },
+            { mk: 'AKM', date: '11Aug', cat: '44', cause: 'DT standby menunggu menunggu instal geotext' },
+            { mk: 'AKM', date: '12Aug', cat: '44', cause: 'DT standby menunggu kesiapan lokasi pekerjaan berikutnya (P_CAND25_0002, 0003, 0004, 0005)' },
+            { mk: 'NKHO', date: '12Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '12Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '12Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '12Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP' },
+            { mk: 'SGJR', date: '12Aug', cat: '49', cause: 'DT standby Dampak dari Mini Bus tidak ada' },
+            { mk: 'AKM', date: '12Aug', cat: '47', cause: 'DT standby Menunggu Install Geotex ' },
+            { mk: 'NKHO', date: '13Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '13Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '13Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '13Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP' },
+            { mk: 'SGJR', date: '13Aug', cat: '49', cause: 'DT standby Dampak dari Mini Bus tidak ada' },
+            { mk: 'NKHO', date: '14Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '14Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '14Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'NKHO', date: '15Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '15Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '15Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '15Aug', cat: '25', cause: 'DT standby karena akses unsafe condition pasca hujan malam hari.' },
+            { mk: 'AKM', date: '15Aug', cat: '44', cause: 'DT Standby menunggu mobilisasi ke lokasi yang baru' },
+            { mk: 'AKM', date: '14Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP' },
+            { mk: 'SGJR', date: '14Aug', cat: '44', cause: 'DT SGJ menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'AKM', date: '18Aug', cat: '44', cause: 'DT Standby menunggu mobilisasi ke lokasi yang baru' },
+            { mk: 'NKHO', date: '18Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '18Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '18Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '18Aug', cat: '48', cause: 'Driver izin sakit ' },
+            { mk: 'AKM', date: '18Aug', cat: '52', cause: 'DT Standby menunggu proses KP dan CCPM' },
+            { mk: 'BKA', date: '19Aug', cat: '48', cause: 'Driver izin sakit ' },
+            { mk: 'BKA', date: '19Aug', cat: '43', cause: '1 Unit FT mengalami kerusakan, untuk itu terkendala untuk pengisian solar ke unit' },
+            { mk: 'AKM', date: '19Aug', cat: '52', cause: 'DT Standby menunggu proses KP dan CCPM' },
+            { mk: 'AKM', date: '20Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'NKHO', date: '20Aug', cat: '47', cause: 'DT Standby karena penutupan akses jalan akibat pekerjaan lain' },
+            { mk: 'AKM', date: '20Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'NKHO', date: '20Aug', cat: '52', cause: 'Proses KP' },
+            { mk: 'BKA', date: '21Aug', cat: '48', cause: '28 DT standby karena kurangnya personel Spotter dan Flagman yang hadir.' },
+            { mk: 'BKA', date: '23Aug', cat: '48', cause: '28 DT standby karena kurangnya personel Spotter dan Flagman yang hadir.' },
+            { mk: 'BKA', date: '21Aug', cat: '52', cause: 'Greenpass Expired' },
+            { mk: 'BKA', date: '24Aug', cat: '48', cause: '4 DT StandBy Driver Izin' },
+            { mk: 'BKA', date: '24Aug', cat: '43', cause: '4 DT Rusak' },
+            { mk: 'AKM', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'SGJR', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'AKM', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'KPRE01', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'RDPE', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'SGJR', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'AKM', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'NKHO', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'SGJR', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'BKA', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'SGJR', date: '27Aug', cat: '44', cause: 'DT Standby menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'BKA', date: '27Aug', cat: '47', cause: 'Start Hauling siang, setelah lokasi pekerjaan safe' },
+            { mk: 'AKM', date: '27Aug', cat: '47', cause: 'Start Hauling menunggu Lokasi dan BP di dress up terlebih dahulu' },
+            { mk: 'BKA', date: '27Aug', cat: '47', cause: 'Start Hauling siang, setelah lokasi pekerjaan safe' },
+            { mk: 'SGJR', date: '28Aug', cat: '44', cause: 'DT Standby menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'AKM', date: '28Aug', cat: '44', cause: 'DT mobilisasi ke lokasi yang baru' },
+            { mk: 'AKM', date: '30Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'AKM', date: '28Aug', cat: '47', cause: 'DT standby Menunggu Clearing Area' },
+            { mk: 'AKM', date: '29Aug', cat: '47', cause: 'DT standby Menunggu Clearing Area' },
+            { mk: 'BKA', date: '28Aug', cat: '44', cause: 'DT standby Menunggu lokasi close mudpit' },
+            { mk: 'BKA', date: '29Aug', cat: '44', cause: 'DT standby Menunggu lokasi close mudpit' },
+            { mk: 'AKM', date: '31Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'SGJR', date: '31Aug', cat: '44', cause: 'DT standby menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'BKA', date: '31Aug', cat: '52', cause: 'DT standby Proses Administrasi dokumen equipment' },
+            { mk: 'NKHO', date: '31Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'AKM', date: '31Aug', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'NKHO', date: '31Aug', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'SGJR', date: '31Aug', cat: '47', cause: 'DT standby menunggu compaction di lokasi' },
+            { mk: 'AKM', date: '31Aug', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'AKM', date: '31Aug', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'SGJR', date: '01Sep', cat: '47', cause: 'DT standby menunggu kesiapan Borrow pit' },
+            { mk: 'AKM', date: '01Sep', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'NKHO', date: '01Sep', cat: '47', cause: 'DT standby menunggu pemasangan geotext' },
+            { mk: 'AKM', date: '01Sep', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'AKM', date: '01Sep', cat: '44', cause: 'DT standby Sosialisasi Jmp Tour & Menunggu Info Lokasi Ready' },
+            { mk: 'SGJR', date: '02Sep', cat: '44', cause: 'DT standby menunggu lokasi pekerjaan berikutnya' }
+        ];
+
+        const rawNptData = [
+            { mk: 'AKM', date: '03Aug', cat: '41', val: 90 },
+            { mk: 'AKM', date: '03Aug', cat: '43', val: 41 },
+            { mk: 'NKHO', date: '03Aug', cat: '43', val: 8 },
+            { mk: 'AKM', date: '03Aug', cat: '44', val: 94 },
+            { mk: 'NKHO', date: '03Aug', cat: '44', val: 95 },
+            { mk: 'AKM', date: '03Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '03Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '03Aug', cat: '52', val: 8 },
+            { mk: 'BKA', date: '03Aug', cat: '52', val: 8 },
+            { mk: 'AKM', date: '04Aug', cat: '23', val: 4 },
+            { mk: 'SGJR', date: '04Aug', cat: '23', val: 4 },
+            { mk: 'AKM', date: '04Aug', cat: '43', val: 97 },
+            { mk: 'NKHO', date: '04Aug', cat: '43', val: 8 },
+            { mk: 'AKM', date: '04Aug', cat: '44', val: 94 },
+            { mk: 'NKHO', date: '04Aug', cat: '44', val: 95 },
+            { mk: 'AKM', date: '04Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '04Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '04Aug', cat: '52', val: 16 },
+            { mk: 'BKA', date: '04Aug', cat: '52', val: 16 },
+            { mk: 'AKM', date: '05Aug', cat: '23', val: 4 },
+            { mk: 'SGJR', date: '05Aug', cat: '23', val: 4 },
+            { mk: 'AKM', date: '05Aug', cat: '41', val: 108 },
+            { mk: 'AKM', date: '05Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '05Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '05Aug', cat: '44', val: 94 },
+            { mk: 'NKHO', date: '05Aug', cat: '44', val: 95 },
+            { mk: 'AKM', date: '05Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '05Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '05Aug', cat: '52', val: 36 },
+            { mk: 'BKA', date: '05Aug', cat: '52', val: 36 },
+            { mk: 'AKM', date: '06Aug', cat: '41', val: 100 },
+            { mk: 'AKM', date: '06Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '06Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '06Aug', cat: '44', val: 182 },
+            { mk: 'NKHO', date: '06Aug', cat: '44', val: 94 },
+            { mk: 'BKA', date: '06Aug', cat: '44', val: 89 },
+            { mk: 'AKM', date: '06Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '06Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '06Aug', cat: '52', val: 12 },
+            { mk: 'BKA', date: '06Aug', cat: '52', val: 12 },
+            { mk: 'AKM', date: '07Aug', cat: '41', val: 8 },
+            { mk: 'BKA', date: '07Aug', cat: '41', val: 8 },
+            { mk: 'AKM', date: '07Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '07Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '07Aug', cat: '44', val: 94 },
+            { mk: 'NKHO', date: '07Aug', cat: '44', val: 95 },
+            { mk: 'AKM', date: '07Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '07Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '07Aug', cat: '52', val: 24 },
+            { mk: 'BKA', date: '07Aug', cat: '52', val: 24 },
+            { mk: 'AKM', date: '08Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '08Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '08Aug', cat: '44', val: 94 },
+            { mk: 'NKHO', date: '08Aug', cat: '44', val: 95 },
+            { mk: 'AKM', date: '08Aug', cat: '48', val: 36 },
+            { mk: 'BKA', date: '08Aug', cat: '48', val: 23 },
+            { mk: 'NKHO', date: '08Aug', cat: '48', val: 14 },
+            { mk: 'AKM', date: '10Aug', cat: '43', val: 11 },
+            { mk: 'NKHO', date: '10Aug', cat: '43', val: 6 },
+            { mk: 'AKM', date: '10Aug', cat: '44', val: 126 },
+            { mk: 'NKHO', date: '10Aug', cat: '44', val: 94 },
+            { mk: 'SGJR', date: '10Aug', cat: '44', val: 33 },
+            { mk: 'AKM', date: '10Aug', cat: '48', val: 26 },
+            { mk: 'NKHO', date: '10Aug', cat: '48', val: 17 },
+            { mk: 'AKM', date: '10Aug', cat: '52', val: 72 },
+            { mk: 'BKA', date: '10Aug', cat: '52', val: 72 },
+            { mk: 'AKM', date: '11Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '11Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '11Aug', cat: '44', val: 478 },
+            { mk: 'BKA', date: '11Aug', cat: '44', val: 344 },
+            { mk: 'NKHO', date: '11Aug', cat: '44', val: 94 },
+            { mk: 'SGJR', date: '11Aug', cat: '44', val: 41 },
+            { mk: 'AKM', date: '11Aug', cat: '47', val: 44 },
+            { mk: 'BKA', date: '11Aug', cat: '47', val: 44 },
+            { mk: 'AKM', date: '11Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '11Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '11Aug', cat: '52', val: 48 },
+            { mk: 'BKA', date: '11Aug', cat: '52', val: 48 },
+            { mk: 'AKM', date: '12Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '12Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '12Aug', cat: '44', val: 282 },
+            { mk: 'BKA', date: '12Aug', cat: '44', val: 188 },
+            { mk: 'NKHO', date: '12Aug', cat: '44', val: 95 },
+            { mk: 'AKM', date: '12Aug', cat: '47', val: 172 },
+            { mk: 'BKA', date: '12Aug', cat: '47', val: 172 },
+            { mk: 'AKM', date: '12Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '12Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '12Aug', cat: '49', val: 48 },
+            { mk: 'SGJR', date: '12Aug', cat: '49', val: 48 },
+            { mk: 'AKM', date: '12Aug', cat: '52', val: 12 },
+            { mk: 'BKA', date: '12Aug', cat: '52', val: 12 },
+            { mk: 'AKM', date: '13Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '13Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '13Aug', cat: '44', val: 94 },
+            { mk: 'NKHO', date: '13Aug', cat: '44', val: 95 },
+            { mk: 'AKM', date: '13Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '13Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '13Aug', cat: '49', val: 48 },
+            { mk: 'SGJR', date: '13Aug', cat: '49', val: 48 },
+            { mk: 'AKM', date: '13Aug', cat: '52', val: 12 },
+            { mk: 'BKA', date: '13Aug', cat: '52', val: 12 },
+            { mk: 'AKM', date: '14Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '14Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '14Aug', cat: '44', val: 110 },
+            { mk: 'NKHO', date: '14Aug', cat: '44', val: 94 },
+            { mk: 'SGJR', date: '14Aug', cat: '44', val: 17 },
+            { mk: 'AKM', date: '14Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '14Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '14Aug', cat: '52', val: 8 },
+            { mk: 'BKA', date: '14Aug', cat: '52', val: 8 },
+            { mk: 'AKM', date: '15Aug', cat: '25', val: 96 },
+            { mk: 'AKM', date: '15Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '15Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '15Aug', cat: '44', val: 118 },
+            { mk: 'NKHO', date: '15Aug', cat: '44', val: 94 },
+            { mk: 'BKA', date: '15Aug', cat: '44', val: 25 },
+            { mk: 'AKM', date: '15Aug', cat: '48', val: 14 },
+            { mk: 'NKHO', date: '15Aug', cat: '48', val: 13 },
+            { mk: 'AKM', date: '18Aug', cat: '43', val: 4 },
+            { mk: 'NKHO', date: '18Aug', cat: '43', val: 5 },
+            { mk: 'AKM', date: '18Aug', cat: '44', val: 146 },
+            { mk: 'NKHO', date: '18Aug', cat: '44', val: 94 },
+            { mk: 'BKA', date: '18Aug', cat: '44', val: 53 },
+            { mk: 'AKM', date: '18Aug', cat: '48', val: 63 },
+            { mk: 'NKHO', date: '18Aug', cat: '48', val: 20 },
+            { mk: 'AKM', date: '18Aug', cat: '52', val: 12 },
+            { mk: 'BKA', date: '18Aug', cat: '52', val: 12 },
+            { mk: 'AKM', date: '19Aug', cat: '43', val: 40 },
+            { mk: 'AKM', date: '19Aug', cat: '48', val: 32 },
+            { mk: 'AKM', date: '19Aug', cat: '52', val: 8 },
+            { mk: 'BKA', date: '19Aug', cat: '52', val: 8 },
+            { mk: 'AKM', date: '20Aug', cat: '47', val: 176 },
+            { mk: 'BKA', date: '20Aug', cat: '47', val: 112 },
+            { mk: 'NKHO', date: '20Aug', cat: '47', val: 64 },
+            { mk: 'AKM', date: '20Aug', cat: '52', val: 8 },
+            { mk: 'NKHO', date: '20Aug', cat: '52', val: 8 },
+            { mk: 'AKM', date: '21Aug', cat: '48', val: 168 },
+            { mk: 'AKM', date: '21Aug', cat: '52', val: 24 },
+            { mk: 'AKM', date: '23Aug', cat: '48', val: 168 },
+            { mk: 'AKM', date: '24Aug', cat: '43', val: 32 },
+            { mk: 'AKM', date: '24Aug', cat: '48', val: 32 },
+            { mk: 'AKM', date: '26Aug', cat: '26', val: 1514 },
+            { mk: 'BKA', date: '26Aug', cat: '26', val: 631 },
+            { mk: 'NKHO', date: '26Aug', cat: '26', val: 23 },
+            { mk: 'AKM', date: '27Aug', cat: '44', val: 20 },
+            { mk: 'SGJR', date: '27Aug', cat: '44', val: 40 },
+            { mk: 'AKM', date: '27Aug', cat: '47', val: 190 },
+            { mk: 'BKA', date: '27Aug', cat: '47', val: 30 },
+            { mk: 'AKM', date: '28Aug', cat: '44', val: 147 },
+            { mk: 'BKA', date: '28Aug', cat: '44', val: 99 },
+            { mk: 'SGJR', date: '28Aug', cat: '44', val: 48 },
+            { mk: 'AKM', date: '28Aug', cat: '47', val: 164 },
+            { mk: 'BKA', date: '28Aug', cat: '47', val: 164 },
+            { mk: 'AKM', date: '29Aug', cat: '44', val: 40 },
+            { mk: 'AKM', date: '29Aug', cat: '47', val: 164 },
+            { mk: 'BKA', date: '29Aug', cat: '47', val: 164 },
+            { mk: 'AKM', date: '30Aug', cat: '47', val: 40 },
+            { mk: 'BKA', date: '30Aug', cat: '47', val: 40 },
+            { mk: 'AKM', date: '31Aug', cat: '25', val: 240 },
+            { mk: 'BKA', date: '31Aug', cat: '25', val: 215 },
+            { mk: 'NKHO', date: '31Aug', cat: '25', val: 25 },
+            { mk: 'AKM', date: '31Aug', cat: '44', val: 64 },
+            { mk: 'AKM', date: '31Aug', cat: '47', val: 101 },
+            { mk: 'NKHO', date: '31Aug', cat: '47', val: 74 },
+            { mk: 'BKA', date: '31Aug', cat: '47', val: 21 },
+            { mk: 'AKM', date: '31Aug', cat: '52', val: 40 },
+            { mk: 'AKM', date: '01Sep', cat: '25', val: 156 },
+            { mk: 'BKA', date: '01Sep', cat: '25', val: 157 },
+            { mk: 'AKM', date: '01Sep', cat: '44', val: 50 },
+            { mk: 'BKA', date: '01Sep', cat: '44', val: 50 },
+            { mk: 'AKM', date: '01Sep', cat: '47', val: 133 },
+            { mk: 'NKHO', date: '01Sep', cat: '47', val: 83 },
+            { mk: 'RDPE', date: '26Aug', cat: '44', val: 360 },
+            { mk: 'KPRE01', date: '26Aug', cat: '44', val: 264 }
+        ];
+        const _nptUniqueDates = ['03Aug', '04Aug', '05Aug', '06Aug', '07Aug', '08Aug', '09Aug', '10Aug', '11Aug', '12Aug', '13Aug', '14Aug', '15Aug', '16Aug', '17Aug', '18Aug', '19Aug', '20Aug', '21Aug', '22Aug', '23Aug', '24Aug', '25Aug', '26Aug', '27Aug', '28Aug', '29Aug', '30Aug', '31Aug', '01Sep'];
+        const _nptCategoryKeys = ['25', '26', '41', '43', '44', '47', '48', '52', '23', '49'];
+        // Keep track of the dataset indices
+        const _nptCategoryMap = {
+            '25': 0, // Access road blockage
+            '26': 1, // SWARain
+            '41': 2, // Wait for Supplies/Tools
+            '43': 3, // Equipment Under Repair
+            '44': 4, // Wait for Instruction
+            '47': 5, // Wait for others work
+            '48': 6, // Wait for Manpower
+            '52': 7, // Permitting/Licence
+            '23': 8, // SWA/SSWA
+            '49': 9  // Wait For Equipment
+        };
+
+        const _mksWithNPT = ["AKM", "BKA", "KPRE01", "NKHO", "RDPE", "SGJR"];
+
+        function updateNPTFilter(visibleMks) {
+            const slideCharts = slideChartInstances[0];
+            if (!slideCharts || slideCharts.length < 2) return;
+            const chart2 = slideCharts[1];
+            const canvasWrap = document.getElementById('npt-canvas-wrap');
+            const noDataEl = document.getElementById('npt-no-data-msg');
+
+            const active = visibleMks.filter(mk => _mksWithNPT.includes(mk));
+            window._currentActiveNPTMks = active;
+            if (active.length === 0) {
+                canvasWrap.style.display = 'none';
+                noDataEl.style.display = 'flex';
+                return;
+            }
+            canvasWrap.style.display = '';
+            noDataEl.style.display = 'none';
+
+            // Filter raw data for active MKs
+            const filteredData = rawNptData.filter(d => active.includes(d.mk));
+
+            // Sum values per date and category
+            // result[date][category_idx] = sum
+            const dateSums = {};
+            _nptUniqueDates.forEach(d => {
+                dateSums[d] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+            });
+
+            filteredData.forEach(d => {
+                const catIdx = _nptCategoryMap[d.cat];
+                if (catIdx !== undefined && dateSums[d.date]) {
+                    dateSums[d.date][catIdx] += d.val;
+                }
+            });
+
+            // Reconstruct datasets
+            chart2.data.labels = _nptUniqueDates;
+            chart2.data.datasets.forEach((ds, di) => {
+                ds.data = _nptUniqueDates.map(d => dateSums[d][di] === 0 ? null : dateSums[d][di]);
+            });
+
+            chart2.update('none');
+
+            if (typeof updateRightSidebar === 'function') {
+                updateRightSidebar(visibleMks);
+            }
+        }
+
+
+        registerChart(0, 'chart1_main', 'TOTAL TRIP HAULING BY MITRA KERJA', 'bar', {
+            labels: ['3Aug', '4Aug', '5Aug', '6Aug', '7Aug', '8Aug', '', '10Aug', '11Aug', '12Aug', '13Aug', '14Aug', '15Aug', '', '18Aug', '19Aug', '20Aug', '21Aug', '22Aug', '23Aug', '', '24Aug', '26Aug', '27Aug', '28Aug', '29Aug', '30Aug', '31Aug', '01Sep', '02Sep'],
+            datasets: [
+                { label: 'AKM', backgroundColor: '#00529b', data: [241, 455, 322, 362, 404, 226, null, 204, 103, 184, 327, 313, 213, null, 219, 303, 265, 288, 378, 471, null, 403, 0, 323, 394, 453, 449, 383, 314, 183] },
+                { label: 'BKA', backgroundColor: '#f37021', data: [89, 89, 101, 119, 128, 115, null, 121, 146, 188, 136, 144, 24, null, 161, 138, 132, 61, 144, 78, null, 118, 0, 74, 153, 127, 119, 122, 229, 0] },
+                { label: 'NKHO', backgroundColor: '#a3a3a3', data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 132, 59, 151, 186, 259, 223, 41, 100, 169] },
+                { label: 'RDPE', backgroundColor: '#ffc000', data: [115, 132, 129, 164, 158, 160, null, 158, 114, 165, 154, 169, 135, null, 143, 121, 153, 174, 205, 197, null, 47, 0, 96, 158, 158, 0, 139, 172, 0] },
+                { label: 'SGJR', backgroundColor: '#5b9bd5', data: [24, 26, 44, 54, 50, 77, null, 32, 35, 45, 58, 44, 82, null, 79, 73, 117, 51, 95, 0, null, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21] },
+                { label: 'KPRE01', backgroundColor: '#8e44ad', data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 109, 0, 0, 74, 90, 147, null, null, null, null] }
+            ]
+        }, {
+            ...commonOptions,
+            plugins: {
+                ...commonOptions.plugins,
+                legend: {
+                    ...commonOptions.plugins.legend,
+                    labels: {
+                        ...commonOptions.plugins.legend.labels,
+                        generateLabels: function (chart) {
+                            const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
+                            let allVisible = true;
+                            for (let i = 0; i < chart.data.datasets.length; i++) {
+                                if (chart.data.datasets[i].label !== 'Trendline' && !chart.isDatasetVisible(i)) {
+                                    allVisible = false;
+                                    break;
+                                }
+                            }
+                            original.unshift({
+                                text: allVisible ? 'Deselect All MK' : 'Select All MK',
+                                fillStyle: allVisible ? '#ffffff' : '#0078d4',
+                                strokeStyle: '#0078d4',
+                                lineWidth: 2,
+                                hidden: false,
+                                datasetIndex: -1 // special index
+                            });
+                            return original;
+                        }
+                    },
+                    onClick: function (e, legendItem, legend) {
+                        const chart = legend.chart;
+                        if (legendItem.datasetIndex === -1) {
+                            let allVisible = true;
+                            for (let i = 0; i < chart.data.datasets.length; i++) {
+                                if (chart.data.datasets[i].label !== 'Trendline' && !chart.isDatasetVisible(i)) {
+                                    allVisible = false;
+                                    break;
+                                }
+                            }
+                            chart.data.datasets.forEach((ds, i) => {
+                                if (ds.label !== 'Trendline') {
+                                    chart.setDatasetVisibility(i, !allVisible);
+                                }
+                            });
+                        } else if (chart.data.datasets[legendItem.datasetIndex].label === 'Trendline') {
+                            // Klik legend Trendline hanya toggle trendline itu sendiri
+                            const idx = legendItem.datasetIndex;
+                            const isVisible = chart.isDatasetVisible(idx);
+                            chart.setDatasetVisibility(idx, !isVisible);
+                        } else {
+                            const idx = legendItem.datasetIndex;
+                            const totalDatasets = chart.data.datasets.length;
+                            let visibleCount = 0;
+                            let onlyVisibleIdx = -1;
+                            for (let i = 0; i < totalDatasets; i++) {
+                                if (chart.data.datasets[i].label !== 'Trendline' && chart.isDatasetVisible(i)) {
+                                    visibleCount++;
+                                    onlyVisibleIdx = i;
+                                }
+                            }
+                            if (visibleCount === 1 && onlyVisibleIdx === idx) {
+                                // Already isolated to this MK -> clicking again shows all MK
+                                chart.data.datasets.forEach((ds, i) => {
+                                    if (ds.label !== 'Trendline') chart.setDatasetVisibility(i, true);
+                                });
+                            } else {
+                                // Isolate: show only the clicked MK
+                                chart.data.datasets.forEach((ds, i) => {
+                                    if (ds.label !== 'Trendline') chart.setDatasetVisibility(i, i === idx);
+                                });
+                            }
+                        }
+                        if (typeof updateTrendline === 'function') updateTrendline(chart);
+                        chart.update();
+
+                        const visibleMks = chart.data.datasets
+                            .filter((ds, i) => ds.label !== 'Trendline' && chart.isDatasetVisible(i))
+                            .map(ds => ds.label);
+                        if (typeof updateNPTFilter === 'function') updateNPTFilter(visibleMks);
+                    }
+                }
+            },
+            onClick: function (e, elements, chart) {
+                if (elements.length > 0) {
+                    const datasetIndex = elements[0].datasetIndex;
+                    const totalDatasets = chart.data.datasets.length;
+                    let visibleCount = 0;
+                    let onlyVisibleIdx = -1;
+                    for (let i = 0; i < totalDatasets; i++) {
+                        if (chart.isDatasetVisible(i)) {
+                            visibleCount++;
+                            onlyVisibleIdx = i;
+                        }
+                    }
+                    if (visibleCount === 1 && onlyVisibleIdx === datasetIndex) {
+                        for (let i = 0; i < totalDatasets; i++) {
+                            chart.setDatasetVisibility(i, true);
+                        }
+                    } else {
+                        for (let i = 0; i < totalDatasets; i++) {
+                            chart.setDatasetVisibility(i, i === datasetIndex);
+                        }
+                    }
+                    chart.update();
+                    const visibleMks = chart.data.datasets
+                        .filter((_, i) => chart.isDatasetVisible(i))
+                        .map(ds => ds.label);
+                    if (typeof updateNPTFilter === 'function') updateNPTFilter(visibleMks);
+                }
+            }
+        });
+        registerChart(0, 'chart2_main', 'NON PRODUCTIVITY TIME BY MITRA KERJA', 'bar', {
+            labels: _nptUniqueDates,
+            datasets: [
+                { label: '25 = Access road blockage', backgroundColor: '#1F497D', data: [] },
+                { label: '26 = SWA-Rain', backgroundColor: '#ED7D31', data: [] },
+                { label: '41 = Wait for Supplies/Tools', backgroundColor: '#7030A0', data: [] },
+                { label: '43 = Equipment Under Repair', backgroundColor: '#FF66B2', data: [] },
+                { label: '44 = Wait for Instruction', backgroundColor: '#9B2D8C', data: [] },
+                { label: '47 = Wait for others work', backgroundColor: '#FFC000', data: [] },
+                { label: '48 = Wait for Manpower', backgroundColor: '#FF0000', data: [] },
+                { label: '52 = Permitting/Licence', backgroundColor: '#00B050', data: [] },
+                { label: '23 = SWA/SSWA', backgroundColor: '#00B0F0', data: [] },
+                { label: '49 = Wait For Equipment', backgroundColor: '#008080', data: [] }
+            ]
+        }, {
+            ...commonOptions,
+            scales: {
+                ...commonOptions.scales,
+                y: {
+                    ...commonOptions.scales.y,
+                    type: 'logarithmic',
+                    min: 1,
+                    stacked: false,
+                    ticks: {
+                        font: { size: 10 },
+                        callback: function (val) {
+                            return (Number.isInteger(Math.log10(val)) || val === 200 || val === 500) ? val : null;
+                        }
+                    }
+                },
+                x: {
+                    ...commonOptions.scales.x,
+                    stacked: false,
+                    title: {
+                        display: true,
+                        text: ' ',
+                        padding: { top: 10, bottom: 0 }
+                    },
+                    ticks: {
+                        ...commonOptions.scales.x.ticks,
+                        font: { size: 9, weight: '600' },
+                        maxRotation: 45,
+                        minRotation: 45,
+                        autoSkip: false,
+                        callback: function (val, index) {
+                            const label = this.getLabelForValue(val);
+                            return Array.isArray(label) ? label[0] : label;
+                        }
+                    }
+                }
+            },
+            layout: { padding: { top: 8, bottom: 0, right: 20 } },
+            datasets: { bar: { categoryPercentage: 0.95, barPercentage: 1.0 } },
+            plugins: {
+                ...commonOptions.plugins,
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: { size: 10, weight: '600' },
+                        boxWidth: 8,
+                        boxHeight: 8,
+                        padding: 10,
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded'
+                    },
+                    onClick: function (e, legendItem, legend) {
+                        const idx = legendItem.datasetIndex;
+                        const chart = legend.chart;
+                        const totalDatasets = chart.data.datasets.length;
+
+                        let visibleCount = 0;
+                        let onlyVisibleIdx = -1;
+                        for (let i = 0; i < totalDatasets; i++) {
+                            if (chart.isDatasetVisible(i)) {
+                                visibleCount++;
+                                onlyVisibleIdx = i;
+                            }
+                        }
+
+                        if (visibleCount === 1 && onlyVisibleIdx === idx) {
+                            for (let i = 0; i < totalDatasets; i++) {
+                                chart.setDatasetVisibility(i, true);
+                            }
+                        } else {
+                            for (let i = 0; i < totalDatasets; i++) {
+                                chart.setDatasetVisibility(i, i === idx);
+                            }
+                        }
+                        chart.update();
+                    }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    color: '#0c233d',
+                    font: { size: 14, weight: 'bold', family: "'Plus Jakarta Sans', sans-serif" },
+                    rotation: -90,
+                    formatter: (val) => (!val || val === 0) ? '' : Math.round(val),
+                    display: function (context) {
+                        const val = context.dataset.data[context.dataIndex];
+                        return (!val || val === 0) ? false : 'auto';
+                    }
+                },
+                tooltip: {
+                    enabled: false,
+                    position: 'nearest',
+                    external: function (context) {
+                        let tooltipEl = document.getElementById('chartjs-tooltip');
+                        if (!tooltipEl) {
+                            tooltipEl = document.createElement('div');
+                            tooltipEl.id = 'chartjs-tooltip';
+                            tooltipEl.style.background = 'rgba(255, 255, 255, 0.95)';
+                            tooltipEl.style.borderRadius = '3px';
+                            tooltipEl.style.color = '#333';
+                            tooltipEl.style.opacity = 1;
+                            tooltipEl.style.pointerEvents = 'none';
+                            tooltipEl.style.position = 'absolute';
+                            tooltipEl.style.transform = 'translate(-50%, 100%)';
+                            tooltipEl.style.marginTop = '10px';
+                            tooltipEl.style.transition = 'all .1s ease';
+                            tooltipEl.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                            tooltipEl.style.border = '1px solid #ddd';
+                            tooltipEl.style.padding = '8px 12px';
+                            tooltipEl.style.zIndex = '2147483647';
+                            tooltipEl.style.fontFamily = "'Inter', sans-serif";
+                            tooltipEl.style.fontSize = '11px';
+                            document.body.appendChild(tooltipEl);
+                        }
+
+                        const tooltipModel = context.tooltip;
+                        if (tooltipModel.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+                            return;
+                        }
+
+                        if (tooltipModel.body) {
+                            const dataPoint = tooltipModel.dataPoints[0];
+                            let dateStr = dataPoint.label;
+                            let categoryName = dataPoint.dataset.label;
+                            let datasetIndex = dataPoint.datasetIndex;
+                            let catCode = '';
+                            for (let key in _nptCategoryMap) {
+                                if (_nptCategoryMap[key] === datasetIndex) {
+                                    catCode = key; break;
+                                }
+                            }
+
+                            let activeMks = window._currentActiveNPTMks || [];
+                            let causes = typeof nptCauses !== 'undefined' ? nptCauses.filter(c => c.date === dateStr && c.cat === catCode && activeMks.includes(c.mk)) : [];
+
+                            let uniqueCauses = [...new Set(causes.map(c => c.cause))];
+                            let causeHtml = '';
+                            if (uniqueCauses.length === 0) causeHtml = '-';
+                            else if (uniqueCauses.length === 1) causeHtml = uniqueCauses[0];
+                            else causeHtml = uniqueCauses.map(c => '<div style="margin-bottom:2px;">• ' + c + '</div>').join('');
+
+                            let innerHtml = `
+                                <table style="margin: 0; padding: 0; border-spacing: 0; text-align: left; border-collapse: separate; border-spacing: 6px 2px;">
+                                    <tr><td style="color: #64748b; font-weight: 500;">Tanggal</td><td style="color: #0f172a; font-weight: 600;">${dateStr}</td></tr>
+                                    <tr><td style="color: #64748b; font-weight: 500;">Code</td><td style="color: #0f172a; font-weight: 600;">${categoryName}</td></tr>
+                                    <tr><td style="color: #64748b; font-weight: 500;">Lost Hours</td><td style="color: #0f172a; font-weight: 600;">${dataPoint.parsed.y}</td></tr>
+                                    <tr><td style="color: #64748b; font-weight: 500; vertical-align: top;">NPT Cause</td><td style="color: #0f172a; font-weight: 600; max-width: 250px; white-space: normal;">${causeHtml}</td></tr>
+                                </table>
+                            `;
+                            tooltipEl.innerHTML = innerHtml;
+                        }
+
+                        const position = context.chart.canvas.getBoundingClientRect();
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                        tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+                    }
+                }
+            }
+        }, [verticalLinePluginChart2]);
+        const mks = [
+            {
+                id: 'AKM', color: '#00529b', title: 'PT. ANDALAS KARYA MULIA (AKM)', statsTitle: 'PT. ANDALAS KARYA MULIA (AKM)',
+                first_swc: "07:09:00 AM", avg_first_swc: "07:51:40 AM", avg_first_tag: "06:56:40 AM", avg_jam_berangkat: "06:02:51 AM",
+                trip_p1: "2.010", trip_p2: "1.344", trip_p3: "1.924",
+                change1_text: "▼ -666 (-33,1%)", change1_color: "#ef3340", change1_bg: "rgba(239, 51, 64, 0.1)",
+                change2_text: "▲ +580 (+43,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                trip_p4: "2.902", change3_text: "▲ +978 (+50.8%)", change3_color: "#008751", change3_bg: "rgba(0, 135, 81, 0.1)",
+                insights: [
+                    "Produktivitas fluktuatif, turun ke <strong>1.344</strong> trip (10-15 Ags), namun <strong>RECOVERY</strong> dan memuncak di <strong>2.902</strong> trip pada 24 Ags - 2 Sep (<strong>+50,8%</strong>).",
+                    "<strong>1.184 Jam NPT Others Work:</strong> Menunggu clearing area selesai.",
+                    "<strong>96 Jam NPT Wait For Equipment:</strong> Menunggu alat berat.",
+                    "<strong>340 Jam NPT Permitting:</strong> Menunggu KP dan CCPM."
+                ],
+                chart1Data: [241, 455, 322, 362, 404, 226, null, 204, 103, 184, 327, 313, 213, null, 219, 303, 265, 288, 378, 471, null, 403, 0, 323, 394, 453, 449, 383, 314, 183],
+                issuesDates: ["01Aug26", "02Aug26", "03Aug26", "04Aug26", "05Aug26", "06Aug26", "07Aug26", "08Aug26", "10Aug26", "11Aug26", "13Aug26", "14Aug26", "15Aug26", "18Aug26", "19Aug26", "20Aug26", "26Aug26", "27Aug26", "28Aug26", "29Aug26", "30Aug26", "31Aug26", "01Sep26", "02Sep26"],
+                issuesData: {
+                    'SWA/SSWA': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Access road blockage': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'SWA-Rain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 904, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Supplies/Tools': [0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Equipment Under Repair': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Instruction': [0, 0, 0, 176, 0, 0, 0, 0, 0, 688, 0, 0, 48, 104, 0, 0, 0, 0, 184, 0, 0, 430, 313, 100],
+                    'Wait for others work': [0, 0, 0, 0, 0, 0, 0, 0, 0, 344, 0, 0, 0, 0, 0, 224, 0, 35, 328, 328, 80, 0, 40, 0],
+                    'Wait for Manpower': [0, 0, 0, 0, 0, 0, 0, 46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait For Equipment': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Permitting/Licence': [16, 32, 72, 0, 24, 0, 48, 0, 144, 24, 24, 16, 0, 24, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                }
+            },
+            {
+                id: 'BKA', color: '#f37021', title: 'PT. BINA REKAYASA ANUGRAH (BKA)', statsTitle: 'PT. BINA REKAYASA ANUGRAH',
+                first_swc: "07:36:00 AM", avg_first_swc: "08:08:00 AM", avg_first_tag: "07:06:40 AM", avg_jam_berangkat: "06:27:22 AM",
+                trip_p1: "641", trip_p2: "759", trip_p3: "714",
+                change1_text: "▲ +118 (+18,4%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "▼ -45 (-5,9%)", change2_color: "#ef3340", change2_bg: "rgba(239, 51, 64, 0.1)",
+                trip_p4: "942", change3_text: "▲ +228 (+31.9%)", change3_color: "#008751", change3_bg: "rgba(0, 135, 81, 0.1)",
+                insights: [
+                    "Sempat turun ke <strong>714</strong> trip (18-23 Ags), namun naik tajam memuncak di <strong>942</strong> trip (24 Ags - 2 Sep).",
+                    "<strong>336 Jam NPT Man Power:</strong> Kurang Spotter/Flagman & driver sakit.",
+                    "<strong>40 Jam NPT Repair:</strong> FT rusak hambat suplai solar.",
+                    "<strong>268 Jam NPT Permitting:</strong> Greenpass Expired."
+                ],
+                chart1Data: [89, 89, 101, 119, 128, 115, null, 121, 146, 188, 136, 144, 24, null, 161, 138, 132, 61, 144, 78, null, 118, 0, 74, 153, 127, 119, 122, 229, 0],
+                issuesDates: ["01Aug26", "03Aug26", "05Aug26", "07Aug26", "10Aug26", "15Aug26", "18Aug26", "19Aug26", "21Aug26", "23Aug26", "24Aug26", "26Aug26", "27Aug26", "29Aug26", "30Aug26", "02Sep26"],
+                issuesData: {
+                    'Access road blockage': [0, 0, 0, 0, 0, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'SWA-Rain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 392, 0, 0, 0, 0],
+                    'Wait for Supplies/Tools': [90, 0, 108, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Equipment Under Repair': [40, 96, 0, 0, 8, 0, 0, 40, 0, 0, 32, 0, 0, 0, 0, 0],
+                    'Wait for Instruction': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 40, 0],
+                    'Wait for others work': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 185, 0, 0, 0],
+                    'Wait for Manpower': [0, 0, 0, 0, 16, 0, 56, 32, 168, 168, 32, 0, 0, 0, 0, 0],
+                    'Permitting/Licence': [0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 40],
+                }
+            },
+            {
+                id: 'NKHO', color: '#a3a3a3', title: 'PT. NINDYA KARYA (NKHO)', statsTitle: 'PT. NINDYA KARYA',
+                first_swc: "07:23:00 AM", avg_first_swc: "07:53:40 AM", avg_first_tag: "07:30:10 AM", avg_jam_berangkat: "06:06:07 AM",
+                trip_p1: "502", trip_p2: "702", trip_p3: "887",
+                change1_text: "▲ +200 (+39,8%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "▲ +185 (+26,4%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                trip_p4: "1.320", change3_text: "▲ +433 (+48.8%)", change3_color: "#008751", change3_bg: "rgba(0, 135, 81, 0.1)",
+                insights: [
+                    "Kinerja <strong>POSITIF KONSISTEN</strong>! Melesat hingga memuncak di <strong>1.320</strong> trip pada 24 Ags - 2 Sep.",
+                    "<strong>1.229 Jam NPT Wait for Instruction:</strong> DT standby terkait isu ramping down.",
+                    "<strong>221 Jam NPT Others Work:</strong> Penutupan akses jalan.",
+                    "<strong>27 Jam NPT Man Power:</strong> Operator izin/tunggu KP.",
+                    "<strong>8 Jam NPT Permitting:</strong> Proses KP Driver.",
+                    "<strong>9 Jam NPT Repair:</strong> DT Service Rutin."
+                ],
+                chart1Data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 132, 59, 151, 186, 259, 223, 41, 100, 169],
+                issuesDates: ["01Aug26", "02Aug26", "03Aug26", "04Aug26", "05Aug26", "06Aug26", "07Aug26", "09Aug26", "10Aug26", "11Aug26", "12Aug26", "13Aug26", "14Aug26", "15Aug26", "17Aug26", "20Aug26", "27Aug26", "01Sep26", "02Sep26"],
+                issuesData: {
+                    'SWA/SSWA': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Access road blockage': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0],
+                    'SWA-Rain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Supplies/Tools': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Equipment Under Repair': [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0],
+                    'Wait for Instruction': [189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 0, 0, 0, 0],
+                    'Wait for others work': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 0, 144, 136],
+                    'Wait for Manpower': [27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 0, 32, 0, 0],
+                    'Wait For Equipment': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Permitting/Licence': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0],
+                }
+            },
+            {
+                id: 'RDPE', color: '#ffc000', title: 'PT. RIFANSI DWI PUTRA (RDPE)', statsTitle: 'PT. RIFANSI DWI PUTRA',
+                first_swc: "07:09:00 AM", avg_first_swc: "07:28:15 AM", avg_first_tag: "06:59:36 AM", avg_jam_berangkat: "06:18:25 AM",
+                trip_p1: "858", trip_p2: "895", trip_p3: "993",
+                change1_text: "▲ +37 (+4,3%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "▲ +98 (+10,9%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                trip_p4: "770", change3_text: "▼ -223 (-22.5%)", change3_color: "#ef3340", change3_bg: "rgba(239, 51, 64, 0.1)",
+                insights: [
+                    "Menunjukkan tren fluktuatif. Sempat naik perlahan hingga mencapai puncaknya pada 18-23 Ags dengan <strong>993</strong> trip.",
+                    "Namun pada periode akhir bulan (24 Ags - 2 Sep), produktivitas mengalami penurunan cukup signifikan menjadi <strong>770</strong> trip (<strong>-22,5%</strong>).",
+                    "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:03:00 AM</strong>."
+                ],
+                chart1Data: [115, 132, 129, 164, 158, 160, null, 158, 114, 165, 154, 169, 135, null, 143, 121, 153, 174, 205, 197, null, 47, 0, 96, 158, 158, 0, 139, 172, 0],
+                issuesDates: ["26Aug26"],
+                issuesData: {
+                    'SWA/SSWA': [0],
+                    'Access road blockage': [0],
+                    'SWA-Rain': [360],
+                    'Wait for Supplies/Tools': [0],
+                    'Equipment Under Repair': [0],
+                    'Wait for Instruction': [0],
+                    'Wait for others work': [0],
+                    'Wait for Manpower': [0],
+                    'Wait For Equipment': [0],
+                    'Permitting/Licence': [0],
+                }
+            },
+            {
+                id: 'SGJR', color: '#5b9bd5', title: 'PT. SUMI GITA JAYA (SGJR)', statsTitle: 'PT. SUMI GITA JAYA',
+                first_swc: "07:19:10 AM", avg_first_swc: "07:49:10 AM", avg_first_tag: "07:13:20 AM", avg_jam_berangkat: "06:20:43 AM",
+                trip_p1: "275", trip_p2: "296", trip_p3: "415",
+                change1_text: "▲ +21 (+7,6%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "▲ +119 (+40,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                trip_p4: "260", change3_text: "▼ -155 (-37.3%)", change3_color: "#ef3340", change3_bg: "rgba(239, 51, 64, 0.1)",
+                insights: [
+                    "Sempat menunjukkan <strong>LONJAKAN KINERJA</strong> impresif dengan meroket ke <strong>415</strong> trip pada 18-23 Ags.",
+                    "Sayangnya tren ini tidak bertahan lama, pada periode 24 Ags - 2 Sep produktivitas merosot ke <strong>260</strong> trip (<strong>-37,3%</strong>).",
+                    "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:33:00 AM</strong>."
+                ],
+                chart1Data: [24, 26, 44, 54, 50, 77, null, 32, 35, 45, 58, 44, 82, null, 79, 73, 117, 51, 95, 0, null, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21],
+                issuesDates: ["01Aug26", "02Aug26", "10Aug26", "11Aug26", "12Aug26", "13Aug26", "14Aug26", "29Aug26", "30Aug26"],
+                issuesData: {
+                    'SWA/SSWA': [8, 8, 0, 0, 0, 0, 0, 0, 0],
+                    'Access road blockage': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'SWA-Rain': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Supplies/Tools': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Equipment Under Repair': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Instruction': [0, 0, 64, 80, 0, 0, 32, 40, 48],
+                    'Wait for others work': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Manpower': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait For Equipment': [0, 0, 0, 0, 96, 96, 0, 0, 0],
+                    'Permitting/Licence': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                }
+            },
+            {
+                id: 'KPRE01', color: '#8e44ad', title: 'Konsorsium PT PP Presisi - PT Rajawali Emas Ancora Lestari. (KPRE01)', statsTitle: 'Konsorsium PT PP Presisi - PT Rajawali Emas Ancora Lestari.',
+                first_swc: "07:18:00 AM", avg_first_swc: "07:46:00 AM", avg_first_tag: "07:12:20 AM", avg_jam_berangkat: "-",
+                trip_p1: "-", trip_p2: "-", trip_p3: "-",
+                change1_text: "-", change1_color: "#8e44ad", change1_bg: "rgba(142, 68, 173, 0.1)",
+                change2_text: "-", change2_color: "#8e44ad", change2_bg: "rgba(142, 68, 173, 0.1)",
+                trip_p4: "420", change3_text: "-", change3_color: "#8e44ad", change3_bg: "rgba(142, 68, 173, 0.1)",
+                insights: [
+                    "Konsorsium PT PP Presisi - PT Rajawali Emas Ancora Lestari (KPRE01) baru mulai bekerja pada tanggal <strong>24 Agustus</strong>.",
+                    "Hingga saat ini, total perjalanan yang diselesaikan adalah <strong>420</strong> trip."
+                ],
+                chart1Data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 109, 0, 0, 74, 90, 147, null, null, null, null],
+                issuesDates: ["26Aug26"],
+                issuesData: {
+                    'SWA/SSWA': [0],
+                    'Access road blockage': [0],
+                    'SWA-Rain': [264],
+                    'Wait for Supplies/Tools': [0],
+                    'Equipment Under Repair': [0],
+                    'Wait for Instruction': [0],
+                    'Wait for others work': [0],
+                    'Wait for Manpower': [0],
+                    'Wait For Equipment': [0],
+                    'Permitting/Licence': [0],
+                }
+            }
+        ];
+        const issueColors = {
+            'SWA/SSWA': '#00B0F0',
+            'Access road blockage': '#1F497D',
+            'SWA-Rain': '#ED7D31',
+            'Wait for Supplies/Tools': '#7030A0',
+            'Equipment Under Repair': '#FF66B2',
+            'Wait for Instruction': '#9B2D8C',
+            'Wait for others work': '#FFC000',
+            'Wait for Manpower': '#FF0000',
+            'Wait For Equipment': '#008080',
+            'Permitting/Licence': '#00B050'
+        };
+
+        const container = document.getElementById('presentation-container');
+
+        const generalTrendHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 0 8px 4px 8px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; width: 60px;">PERIODE</div>
+                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: center; width: 75px; line-height: 1.2;">TOTAL TRIP<br>HAULING</div>
+                <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: right; flex: 1;">DEVIASI (%)</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">3 - 8 AGS</div>
+                <div id="trend-p1" style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">4.796</div>
+                <div style="flex: 1; text-align: right; font-size: 12px; font-weight: 700; color: #cbd5e1;">-</div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">10 - 15 AGS</div>
+                <div id="trend-p2" style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">4.698</div>
+                <div id="trend-change-1" style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: #ef3340; background: rgba(239, 51, 64, 0.1); padding: 3px 6px; border-radius: 6px;">-98 (-2,0%)</span></div>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">18 - 23 AGS</div>
+                <div id="trend-p3" style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">5.820</div>
+                <div id="trend-change-2" style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">+1.122 (+23,9%)</span></div>
+            </div>
+            <div id="trend-p4-row" style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">24 AGS - 2 SEP</div>
+                <div id="trend-p4" style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">6.794</div>
+                <div id="trend-change-3" style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">+974 (+16,7%)</span></div>
+            </div>
+        `;
+
+        const generalInsightsHTML = `
+            <div class="message-item" style="padding: 8px 12px; gap: 10px;">
+                <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <p style="font-size: 11px; line-height: 1.4; margin: 0;"> Produktivitas hauling menunjukkan tren peningkatan luar biasa. Dari <strong>4.698</strong> trip pada 10-15 Ags, melesat ke <strong>5.820</strong> trip (+23,9%) pada 18-23 Ags, dan kembali mencetak puncak tertinggi <strong>6.794</strong> trip (+16,7%) pada periode 24 Ags - 2 Sep.</p>
+            </div>
+            <div class="message-item" style="padding: 8px 12px; gap: 10px;">
+                <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>264 Jam NPT Wait for Instruction:</strong> dikarenakan dominasi Standby menunggu mobilisasi ke lokasi baru dan Issue Internal Ramping Down team di sebagian besar Mitra Kerja.</p>
+            </div>
+            <div class="message-item" style="padding: 8px 12px; gap: 10px;">
+                <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>2.152 Jam NPT Wait for Others Work:</strong> dikarenakan tingginya angka DT standby menunggu Clearing Area dan penutupan akses jalan akibat pekerjaan lain.</p>
+            </div>
+            <div class="message-item" style="padding: 8px 12px; gap: 10px;">
+                <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>2.168 Jam NPT SWA-Rain:</strong> terjadi lonjakan tinggi di akhir bulan (khususnya 26 Agustus) akibat curah hujan yang memicu Stop Work Authority (SWA).</p>
+            </div>
+        `;
+
+        function updateRightSidebar(visibleMks) {
+            const sidebarTitle = document.getElementById('sidebar-title');
+            const trendTitle = document.getElementById('trend-title');
+            const trendContainer = document.getElementById('trend-title').nextElementSibling;
+            const insightContainer = document.getElementById('insight-container');
+            const statsBox = document.getElementById('interactive-stats-box');
+
+            const activeMks = visibleMks.filter(m => m !== 'Trendline');
+
+            if (activeMks.length === 1) {
+                const mkId = activeMks[0];
+                const mkData = mks.find(m => m.id === mkId);
+                if (mkData) {
+                    sidebarTitle.innerHTML = `SUMMARY<br>PT. ${mkId}`;
+                    trendTitle.textContent = `TREND PRODUKTIVITAS HAULING - ${mkId}`;
+
+                    trendContainer.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: flex-end; padding: 0 8px 4px 8px; border-bottom: 1px solid rgba(0,0,0,0.06);">
+                            <div style="font-size: 8.5px; font-weight: 800; color: #64748b; width: 60px;">PERIODE</div>
+                            <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: center; width: 75px; line-height: 1.2;">TOTAL TRIP<br>HAULING</div>
+                            <div style="font-size: 8.5px; font-weight: 800; color: #64748b; text-align: right; flex: 1;">DEVIASI (%)</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                            <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">3 - 8 AGS</div>
+                            <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">${mkData.trip_p1}</div>
+                            <div style="flex: 1; text-align: right; font-size: 12px; font-weight: 700; color: #cbd5e1;">-</div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                            <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">10 - 15 AGS</div>
+                            <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">${mkData.trip_p2}</div>
+                            <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: ${mkData.change1_color}; background: ${mkData.change1_bg}; padding: 3px 6px; border-radius: 6px;">${mkData.change1_text}</span></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                            <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">18 - 23 AGS</div>
+                            <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">${mkData.trip_p3}</div>
+                            <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: ${mkData.change2_color}; background: ${mkData.change2_bg}; padding: 3px 6px; border-radius: 6px;">${mkData.change2_text}</span></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                            <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">24 - 2 SEP</div>
+                            <div style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">${mkData.trip_p4}</div>
+                            <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 10px; font-weight: 700; color: ${mkData.change3_color}; background: ${mkData.change3_bg}; padding: 3px 6px; border-radius: 6px;">${mkData.change3_text}</span></div>
+                        </div>
+                    `;
+
+                    insightContainer.innerHTML = mkData.insights.map(text => `
+                        <div class="message-item" style="padding: 8px 12px; gap: 10px;">
+                            <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
+                            <p style="font-size: 11px; line-height: 1.4; margin: 0;">${text}</p>
+                        </div>
+                    `).join('');
+
+                    document.getElementById('stats-header-title').textContent = mkData.statsTitle;
+                    document.getElementById('stat-swc').textContent = mkData.first_swc;
+                    document.getElementById('stat-avg-swc').textContent = mkData.avg_first_swc;
+                    document.getElementById('stat-avg-tag').textContent = mkData.avg_first_tag;
+                    document.getElementById('stat-berangkat').textContent = mkData.avg_jam_berangkat;
+                    statsBox.style.display = 'flex';
+                    statsBox.style.flexDirection = 'column';
+                }
+            } else {
+                sidebarTitle.innerHTML = 'EXECUTIVE<br>SUMMARY';
+                trendTitle.textContent = 'TOTAL PRODUKTIVITAS HAULING';
+                trendContainer.innerHTML = generalTrendHTML;
+                insightContainer.innerHTML = generalInsightsHTML;
+                statsBox.style.display = 'none';
+            }
+        }
+
+        setTimeout(() => {
+            const c1 = Chart.getChart('chart1_main');
+            if (c1 && typeof updateTrendline === 'function') {
+                updateTrendline(c1);
+                c1.update();
+            }
+        }, 150);
+
+        function resizePresentation() {
+            const container = document.getElementById('presentation-container');
+            if (!container) return;
+            // Biarkan CSS Flexbox mengatur agar layar terisi penuh 100%
+            container.style.transform = 'none';
+        }
+        window.addEventListener('resize', resizePresentation);
+        resizePresentation();
+
+        // Chart Focus Modal (Power BI style)
+        const _focusOverlay = document.createElement('div');
+        _focusOverlay.className = 'chart-focus-overlay';
+        _focusOverlay.innerHTML = `
+            <div class="chart-focus-modal">
+                <div class="chart-focus-header">
+                    <div class="chart-focus-title" id="_focus-title">Chart</div>
+                    <button class="chart-focus-close" id="_focus-close" style="display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-top: 1px;"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                </div>
+                <div class="chart-focus-canvas-wrap">
+                    <canvas id="chart-focus-canvas"></canvas>
+                </div>
+            </div>`;
+        document.body.appendChild(_focusOverlay);
+        let _focusChart = null;
+
+        function openFocusChart(canvasId) {
+            const cfg = _chartModalConfigs[canvasId];
+            if (!cfg) return;
+
+            const activeChart = Chart.getChart(canvasId);
+            if (!activeChart) return;
+
+            if (_focusChart) { _focusChart.destroy(); _focusChart = null; }
+            document.getElementById('_focus-title').textContent = cfg.title;
+            _focusOverlay.classList.add('open');
+
+            requestAnimationFrame(() => {
+                const ctx = document.getElementById('chart-focus-canvas').getContext('2d');
+
+                const currentData = JSON.parse(JSON.stringify(cfg.data));
+
+                if (activeChart.data.labels) {
+                    currentData.labels = [...activeChart.data.labels];
+                }
+
+                if (currentData.datasets) {
+                    currentData.datasets.forEach((ds, i) => {
+                        ds.hidden = !activeChart.isDatasetVisible(i);
+                        if (activeChart.data.datasets[i] && activeChart.data.datasets[i].data) {
+                            ds.data = [...activeChart.data.datasets[i].data];
+                        }
+                    });
+                }
+
+                let modalOptions = { ...cfg.options, animation: false, layout: { padding: { top: 30, right: 30, bottom: 20, left: 20 } } };
+
+                modalOptions.plugins = Object.assign({}, cfg.options.plugins);
+                if (modalOptions.plugins.datalabels) {
+                    modalOptions.plugins.datalabels = Object.assign({}, modalOptions.plugins.datalabels);
+                    modalOptions.plugins.datalabels.font = Object.assign({}, modalOptions.plugins.datalabels.font || {}, { size: 20 });
+                }
+                if (modalOptions.plugins.legend && modalOptions.plugins.legend.labels) {
+                    modalOptions.plugins.legend = Object.assign({}, modalOptions.plugins.legend);
+                    modalOptions.plugins.legend.labels = Object.assign({}, modalOptions.plugins.legend.labels);
+                    modalOptions.plugins.legend.labels.font = Object.assign({}, modalOptions.plugins.legend.labels.font || {}, { size: 14 });
+                }
+                if (cfg.options.plugins && cfg.options.plugins.tooltip) {
+                    modalOptions.plugins.tooltip = Object.assign({}, cfg.options.plugins.tooltip);
+                }
+
+                modalOptions.scales = Object.assign({}, cfg.options.scales);
+                for (let key in modalOptions.scales) {
+                    modalOptions.scales[key] = Object.assign({}, modalOptions.scales[key]);
+                    if (modalOptions.scales[key].ticks) {
+                        modalOptions.scales[key].ticks = Object.assign({}, modalOptions.scales[key].ticks);
+                        modalOptions.scales[key].ticks.font = Object.assign({}, modalOptions.scales[key].ticks.font || {}, { size: 14 });
+                    }
+                }
+
+                if (activeChart.options.scales && activeChart.options.scales.x) {
+                    if (!modalOptions.scales.x) modalOptions.scales.x = {};
+                    modalOptions.scales.x.min = activeChart.options.scales.x.min;
+                    modalOptions.scales.x.max = activeChart.options.scales.x.max;
+                }
+
+                _focusChart = new Chart(ctx, {
+                    type: cfg.type,
+                    data: currentData,
+                    options: modalOptions,
+                    plugins: cfg.plugins || []
+                });
+            });
+        }
+
+        function closeFocusChart() {
+            _focusOverlay.classList.remove('open');
+            if (_focusChart) { _focusChart.destroy(); _focusChart = null; }
+        }
+
+        document.getElementById('_focus-close').addEventListener('click', closeFocusChart);
+        _focusOverlay.addEventListener('click', e => { if (e.target === _focusOverlay) closeFocusChart(); });
+
+        document.addEventListener('click', e => {
+            const btn = e.target.closest('.chart-expand-btn');
+            if (btn) {
+                e.stopImmediatePropagation();
+                openFocusChart(btn.dataset.canvas);
+            }
+        }, true);
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape' && _focusOverlay.classList.contains('open')) {
+                e.stopPropagation();
+                closeFocusChart();
+            }
+        }, true);
+
+        // Chart Date Filtering and Slider Logic
+        function getChartByCanvasId(canvasId) {
+            return Chart.getChart(canvasId);
+        }
+
+        const _chart1DateMap = [
+            '2026-08-03', '2026-08-04', '2026-08-05', '2026-08-06', '2026-08-07', '2026-08-08', '2026-08-09',
+            '2026-08-10', '2026-08-11', '2026-08-12', '2026-08-13', '2026-08-14', '2026-08-15', '2026-08-17',
+            '2026-08-18', '2026-08-19', '2026-08-20', '2026-08-21', '2026-08-22', '2026-08-23', '2026-08-24',
+            '2026-08-24', '2026-08-26', '2026-08-27', '2026-08-28', '2026-08-29', '2026-08-30', '2026-08-31',
+            '2026-09-01', '2026-09-02'
+        ].map(d => new Date(d).getTime());
+
+        window.applyDateFilter = function (inputEl) {
+            const canvasId = inputEl.dataset.target;
+            const container = inputEl.closest('.date-slicer-container');
+            const startInput = container.querySelector('.start-date');
+            const endInput = container.querySelector('.end-date');
+
+            const startVal = startInput.value ? new Date(startInput.value).getTime() : null;
+            const endVal = endInput.value ? new Date(endInput.value).getTime() : null;
+
+            if (!startVal && !endVal) return;
+
+            const chart = getChartByCanvasId(canvasId);
+            if (!chart) return;
+
+            let minIdx = 0;
+            let maxIdx = chart.data.labels.length - 1;
+
+            if (startVal) {
+                const idx = _chart1DateMap.findIndex(t => t >= startVal);
+                if (idx !== -1) minIdx = idx;
+                else minIdx = maxIdx;
+            }
+            if (endVal) {
+                let idx = -1;
+                for (let i = _chart1DateMap.length - 1; i >= 0; i--) {
+                    if (_chart1DateMap[i] <= endVal) {
+                        idx = i;
+                        break;
+                    }
+                }
+                if (idx !== -1) maxIdx = idx;
+                else maxIdx = minIdx;
+            }
+
+            if (minIdx > maxIdx) maxIdx = minIdx;
+
+            chart.options.scales.x.min = minIdx;
+            chart.options.scales.x.max = maxIdx;
+
+            const slider = inputEl.closest('.chart-box').querySelector('.powerbi-slider');
+            if (slider) slider.value = maxIdx;
+
+            chart.update();
+
+            // Also update NPT Chart
+            const chart2 = getChartByCanvasId('chart2_main');
+            if (chart2 && typeof _nptUniqueDates !== 'undefined') {
+                const monthMap = { 'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06', 'Jul': '07', 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12' };
+                const nptTimestamps = _nptUniqueDates.map(d => {
+                    const parts = d.split('-');
+                    return new Date('2026-' + monthMap[parts[1]] + '-' + parts[0]).getTime();
+                });
+
+                let minIdx2 = 0;
+                let maxIdx2 = nptTimestamps.length - 1;
+
+                if (startVal) {
+                    const idx = nptTimestamps.findIndex(t => t >= startVal);
+                    if (idx !== -1) minIdx2 = idx;
+                    else minIdx2 = maxIdx2;
+                }
+                if (endVal) {
+                    let idx = -1;
+                    for (let i = nptTimestamps.length - 1; i >= 0; i--) {
+                        if (nptTimestamps[i] <= endVal) {
+                            idx = i;
+                            break;
+                        }
+                    }
+                    if (idx !== -1) maxIdx2 = idx;
+                    else maxIdx2 = minIdx2;
+                }
+                if (minIdx2 > maxIdx2) maxIdx2 = minIdx2;
+                chart2.options.scales.x.min = minIdx2;
+                chart2.options.scales.x.max = maxIdx2;
+                chart2.update('none');
+            }
+        };
+
+        window.clearDateFilter = function (btnEl) {
+            const canvasId = btnEl.dataset.target;
+            const container = btnEl.closest('.date-slicer-container');
+            const startInput = container.querySelector('.start-date');
+            const endInput = container.querySelector('.end-date');
+
+            startInput.value = '';
+            endInput.value = '';
+
+            const chart = getChartByCanvasId(canvasId);
+            if (!chart) return;
+
+            chart.options.scales.x.min = 0;
+            chart.options.scales.x.max = chart.data.labels.length - 1;
+            chart.update();
+
+            const chart2 = getChartByCanvasId('chart2_main');
+            if (chart2) {
+                chart2.options.scales.x.min = 0;
+                chart2.options.scales.x.max = chart2.data.labels.length - 1;
+                chart2.update('none');
+            }
+        };
+
+        window.slideChartWindowX = function (sliderEl) {
+            const canvasId = sliderEl.dataset.target;
+            const targetMax = parseInt(sliderEl.value);
+
+            let chart = getChartByCanvasId(canvasId);
+            if (!chart) return;
+
+            chart.options.scales.x.min = 0;
+            chart.options.scales.x.max = targetMax;
+            chart.update();
+
+            const selectEl = sliderEl.closest('.chart-box').querySelector('.date-filter-select');
+            if (selectEl) selectEl.value = 'all';
+        };
+
+        window.slideChartWindowY = function (sliderEl) {
+            try {
+                const canvasId = sliderEl.dataset.target;
+                const pct = parseInt(sliderEl.value);
+
+                let chart = getChartByCanvasId(canvasId);
+                if (!chart) return;
+
+                let maxVal = 0;
+                chart.data.datasets.forEach((ds, idx) => {
+                    if (chart.isDatasetVisible(idx)) {
+                        ds.data.forEach(v => { if (v > maxVal) maxVal = v; });
+                    }
+                });
+
+                const scaleFactor = 100 / pct;
+                const targetMax = Math.max(10, Math.round((maxVal * 1.1) / scaleFactor));
+
+                chart.options.scales.y.max = targetMax;
+                chart.update('none');
+            } catch (e) {
+                console.error("Error sliding Y axis:", e);
+            }
+        };
+        window.onload = function () {
+            if (typeof updateNPTFilter === 'function' && typeof _mksWithNPT !== 'undefined') {
+                updateNPTFilter(_mksWithNPT);
+            }
+        };
+
+        window.updateTrendline = function (chart) {
+            let trendlineDataset = chart.data.datasets.find(ds => ds.label === 'Trendline');
+            if (!trendlineDataset) {
+                trendlineDataset = {
+                    type: 'line',
+                    label: 'Trendline',
+                    data: [],
+                    borderColor: '#00B050',
+                    borderWidth: 3,
+                    borderDash: [8, 4],
+
+                    fill: false,
+                    pointRadius: 0,
+                    pointHoverRadius: 0,
+                    tension: 0,
+                    yAxisID: 'y1',
+                    datalabels: { display: false },
+                    order: 0
+                };
+                chart.data.datasets.push(trendlineDataset);
+                chart.data.datasets.forEach(ds => {
+                    if (ds.type !== 'line') ds.order = 1;
+                });
+            }
+
+            let points = [];
+            const numLabels = chart.data.labels.length;
+
+            for (let i = 0; i < numLabels; i++) {
+                let sum = 0;
+                let hasData = false;
+                chart.data.datasets.forEach((ds, dsIdx) => {
+                    if (ds.type !== 'line' && chart.isDatasetVisible(dsIdx)) {
+                        let val = ds.data[i];
+                        if (val !== null && val !== undefined) {
+                            sum += val;
+                            hasData = true;
+                        }
+                    }
+                });
+                if (hasData) {
+                    points.push({ x: i, y: sum });
+                }
+            }
+
+            let n = points.length;
+            if (n < 2) {
+                trendlineDataset.data = new Array(numLabels).fill(null);
+                return;
+            }
+
+            let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+            points.forEach(p => {
+                sumX += p.x;
+                sumY += p.y;
+                sumXY += (p.x * p.y);
+                sumXX += (p.x * p.x);
+            });
+
+            let slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+            let intercept = (sumY - slope * sumX) / n;
+
+            let trendData = new Array(numLabels).fill(null);
+            for (let i = 0; i < numLabels; i++) {
+                trendData[i] = slope * i + intercept;
+            }
+
+            trendlineDataset.data = trendData;
+        };
+
+
+
+        // Render main charts for the single page
+        createChartsForSlide(0);
+    </script>
+</body>
+
+</html>
