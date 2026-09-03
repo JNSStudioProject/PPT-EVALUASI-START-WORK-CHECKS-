@@ -522,7 +522,8 @@
         }
 
         .left-content {
-            flex: 7.5;
+            width: calc(73% - 10px);
+            flex: none;
             min-width: 0;
             min-height: 0;
             background: rgba(255, 255, 255, 0.65);
@@ -569,7 +570,8 @@
         }
 
         .right-sidebar {
-            flex: 2.5;
+            width: calc(27% - 10px);
+            flex: none;
             min-width: 0;
             min-height: 0;
             display: flex;
@@ -667,6 +669,8 @@
         }
 
         .message-item p {
+            white-space: normal !important;
+            word-break: break-word;
             min-width: 0;
             font-size: 13px;
             font-weight: 500;
