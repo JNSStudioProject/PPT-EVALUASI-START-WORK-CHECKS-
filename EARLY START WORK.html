@@ -522,7 +522,7 @@
         }
 
         .left-content {
-            flex: 8;
+            flex: 9.5;
             min-width: 0;
             min-height: 0;
             background: rgba(255, 255, 255, 0.65);
@@ -569,7 +569,7 @@
         }
 
         .right-sidebar {
-            flex: 2.8;
+            flex: 2.2;
             min-width: 0;
             min-height: 0;
             display: flex;
@@ -1163,10 +1163,11 @@
                                 <span style="font-size: 10px; font-weight: 800; color: #0c233d;">FILTER DATE:</span>
                                 <select class="date-filter-select" data-target="chart1_main"
                                     onchange="filterChartDates(this)">
-                                    <option value="all">Semua (3 - 26 Ags)</option>
+                                    <option value="all">Semua (3 Ags - 2 Sep)</option>
                                     <option value="p1">3 - 8 Ags</option>
                                     <option value="p2">10 - 15 Ags</option>
                                     <option value="p3">18 - 23 Ags</option>
+                                    <option value="p4">24 Ags - 2 Sep</option>
                                 </select>
                                 <button class="chart-expand-btn" data-canvas="chart1_main"
                                     data-title="TOTAL TRIP HAULING BY MITRA KERJA" title="Fokus Grafik">
@@ -1827,10 +1828,11 @@
 <div class="chart-controls-group" style="z-index: 50;">
     <span style="font-size: 10px; font-weight: 800; color: #0c233d;">FILTER DATE:</span>
     <select class="date-filter-select" data-target="chart1_mk_${mk.id}" onchange="filterChartDates(this)">
-        <option value="all">Semua (3 - 26 Ags)</option>
+        <option value="all">Semua (3 Ags - 2 Sep)</option>
         <option value="p1">3 - 8 Ags</option>
         <option value="p2">10 - 15 Ags</option>
         <option value="p3">18 - 23 Ags</option>
+        <option value="p4">24 Ags - 2 Sep</option>
     </select>
     <button class="chart-expand-btn" data-canvas="chart1_mk_${mk.id}" data-title="TOTAL TRIP HAULING - ${mk.id}" title="Fokus Grafik">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
@@ -2089,10 +2091,11 @@ ${mk.statsTitle}
             }
             if (!chart) return;
 
-            let min = 0; let max = 19;
+            let min = 0; let max = 29;
             if (val === 'p1') { min = 0; max = 5; }
-            else if (val === 'p2') { min = 6; max = 11; }
-            else if (val === 'p3') { min = 12; max = 17; }
+            else if (val === 'p2') { min = 7; max = 12; }
+            else if (val === 'p3') { min = 14; max = 19; }
+            else if (val === 'p4') { min = 21; max = 29; }
 
             if (slider && val !== 'all') {
                 slider.value = max;
