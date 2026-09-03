@@ -1754,13 +1754,13 @@ const _nptCategoryMap = {
                             const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
                             let allVisible = true;
                             for (let i = 0; i < chart.data.datasets.length; i++) {
-                                if (!chart.isDatasetVisible(i)) {
+                                if (chart.data.datasets[i].label !== 'Trendline' && !chart.isDatasetVisible(i)) {
                                     allVisible = false;
                                     break;
                                 }
                             }
                             original.unshift({
-                                text: allVisible ? 'Deselect All' : 'Select All',
+                                text: allVisible ? 'Deselect All MK' : 'Select All MK',
                                 fillStyle: allVisible ? '#ffffff' : '#0078d4',
                                 strokeStyle: '#0078d4',
                                 lineWidth: 2,
@@ -1775,23 +1775,26 @@ const _nptCategoryMap = {
                         if (legendItem.datasetIndex === -1) {
                             let allVisible = true;
                             for (let i = 0; i < chart.data.datasets.length; i++) {
-                                if (!chart.isDatasetVisible(i)) {
+                                if (chart.data.datasets[i].label !== 'Trendline' && !chart.isDatasetVisible(i)) {
                                     allVisible = false;
                                     break;
                                 }
                             }
                             chart.data.datasets.forEach((ds, i) => {
-                                chart.setDatasetVisibility(i, !allVisible);
+                                if (ds.label !== 'Trendline') {
+                                    chart.setDatasetVisibility(i, !allVisible);
+                                }
                             });
                         } else {
                             const idx = legendItem.datasetIndex;
                             const isVisible = chart.isDatasetVisible(idx);
                             chart.setDatasetVisibility(idx, !isVisible);
                         }
+                        if (typeof updateTrendline === 'function') updateTrendline(chart);
                         chart.update();
                         
                         const visibleMks = chart.data.datasets
-                            .filter((_, i) => chart.isDatasetVisible(i))
+                            .filter((ds, i) => ds.label !== 'Trendline' && chart.isDatasetVisible(i))
                             .map(ds => ds.label);
                         if (typeof updateNPTFilter === 'function') updateNPTFilter(visibleMks);
                     }
@@ -2261,11 +2264,24 @@ ${mk.statsTitle}
             // Create charts lazily when slide is first shown, then render
             setTimeout(() => {
                 createChartsForSlide(index);
-                if (index === 0) buildCustomLegend();
+                if (index === 0) {
+                    const c1 = Chart.getChart('chart1_main');
+                    if (c1 && typeof updateTrendline === 'function') {
+                        updateTrendline(c1);
+                        c1.update();
+                    }
+                }
             }, 100);
         }
         // Create charts for the initial slide immediately
         createChartsForSlide(0);
+        setTimeout(() => {
+            const c1 = Chart.getChart('chart1_main');
+            if (c1 && typeof updateTrendline === 'function') {
+                updateTrendline(c1);
+                c1.update();
+            }
+        }, 150);
         function nextSlide() {
             if (currentSlideIndex < allSlides.length - 1) {
                 currentSlideIndex++;
@@ -2517,6 +2533,74 @@ ${mk.statsTitle}
             if (typeof updateNPTFilter === 'function' && typeof _mksWithNPT !== 'undefined') {
                 updateNPTFilter(_mksWithNPT);
             }
+        };
+
+        window.updateTrendline = function(chart) {
+            let trendlineDataset = chart.data.datasets.find(ds => ds.label === 'Trendline');
+            if (!trendlineDataset) {
+                trendlineDataset = {
+                    type: 'line',
+                    label: 'Trendline',
+                    data: [],
+                    borderColor: '#ef3340', // Red color for visibility
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    fill: false,
+                    pointRadius: 0,
+                    pointHoverRadius: 0,
+                    tension: 0,
+                    datalabels: { display: false },
+                    order: 0
+                };
+                chart.data.datasets.push(trendlineDataset);
+                chart.data.datasets.forEach(ds => {
+                    if (ds.type !== 'line') ds.order = 1;
+                });
+            }
+
+            let points = [];
+            const numLabels = chart.data.labels.length;
+            
+            for (let i = 0; i < numLabels; i++) {
+                let sum = 0;
+                let hasData = false;
+                chart.data.datasets.forEach((ds, dsIdx) => {
+                    if (ds.type !== 'line' && chart.isDatasetVisible(dsIdx)) {
+                        let val = ds.data[i];
+                        if (val !== null && val !== undefined) {
+                            sum += val;
+                            hasData = true;
+                        }
+                    }
+                });
+                if (hasData) {
+                    points.push({ x: i, y: sum });
+                }
+            }
+
+            let n = points.length;
+            if (n < 2) {
+                trendlineDataset.data = new Array(numLabels).fill(null);
+                return;
+            }
+
+            let sumX = 0, sumY = 0, sumXY = 0, sumXX = 0;
+            points.forEach(p => {
+                sumX += p.x;
+                sumY += p.y;
+                sumXY += (p.x * p.y);
+                sumXX += (p.x * p.x);
+            });
+
+            let slope = (n * sumXY - sumX * sumY) / (n * sumXX - sumX * sumX);
+            let intercept = (sumY - slope * sumX) / n;
+
+            let trendData = new Array(numLabels).fill(null);
+            for (let i = 0; i < numLabels; i++) {
+                trendData[i] = slope * i + intercept;
+            }
+            
+            trendlineDataset.data = trendData;
         };
     </script>
 </body>
