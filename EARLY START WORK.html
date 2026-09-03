@@ -1417,7 +1417,9 @@
                 datalabels: {
                     color: '#0c233d', anchor: 'end', align: 'top', font: { size: 6.5, weight: '600' },
                     rotation: -90, offset: 4, formatter: Math.round, padding: 0,
-                    display: function (context) { return context.dataset.data[context.dataIndex] !== 0; }
+                    display: function (context) { 
+                        return context.dataset.data[context.dataIndex] === 0 ? false : 'auto'; 
+                    }
                 }
             },
             scales: {
@@ -1862,7 +1864,9 @@ const _nptCategoryMap = {
                 ...commonOptions.plugins,
                 datalabels: {
                     ...commonOptions.plugins.datalabels,
+                    font: { size: 5.5, weight: '600' },
                     rotation: -90,
+                    offset: 2,
                     formatter: function (value) { return value; }
                 },
                 legend: {
@@ -2234,7 +2238,11 @@ ${mk.statsTitle}
                     registerChart(sIdx, `chart2_mk_${mkCopy.id}`, `NON PRODUCTIVITY TIME - ${mkCopy.id} (3 AGS - 2 SEP)`, 'bar',
                         { labels: mkCopy.issuesDates, datasets: issueDatasets }, {
                         ...commonOptions,
-                        plugins: { ...commonOptions.plugins, legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } } }
+                        plugins: { 
+                            ...commonOptions.plugins, 
+                            datalabels: { ...commonOptions.plugins.datalabels, font: { size: 5.5, weight: '600' }, offset: 2 },
+                            legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } } 
+                        }
                     }
                     );
                 }
