@@ -1150,7 +1150,7 @@
             <div class="header">
                 <div class="title-area">
                     <h1 class="main-title">EARLY START WORK</h1>
-                    <p class="subtitle">Periode 3 - 26 Agustus 2026</p>
+                    <p class="subtitle">Periode 3 Ags - 2 Sep 2026</p>
                 </div>
                 <div class="logos"><img src="real_logos.png" alt="Logo Pertamina & Tripatra"></div>
             </div>
@@ -1269,6 +1269,17 @@
                                 <div style="flex: 1; display: flex; justify-content: flex-end;"><span
                                         style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">▲
                                         +937 (+23,4%)</span></div>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">24 AGS - 2 SEP
+                                </div>
+                                <div
+                                    style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
+                                    6.794</div>
+                                <div style="flex: 1; display: flex; justify-content: flex-end;"><span
+                                        style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">▲
+                                        +1.861 (+37,7%)</span></div>
                             </div>
                         </div>
                     </div>
@@ -1531,14 +1542,14 @@
         }
 
         registerChart(0, 'chart1_main', 'TOTAL TRIP HAULING BY MITRA KERJA', 'bar', {
-            labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '24-Aug', '26-Aug', '27-Aug', '28-Aug', '29-Aug', '30-Aug', '31-Aug', '01-Sep', '02-Sep'],
+            labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '', '24-Aug', '26-Aug', '27-Aug', '28-Aug', '29-Aug', '30-Aug', '31-Aug', '01-Sep', '02-Sep'],
             datasets: [
-                { label: 'AYM', backgroundColor: '#00529b', data: [241, 455, 322, 362, 404, 226, 204, 103, 184, 327, 313, 213, 219, 303, 265, 288, 378, 471, 403, 0, 323, 394, 453, 449, 383, 314, 183] },
-                { label: 'BKA', backgroundColor: '#f37021', data: [89, 89, 101, 119, 128, 115, 121, 146, 188, 136, 144, 24, 161, 138, 132, 61, 144, 78, 118, 0, 74, 153, 127, 119, 122, 229, 0] },
-                { label: 'NKHO', backgroundColor: '#a3a3a3', data: [60, 63, 69, 159, 101, 54, 123, 157, 76, 173, 173, 0, 157, 130, 28, 62, 256, 254, 132, 59, 151, 186, 259, 223, 41, 100, 169] },
-                { label: 'RDPE', backgroundColor: '#ffc000', data: [115, 132, 129, 164, 158, 160, 158, 114, 165, 154, 169, 135, 143, 121, 153, 174, 205, 197, 47, 0, 96, 158, 158, 0, 139, 172, 0] },
-                { label: 'SGJR', backgroundColor: '#5b9bd5', data: [24, 26, 44, 54, 50, 77, 32, 35, 45, 58, 44, 82, 79, 73, 117, 51, 95, 0, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21] },
-                { label: 'KPRE01', backgroundColor: '#a3a3a3', data: [60, 63, 69, 159, 101, 54, 123, 157, 76, 173, 173, 0, 157, 130, 28, 62, 256, 254, 109, 0, 74, 90, 147, 0, 50, 130, 0] }
+                { label: 'AYM', backgroundColor: '#00529b', data: [241, 455, 322, 362, 404, 226, null, 204, 103, 184, 327, 313, 213, null, 219, 303, 265, 288, 378, 471, null, 403, 0, 323, 394, 453, 449, 383, 314, 183] },
+                { label: 'BKA', backgroundColor: '#f37021', data: [89, 89, 101, 119, 128, 115, null, 121, 146, 188, 136, 144, 24, null, 161, 138, 132, 61, 144, 78, null, 118, 0, 74, 153, 127, 119, 122, 229, 0] },
+                { label: 'NKHO', backgroundColor: '#a3a3a3', data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 132, 59, 151, 186, 259, 223, 41, 100, 169] },
+                { label: 'RDPE', backgroundColor: '#ffc000', data: [115, 132, 129, 164, 158, 160, null, 158, 114, 165, 154, 169, 135, null, 143, 121, 153, 174, 205, 197, null, 47, 0, 96, 158, 158, 0, 139, 172, 0] },
+                { label: 'SGJR', backgroundColor: '#5b9bd5', data: [24, 26, 44, 54, 50, 77, null, 32, 35, 45, 58, 44, 82, null, 79, 73, 117, 51, 95, 0, null, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21] },
+                { label: 'KPRE01', backgroundColor: '#a3a3a3', data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 109, 0, 74, 90, 147, 0, 50, 130, 0] }
             ]
         }, {
             ...commonOptions,
@@ -1582,7 +1593,7 @@
                     }
                 }
             }
-        }, [verticalLinePlugin]);
+        });
         registerChart(0, 'chart2_main', 'NON PRODUCTIVITY TIME BY MITRA KERJA (18-23 AUG)', 'bar', {
             labels: [
                 ['18-Aug-26', 'AYM'], ['19-Aug-26', 'AYM'], ['20-Aug-26', 'AYM'],
@@ -1669,7 +1680,7 @@
                     "<strong>104 Jam NPT Wait for Equipment:</strong> DT Standby karena menunggu alat kuning mobilisasi ke lokasi baru.",
                     "<strong>40 Jam NPT Permitting/License:</strong> DT Standby menunggu proses KP dan CCPM."
                 ],
-                chart1Data: [241, 455, 322, 362, 404, 226, 204, 103, 184, 327, 313, 213, 219, 303, 265, 288, 378, 471, 403, 0, 323, 394, 453, 449, 383, 314, 183],
+                chart1Data: [241, 455, 322, 362, 404, 226, null, 204, 103, 184, 327, 313, 213, null, 219, 303, 265, 288, 378, 471, null, 403, 0, 323, 394, 453, 449, 383, 314, 183],
                 issuesDates: ['18-Aug-26', '19-Aug-26', '20-Aug-26'],
                 issuesData: {
                     'Equipment Under Repair': [0, 0, 0],
@@ -1692,7 +1703,7 @@
                     "<strong>40 Jam NPT Equipment Under Repairs:</strong> 1 Unit FT mengalami kerusakan, terkendala untuk pengisian solar ke unit di lokasi kerja.",
                     "<strong>24 Jam NPT Permitting/License:</strong> DT Standby karena Greenpass Expired."
                 ],
-                chart1Data: [89, 89, 101, 119, 128, 115, 121, 146, 188, 136, 144, 24, 161, 138, 132, 61, 144, 78, 118, 0, 74, 153, 127, 119, 122, 229, 0],
+                chart1Data: [89, 89, 101, 119, 128, 115, null, 121, 146, 188, 136, 144, 24, null, 161, 138, 132, 61, 144, 78, null, 118, 0, 74, 153, 127, 119, 122, 229, 0],
                 issuesDates: ['18-Aug-26', '19-Aug-26', '21-Aug-26', '23-Aug-26'],
                 issuesData: {
                     'Equipment Under Repair': [0, 40, 0, 0],
@@ -1717,7 +1728,7 @@
                     "<strong>16 Jam NPT Permitting/License:</strong> dikarenakan Proses KP Driver.",
                     "<strong>9 Jam NPT Equipment Under Repairs:</strong> 1 Unit DT Service Rutin."
                 ],
-                chart1Data: [60, 63, 69, 159, 101, 54, 123, 157, 76, 173, 173, 0, 157, 130, 28, 62, 256, 254, 132, 59, 151, 186, 259, 223, 41, 100, 169],
+                chart1Data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 132, 59, 151, 186, 259, 223, 41, 100, 169],
                 issuesDates: ['18-Aug-26', '20-Aug-26'],
                 issuesData: {
                     'Equipment Under Repair': [9, 0],
@@ -1739,7 +1750,7 @@
                     "Puncaknya pada 18-23 Ags, produktivitas melesat ke <strong>993</strong> trip dengan kenaikan <strong>+10,9%</strong>.",
                     "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:03:00 AM</strong>."
                 ],
-                chart1Data: [115, 132, 129, 164, 158, 160, 158, 114, 165, 154, 169, 135, 143, 121, 153, 174, 205, 197, 47, 0, 96, 158, 158, 0, 139, 172, 0],
+                chart1Data: [115, 132, 129, 164, 158, 160, null, 158, 114, 165, 154, 169, 135, null, 143, 121, 153, 174, 205, 197, null, 47, 0, 96, 158, 158, 0, 139, 172, 0],
                 issuesDates: [],
                 issuesData: {}
             },
@@ -1755,7 +1766,7 @@
                     "Produktivitas meroket tajam menjadi <strong>415</strong> trip pada 18-23 Ags, yang merupakan peningkatan masif <strong>+40,2%</strong>.",
                     "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:33:00 AM</strong>."
                 ],
-                chart1Data: [24, 26, 44, 54, 50, 77, 32, 35, 45, 58, 44, 82, 79, 73, 117, 51, 95, 0, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21],
+                chart1Data: [24, 26, 44, 54, 50, 77, null, 32, 35, 45, 58, 44, 82, null, 79, 73, 117, 51, 95, 0, null, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21],
                 issuesDates: [],
                 issuesData: {}
             },
@@ -1768,7 +1779,7 @@
                 insights: [
                     "Data terbaru telah ditambahkan untuk <strong>KPRE01</strong>."
                 ],
-                chart1Data: [60, 63, 69, 159, 101, 54, 123, 157, 76, 173, 173, 0, 157, 130, 28, 62, 256, 254, 109, 0, 74, 90, 147, 0, 50, 130, 0],
+                chart1Data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 109, 0, 74, 90, 147, 0, 50, 130, 0],
                 issuesDates: [],
                 issuesData: {}
             }
@@ -1804,7 +1815,7 @@
 <div class="header">
 <div class="title-area">
 <h1 class="main-title">PRODUCTIVITY DETAIL - ${mk.id}</h1>
-<p class="subtitle">Periode 3 - 26 Agustus 2026</p>
+<p class="subtitle">Periode 3 Ags - 2 Sep 2026</p>
 </div>
 <div class="logos"><img src="real_logos.png" alt="Logo"></div>
 </div>
@@ -1922,12 +1933,12 @@ ${mk.statsTitle}
             // Capture mk values in closure for lazy creation
             (function (mkCopy, sIdx) {
                 registerChart(sIdx, `chart1_mk_${mkCopy.id}`, `TOTAL TRIP HAULING - ${mkCopy.id}`, 'bar', {
-                    labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '24-Aug', '26-Aug', '27-Aug', '28-Aug', '29-Aug', '30-Aug', '31-Aug', '01-Sep', '02-Sep'],
+                    labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '', '24-Aug', '26-Aug', '27-Aug', '28-Aug', '29-Aug', '30-Aug', '31-Aug', '01-Sep', '02-Sep'],
                     datasets: [{ label: mkCopy.id, backgroundColor: mkCopy.color, data: mkCopy.chart1Data }]
                 }, {
                     ...commonOptions,
                     plugins: { ...commonOptions.plugins, legend: { display: false } }
-                }, [verticalLinePlugin]);
+                });
                 if (mkCopy.issuesDates.length > 0) {
                     const issueDatasets = Object.keys(mkCopy.issuesData).map(issueName => ({
                         label: issueName,
