@@ -1553,8 +1553,137 @@
         }
 
                 // NPT source data (for cross-chart filtering)
-        const _nptAllLabels = [["01-Aug-26","AKM"],["02-Aug-26","AKM"],["03-Aug-26","AKM"],["04-Aug-26","AKM"],["05-Aug-26","AKM"],["06-Aug-26","AKM"],["07-Aug-26","AKM"],["08-Aug-26","AKM"],["10-Aug-26","AKM"],["11-Aug-26","AKM"],["13-Aug-26","AKM"],["14-Aug-26","AKM"],["15-Aug-26","AKM"],["18-Aug-26","AKM"],["19-Aug-26","AKM"],["20-Aug-26","AKM"],["26-Aug-26","AKM"],["27-Aug-26","AKM"],["28-Aug-26","AKM"],["29-Aug-26","AKM"],["30-Aug-26","AKM"],["31-Aug-26","AKM"],["01-Sep-26","AKM"],["02-Sep-26","AKM"],["01-Aug-26","BRA"],["03-Aug-26","BRA"],["05-Aug-26","BRA"],["07-Aug-26","BRA"],["10-Aug-26","BRA"],["15-Aug-26","BRA"],["18-Aug-26","BRA"],["19-Aug-26","BRA"],["21-Aug-26","BRA"],["23-Aug-26","BRA"],["24-Aug-26","BRA"],["26-Aug-26","BRA"],["27-Aug-26","BRA"],["29-Aug-26","BRA"],["30-Aug-26","BRA"],["02-Sep-26","BRA"],["26-Aug-26","KPRE01"],["01-Aug-26","NKHO"],["02-Aug-26","NKHO"],["03-Aug-26","NKHO"],["04-Aug-26","NKHO"],["05-Aug-26","NKHO"],["06-Aug-26","NKHO"],["07-Aug-26","NKHO"],["09-Aug-26","NKHO"],["10-Aug-26","NKHO"],["11-Aug-26","NKHO"],["12-Aug-26","NKHO"],["13-Aug-26","NKHO"],["14-Aug-26","NKHO"],["15-Aug-26","NKHO"],["17-Aug-26","NKHO"],["20-Aug-26","NKHO"],["27-Aug-26","NKHO"],["01-Sep-26","NKHO"],["02-Sep-26","NKHO"],["26-Aug-26","RDPE"],["01-Aug-26","SGJR"],["02-Aug-26","SGJR"],["10-Aug-26","SGJR"],["11-Aug-26","SGJR"],["12-Aug-26","SGJR"],["13-Aug-26","SGJR"],["14-Aug-26","SGJR"],["29-Aug-26","SGJR"],["30-Aug-26","SGJR"]];
-        const _nptAllData = [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,96,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,904,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,392,0,0,0,0,264,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,360,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,90,0,108,100,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,40,96,0,0,8,0,0,40,0,0,32,0,0,0,0,0,0,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,176,0,0,0,0,0,688,0,0,48,104,0,0,0,0,184,0,0,430,313,100,0,0,0,0,0,0,0,0,0,0,0,0,0,40,40,0,0,189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,0,0,0,0,0,0,0,64,80,0,0,32,40,48],[0,0,0,0,0,0,0,0,0,344,0,0,0,0,0,224,0,35,328,328,80,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,185,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,0,144,136,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,56,32,168,168,32,0,0,0,0,0,0,27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,32,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,96,96,0,0,0],[16,32,72,0,24,0,48,0,144,24,24,16,0,24,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,24,0,0,0,0,0,0,40,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0]];
+        const rawNptData = [
+    { mk: 'AKM', date: '01-Aug', cat: '52', val: 16 },
+    { mk: 'AKM', date: '02-Aug', cat: '52', val: 32 },
+    { mk: 'AKM', date: '03-Aug', cat: '52', val: 72 },
+    { mk: 'AKM', date: '04-Aug', cat: '44', val: 176 },
+    { mk: 'AKM', date: '05-Aug', cat: '52', val: 24 },
+    { mk: 'AKM', date: '06-Aug', cat: '41', val: 16 },
+    { mk: 'AKM', date: '07-Aug', cat: '52', val: 48 },
+    { mk: 'AKM', date: '08-Aug', cat: '48', val: 46 },
+    { mk: 'AKM', date: '10-Aug', cat: '52', val: 144 },
+    { mk: 'AKM', date: '11-Aug', cat: '44', val: 688 },
+    { mk: 'AKM', date: '11-Aug', cat: '47', val: 344 },
+    { mk: 'AKM', date: '11-Aug', cat: '52', val: 24 },
+    { mk: 'AKM', date: '13-Aug', cat: '52', val: 24 },
+    { mk: 'AKM', date: '14-Aug', cat: '52', val: 16 },
+    { mk: 'AKM', date: '15-Aug', cat: '44', val: 48 },
+    { mk: 'AKM', date: '18-Aug', cat: '44', val: 104 },
+    { mk: 'AKM', date: '18-Aug', cat: '52', val: 24 },
+    { mk: 'AKM', date: '19-Aug', cat: '52', val: 16 },
+    { mk: 'AKM', date: '20-Aug', cat: '47', val: 224 },
+    { mk: 'AKM', date: '26-Aug', cat: '26', val: 904 },
+    { mk: 'AKM', date: '27-Aug', cat: '47', val: 35 },
+    { mk: 'AKM', date: '28-Aug', cat: '44', val: 184 },
+    { mk: 'AKM', date: '28-Aug', cat: '47', val: 328 },
+    { mk: 'AKM', date: '29-Aug', cat: '47', val: 328 },
+    { mk: 'AKM', date: '30-Aug', cat: '47', val: 80 },
+    { mk: 'AKM', date: '31-Aug', cat: '44', val: 430 },
+    { mk: 'AKM', date: '01-Sep', cat: '44', val: 313 },
+    { mk: 'AKM', date: '01-Sep', cat: '47', val: 40 },
+    { mk: 'AKM', date: '02-Sep', cat: '44', val: 100 },
+    { mk: 'BRA', date: '01-Aug', cat: '41', val: 90 },
+    { mk: 'BRA', date: '01-Aug', cat: '43', val: 40 },
+    { mk: 'BRA', date: '03-Aug', cat: '43', val: 96 },
+    { mk: 'BRA', date: '05-Aug', cat: '41', val: 108 },
+    { mk: 'BRA', date: '07-Aug', cat: '41', val: 100 },
+    { mk: 'BRA', date: '10-Aug', cat: '43', val: 8 },
+    { mk: 'BRA', date: '10-Aug', cat: '48', val: 16 },
+    { mk: 'BRA', date: '15-Aug', cat: '25', val: 96 },
+    { mk: 'BRA', date: '18-Aug', cat: '48', val: 56 },
+    { mk: 'BRA', date: '19-Aug', cat: '43', val: 40 },
+    { mk: 'BRA', date: '19-Aug', cat: '48', val: 32 },
+    { mk: 'BRA', date: '21-Aug', cat: '48', val: 168 },
+    { mk: 'BRA', date: '21-Aug', cat: '52', val: 24 },
+    { mk: 'BRA', date: '23-Aug', cat: '48', val: 168 },
+    { mk: 'BRA', date: '24-Aug', cat: '43', val: 32 },
+    { mk: 'BRA', date: '24-Aug', cat: '48', val: 32 },
+    { mk: 'BRA', date: '26-Aug', cat: '26', val: 392 },
+    { mk: 'BRA', date: '27-Aug', cat: '47', val: 185 },
+    { mk: 'BRA', date: '29-Aug', cat: '44', val: 40 },
+    { mk: 'BRA', date: '30-Aug', cat: '44', val: 40 },
+    { mk: 'BRA', date: '02-Sep', cat: '52', val: 40 },
+    { mk: 'KPRE01', date: '26-Aug', cat: '26', val: 264 },
+    { mk: 'NKHO', date: '01-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '01-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '01-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '02-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '02-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '02-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '03-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '03-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '03-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '04-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '04-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '04-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '05-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '05-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '05-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '06-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '06-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '06-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '07-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '07-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '07-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '09-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '09-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '09-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '10-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '10-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '10-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '11-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '11-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '11-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '12-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '12-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '12-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '13-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '13-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '13-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '14-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '14-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '14-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '15-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '15-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '15-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '17-Aug', cat: '44', val: 189 },
+    { mk: 'NKHO', date: '17-Aug', cat: '43', val: 9 },
+    { mk: 'NKHO', date: '17-Aug', cat: '48', val: 27 },
+    { mk: 'NKHO', date: '20-Aug', cat: '47', val: 128 },
+    { mk: 'NKHO', date: '20-Aug', cat: '52', val: 16 },
+    { mk: 'NKHO', date: '26-Aug', cat: '26', val: 248 },
+    { mk: 'NKHO', date: '27-Aug', cat: '48', val: 32 },
+    { mk: 'NKHO', date: '01-Sep', cat: '25', val: 50 },
+    { mk: 'NKHO', date: '01-Sep', cat: '47', val: 144 },
+    { mk: 'NKHO', date: '02-Sep', cat: '47', val: 136 },
+    { mk: 'RDPE', date: '26-Aug', cat: '26', val: 360 },
+    { mk: 'SGJR', date: '01-Aug', cat: '23', val: 8 },
+    { mk: 'SGJR', date: '02-Aug', cat: '23', val: 8 },
+    { mk: 'SGJR', date: '10-Aug', cat: '44', val: 64 },
+    { mk: 'SGJR', date: '11-Aug', cat: '44', val: 80 },
+    { mk: 'SGJR', date: '12-Aug', cat: '49', val: 96 },
+    { mk: 'SGJR', date: '13-Aug', cat: '49', val: 96 },
+    { mk: 'SGJR', date: '14-Aug', cat: '44', val: 32 },
+    { mk: 'SGJR', date: '29-Aug', cat: '44', val: 40 },
+    { mk: 'SGJR', date: '30-Aug', cat: '44', val: 48 },
+];
+const _nptUniqueDates = ['01-Aug', '02-Aug', '03-Aug', '04-Aug', '05-Aug', '06-Aug', '07-Aug', '08-Aug', '09-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '17-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '23-Aug', '24-Aug', '26-Aug', '27-Aug', '28-Aug', '29-Aug', '30-Aug', '31-Aug', '01-Sep', '02-Sep'];
+const _nptCategoryKeys = ['25', '26', '41', '43', '44', '47', '48', '52', '23', '49'];
+// Keep track of the dataset indices
+const _nptCategoryMap = {
+    '25': 0, // Access road blockage
+    '26': 1, // SWA-Rain
+    '41': 2, // Wait for Supplies/Tools
+    '43': 3, // Equipment Under Repair
+    '44': 4, // Wait for Instruction
+    '47': 5, // Wait for others work
+    '48': 6, // Wait for Manpower
+    '52': 7, // Permitting/Licence
+    '23': 8, // SWA/SSWA
+    '49': 9  // Wait For Equipment
+};
+
         const _mksWithNPT = ["AKM","BRA","KPRE01","NKHO","RDPE","SGJR"];
 
         function updateNPTFilter(visibleMks) {
@@ -1573,16 +1702,32 @@
             canvasWrap.style.display = '';
             noDataEl.style.display = 'none';
 
-            const indices = _nptAllLabels
-                .map((lbl, i) => active.some(mk => lbl[1].includes(mk)) ? i : -1)
-                .filter(i => i !== -1);
+            // Filter raw data for active MKs
+            const filteredData = rawNptData.filter(d => active.includes(d.mk));
 
-            chart2.data.labels = indices.map(i => _nptAllLabels[i]);
-            chart2.data.datasets.forEach((ds, di) => {
-                ds.data = indices.map(i => _nptAllData[di][i]);
+            // Sum values per date and category
+            // result[date][category_idx] = sum
+            const dateSums = {};
+            _nptUniqueDates.forEach(d => {
+                dateSums[d] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
             });
+
+            filteredData.forEach(d => {
+                const catIdx = _nptCategoryMap[d.cat];
+                if (catIdx !== undefined && dateSums[d.date]) {
+                    dateSums[d.date][catIdx] += d.val;
+                }
+            });
+
+            // Reconstruct datasets
+            chart2.data.labels = _nptUniqueDates;
+            chart2.data.datasets.forEach((ds, di) => {
+                ds.data = _nptUniqueDates.map(d => dateSums[d][di]);
+            });
+
             chart2.update('none');
         }
+
 
         registerChart(0, 'chart1_main', 'TOTAL TRIP HAULING BY MITRA KERJA', 'bar', {
             labels: ['3-Aug', '4-Aug', '5-Aug', '6-Aug', '7-Aug', '8-Aug', '', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '22-Aug', '23-Aug', '', '24-Aug', '26-Aug', '27-Aug', '28-Aug', '29-Aug', '30-Aug', '31-Aug', '01-Sep', '02-Sep'],
@@ -1638,16 +1783,18 @@
             }
         });
         registerChart(0, 'chart2_main', 'NON PRODUCTIVITY TIME BY MITRA KERJA', 'bar', {
-            labels: _nptAllLabels,
+            labels: _nptUniqueDates,
             datasets: [
-                { label: 'Access road blockage', backgroundColor: '#1F497D', data: _nptAllData[0] },
-                { label: 'SWA-Rain', backgroundColor: '#ED7D31', data: _nptAllData[1] },
-                { label: 'Wait for Supplies/Tools', backgroundColor: '#7030A0', data: _nptAllData[2] },
-                { label: 'Equipment Under Repair', backgroundColor: '#FF66B2', data: _nptAllData[3] },
-                { label: 'Wait for Instruction', backgroundColor: '#9B2D8C', data: _nptAllData[4] },
-                { label: 'Wait for others work', backgroundColor: '#FFC000', data: _nptAllData[5] },
-                { label: 'Wait for Manpower', backgroundColor: '#FF0000', data: _nptAllData[6] },
-                { label: 'Permitting/Licence', backgroundColor: '#00B050', data: _nptAllData[7] }
+                { label: 'Access road blockage', backgroundColor: '#1F497D', data: [] },
+                { label: 'SWA-Rain', backgroundColor: '#ED7D31', data: [] },
+                { label: 'Wait for Supplies/Tools', backgroundColor: '#7030A0', data: [] },
+                { label: 'Equipment Under Repair', backgroundColor: '#FF66B2', data: [] },
+                { label: 'Wait for Instruction', backgroundColor: '#9B2D8C', data: [] },
+                { label: 'Wait for others work', backgroundColor: '#FFC000', data: [] },
+                { label: 'Wait for Manpower', backgroundColor: '#FF0000', data: [] },
+                { label: 'Permitting/Licence', backgroundColor: '#00B050', data: [] },
+                { label: 'SWA/SSWA', backgroundColor: '#00B0F0', data: [] },
+                { label: 'Wait For Equipment', backgroundColor: '#008080', data: [] }
             ]
         }, {
             ...commonOptions,
@@ -2258,6 +2405,11 @@ ${mk.statsTitle}
                 chart.update('none'); // Update tanpa animasi agar slider tidak patah-patah
             } catch (e) {
                 console.error("Error sliding Y axis:", e);
+            }
+        };
+        window.onload = function() {
+            if (typeof updateNPTFilter === 'function' && typeof _mksWithNPT !== 'undefined') {
+                updateNPTFilter(_mksWithNPT);
             }
         };
     </script>
