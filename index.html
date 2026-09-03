@@ -2322,36 +2322,88 @@ ${mk.statsTitle}
         }, true);
 
         // ── Chart Date Filtering and Slider Logic ──────────────────────────────
-        window.filterChartDates = function (selectEl) {
-            const canvasId = selectEl.dataset.target;
-            const val = selectEl.value;
-            const slider = selectEl.closest('.chart-box').querySelector('.powerbi-slider');
-
-            let chart;
+        function getChartByCanvasId(canvasId) {
             for (let key in slideChartInstances) {
                 let arr = slideChartInstances[key];
                 if (!arr) continue;
                 for (let c of arr) {
-                    if (c && c.canvas.id === canvasId) { chart = c; break; }
+                    if (c && c.canvas.id === canvasId) return c;
                 }
-                if (chart) break;
             }
+            return null;
+        }
+
+        const _chart1DateMap = [
+            '2026-08-03', '2026-08-04', '2026-08-05', '2026-08-06', '2026-08-07', '2026-08-08', '2026-08-09', 
+            '2026-08-10', '2026-08-11', '2026-08-12', '2026-08-13', '2026-08-14', '2026-08-15', '2026-08-17', 
+            '2026-08-18', '2026-08-19', '2026-08-20', '2026-08-21', '2026-08-22', '2026-08-23', '2026-08-24', 
+            '2026-08-24', '2026-08-26', '2026-08-27', '2026-08-28', '2026-08-29', '2026-08-30', '2026-08-31', 
+            '2026-09-01', '2026-09-02'
+        ].map(d => new Date(d).getTime());
+
+        window.applyDateFilter = function (inputEl) {
+            const canvasId = inputEl.dataset.target;
+            const container = inputEl.closest('.date-slicer-container');
+            const startInput = container.querySelector('.start-date');
+            const endInput = container.querySelector('.end-date');
+            
+            const startVal = startInput.value ? new Date(startInput.value).getTime() : null;
+            const endVal = endInput.value ? new Date(endInput.value).getTime() : null;
+            
+            if (!startVal && !endVal) return;
+
+            const chart = getChartByCanvasId(canvasId);
             if (!chart) return;
 
-            let min = 0; let max = 29;
-            if (val === 'p1') { min = 0; max = 5; }
-            else if (val === 'p2') { min = 7; max = 12; }
-            else if (val === 'p3') { min = 14; max = 19; }
-            else if (val === 'p4') { min = 21; max = 29; }
+            let minIdx = 0;
+            let maxIdx = chart.data.labels.length - 1;
 
-            if (slider && val !== 'all') {
-                slider.value = max;
-            } else if (slider) {
-                slider.value = 19;
+            if (startVal) {
+                const idx = _chart1DateMap.findIndex(t => t >= startVal);
+                if (idx !== -1) minIdx = idx;
+                else minIdx = maxIdx;
             }
+            if (endVal) {
+                let idx = -1;
+                for (let i = _chart1DateMap.length - 1; i >= 0; i--) {
+                    if (_chart1DateMap[i] <= endVal) {
+                        idx = i;
+                        break;
+                    }
+                }
+                if (idx !== -1) maxIdx = idx;
+                else maxIdx = minIdx;
+            }
+            
+            if (minIdx > maxIdx) maxIdx = minIdx;
 
-            chart.options.scales.x.min = min;
-            chart.options.scales.x.max = max;
+            chart.options.scales.x.min = minIdx;
+            chart.options.scales.x.max = maxIdx;
+            
+            const slider = inputEl.closest('.chart-box').querySelector('.powerbi-slider');
+            if (slider) slider.value = maxIdx;
+            
+            chart.update();
+        };
+
+        window.clearDateFilter = function (btnEl) {
+            const canvasId = btnEl.dataset.target;
+            const container = btnEl.closest('.date-slicer-container');
+            const startInput = container.querySelector('.start-date');
+            const endInput = container.querySelector('.end-date');
+            
+            startInput.value = '';
+            endInput.value = '';
+            
+            const chart = getChartByCanvasId(canvasId);
+            if (!chart) return;
+            
+            chart.options.scales.x.min = 0;
+            chart.options.scales.x.max = chart.data.labels.length - 1;
+            
+            const slider = btnEl.closest('.chart-box').querySelector('.powerbi-slider');
+            if (slider) slider.value = 19;
+            
             chart.update();
         };
 
