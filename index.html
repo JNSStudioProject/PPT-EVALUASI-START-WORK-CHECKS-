@@ -1120,7 +1120,7 @@
                 /* Hide heavy/overflowing ornaments on mobile */
             }
         }
-    
+
         .date-slicer-container {
             background: white;
             border: 1px solid #e2e8f0;
@@ -1129,18 +1129,21 @@
             display: inline-flex;
             flex-direction: column;
             gap: 4px;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
         }
+
         .date-slicer-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
+
         .date-slicer-header span {
             font-size: 10px;
             font-weight: 600;
             color: #333;
         }
+
         .date-slicer-clear {
             background: none;
             border: none;
@@ -1150,14 +1153,17 @@
             align-items: center;
             color: #94a3b8;
         }
+
         .date-slicer-clear:hover {
             color: #ef4444;
         }
+
         .date-slicer-inputs {
             display: flex;
             gap: 4px;
             align-items: center;
         }
+
         .date-slicer-input {
             font-size: 10px;
             padding: 2px 4px;
@@ -1167,12 +1173,13 @@
             width: 85px;
             font-family: inherit;
         }
+
         .date-slicer-input::-webkit-calendar-picker-indicator {
             padding: 0;
             margin: 0;
             cursor: pointer;
         }
-</style>
+    </style>
 </head>
 
 <body>
@@ -1216,20 +1223,29 @@
             </div>
             <div class="body-content">
                 <div class="left-content">
-                    <div class="chart-box" style="position: relative; padding-right: 20px; padding-bottom: 20px;">
+                    <div class="chart-box" style="position: relative; padding-right: 20px; padding-bottom: 20px; flex: 0.7;">
                         <div class="chart-title-row">
                             <div class="chart-title" style="margin-bottom:0;">TOTAL TRIP HAULING BY MITRA KERJA</div>
                             <div class="chart-controls-group" style="z-index: 50;">
                                 <div class="date-slicer-container">
                                     <div class="date-slicer-header">
                                         <span>Tanggal</span>
-                                        <button class="date-slicer-clear" data-target="chart1_main" onclick="clearDateFilter(this)" title="Clear filter">
-                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path><line x1="18" y1="9" x2="12" y2="15"></line><line x1="12" y1="9" x2="18" y2="15"></line></svg>
+                                        <button class="date-slicer-clear" data-target="chart1_main"
+                                            onclick="clearDateFilter(this)" title="Clear filter">
+                                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"></path>
+                                                <line x1="18" y1="9" x2="12" y2="15"></line>
+                                                <line x1="12" y1="9" x2="18" y2="15"></line>
+                                            </svg>
                                         </button>
                                     </div>
                                     <div class="date-slicer-inputs">
-                                        <input type="date" class="date-slicer-input start-date" data-target="chart1_main" onchange="applyDateFilter(this)">
-                                        <input type="date" class="date-slicer-input end-date" data-target="chart1_main" onchange="applyDateFilter(this)">
+                                        <input type="date" class="date-slicer-input start-date"
+                                            data-target="chart1_main" onchange="applyDateFilter(this)">
+                                        <input type="date" class="date-slicer-input end-date" data-target="chart1_main"
+                                            onchange="applyDateFilter(this)">
                                     </div>
                                 </div>
                                 <button class="chart-expand-btn" data-canvas="chart1_main"
@@ -1253,7 +1269,7 @@
                                 orient="vertical" data-target="chart1_main" oninput="slideChartWindowY(this)">
                         </div>
                     </div>
-                    <div class="chart-box">
+                    <div class="chart-box" style="flex: 1.4; min-height: 320px;">
                         <div class="chart-title-row">
                             <div class="chart-title" style="margin-bottom:0;">NON PRODUCTIVITY TIME BY MITRA KERJA
                                 (3 AGS - 2 SEP)</div>
@@ -1320,7 +1336,7 @@
                                     style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
                                     4.698</div>
                                 <div style="flex: 1; display: flex; justify-content: flex-end;"><span
-                                        style="font-size: 10px; font-weight: 700; color: #ef3340; background: rgba(239, 51, 64, 0.1); padding: 3px 6px; border-radius: 6px;"> 
+                                        style="font-size: 10px; font-weight: 700; color: #ef3340; background: rgba(239, 51, 64, 0.1); padding: 3px 6px; border-radius: 6px;">
                                         -98 (-2,0%)</span></div>
                             </div>
                             <div
@@ -1331,27 +1347,28 @@
                                     style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
                                     5.820</div>
                                 <div style="flex: 1; display: flex; justify-content: flex-end;"><span
-                                        style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;"> 
+                                        style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">
                                         +1.122 (+23,9%)</span></div>
                             </div>
                             <div
                                 style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 8px; padding: 4px 6px;">
-                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">24 AGS - 2 SEP
+                                <div style="font-size: 11px; font-weight: 700; color: #475569; width: 60px;">24 AGS - 2
+                                    SEP
                                 </div>
                                 <div
                                     style="font-size: 14px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">
                                     6.794</div>
                                 <div style="flex: 1; display: flex; justify-content: flex-end;"><span
-                                        style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;"> 
+                                        style="font-size: 10px; font-weight: 700; color: #008751; background: rgba(0, 135, 81, 0.1); padding: 3px 6px; border-radius: 6px;">
                                         +974 (+16,7%)</span></div>
                             </div>
                         </div>
                     </div>
                     <div class="key-message-box" style="flex-grow: 1; overflow: hidden; padding-bottom: 5px;">
                         <div class="key-message-header" style="padding: 10px 16px 6px 20px;">
-                            <div class="icon-wrapper" style="width: 24px; height: 24px; border-radius: 6px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-                                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                                    stroke-linejoin="round">
+                            <div class="icon-wrapper" style="width: 24px; height: 24px; border-radius: 6px;"><svg
+                                    width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z">
                                     </path>
                                     <path d="M12 8v4"></path>
@@ -1359,46 +1376,64 @@
                                 </svg></div>
                             <h3 style="font-size: 14px;">Summary Highlights </h3>
                         </div>
-                        <div class="key-message-content" style="padding: 0 16px 8px 20px; gap: 4px; display: flex; flex-direction: column; justify-content: space-evenly; flex: 1; overflow: hidden;">
+                        <div class="key-message-content"
+                            style="padding: 0 16px 8px 20px; gap: 4px; display: flex; flex-direction: column; justify-content: space-evenly; flex: 1; overflow: hidden;">
                             <div class="message-item" style="padding: 5px 8px; gap: 6px;">
-                                <div class="check-icon" style="margin-top: 1px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                <div class="check-icon" style="margin-top: 1px;"><svg width="12" height="12"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg></div>
-                                <p style="font-size: 9.5px; line-height: 1.25; margin: 0;"> Produktivitas hauling menunjukkan fluktuasi selama periode 3 Agustus hingga 2 September 2026, dari
+                                <p style="font-size: 9.5px; line-height: 1.25; margin: 0;"> Produktivitas hauling
+                                    menunjukkan fluktuasi selama periode 3 Agustus hingga 2 September 2026, dari
                                     4.796 trip pada 3-8 Agustus turun menjadi 4.698 trip pada 10-15 Agustus, atau
                                     menurun sebesar 98 trip (-2,0%). Selanjutnya, produktivitas kembali meningkat
-                                    menjadi 5.820 trip pada 18-23 Agustus (naik sebesar 1.122 trip / +23,9%) dan mencapai 
+                                    menjadi 5.820 trip pada 18-23 Agustus (naik sebesar 1.122 trip / +23,9%) dan
+                                    mencapai
                                     puncaknya sebesar 6.794 trip pada 24 Agustus - 2 September (+974 trip / +16,7%).</p>
                             </div>
                             <div class="message-item" style="padding: 5px 8px; gap: 6px;">
-                                <div class="check-icon" style="margin-top: 1px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                <div class="check-icon" style="margin-top: 1px;"><svg width="12" height="12"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg></div>
-                                <p style="font-size: 9.5px; line-height: 1.25; margin: 0;"><strong>5.222 Jam NPT Wait for Instruction:</strong> dikarenakan dominasi Standby menunggu mobilisasi ke lokasi baru dan Issue Internal Ramping Down team di sebagian besar Mitra Kerja.</p>
+                                <p style="font-size: 9.5px; line-height: 1.25; margin: 0;"><strong>5.222 Jam NPT Wait
+                                        for Instruction:</strong> dikarenakan dominasi Standby menunggu mobilisasi ke
+                                    lokasi baru dan Issue Internal Ramping Down team di sebagian besar Mitra Kerja.</p>
                             </div>
                             <div class="message-item" style="padding: 5px 8px; gap: 6px;">
-                                <div class="check-icon" style="margin-top: 1px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                <div class="check-icon" style="margin-top: 1px;"><svg width="12" height="12"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg></div>
-                                <p style="font-size: 9.5px; line-height: 1.25; margin: 0;"><strong>1.972 Jam NPT Wait for Others Work:</strong> dikarenakan tingginya angka DT standby menunggu Clearing Area dan penutupan akses jalan akibat pekerjaan lain.</p>
+                                <p style="font-size: 9.5px; line-height: 1.25; margin: 0;"><strong>1.972 Jam NPT Wait
+                                        for Others Work:</strong> dikarenakan tingginya angka DT standby menunggu
+                                    Clearing Area dan penutupan akses jalan akibat pekerjaan lain.</p>
                             </div>
                             <div class="message-item" style="padding: 5px 8px; gap: 6px;">
-                                <div class="check-icon" style="margin-top: 1px;"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
-                                        stroke="currentColor" stroke-width="3.5" stroke-linecap="round"
-                                        stroke-linejoin="round">
+                                <div class="check-icon" style="margin-top: 1px;"><svg width="12" height="12"
+                                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"
+                                        stroke-linecap="round" stroke-linejoin="round">
                                         <polyline points="20 6 9 17 4 12"></polyline>
                                     </svg></div>
-                                <p style="font-size: 9.5px; line-height: 1.25; margin: 0;"><strong>1.920 Jam NPT SWA-Rain:</strong> terjadi lonjakan tinggi di akhir bulan (khususnya 26 Agustus) akibat curah hujan yang memicu Stop Work Authority (SWA).</p>
+                                <p style="font-size: 9.5px; line-height: 1.25; margin: 0;"><strong>1.920 Jam NPT
+                                        SWA-Rain:</strong> terjadi lonjakan tinggi di akhir bulan (khususnya 26 Agustus)
+                                    akibat curah hujan yang memicu Stop Work Authority (SWA).</p>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="interactive-stats-box" id="time-stats-box" style="display: none; margin-top: 10px;">
+                        <div class="stats-header-title">DATA WAKTU</div>
+                        <div class="stats-grid">
+                            <div class="stat-card"><span class="stat-title">First SWC</span><span class="stat-value" id="ts-first-swc">-</span></div>
+                            <div class="stat-card"><span class="stat-title">Avg First SWC</span><span class="stat-value" id="ts-avg-first-swc">-</span></div>
+                            <div class="stat-card"><span class="stat-title">Avg First Tag</span><span class="stat-value" id="ts-avg-first-tag">-</span></div>
+                            <div class="stat-card"><span class="stat-title">Avg Berangkat</span><span class="stat-value" id="ts-avg-berangkat">-</span></div>
+                        </div>
+                    </div>
+                </div> <!-- End right-sidebar -->
             </div>
         </div>
     </div>
@@ -1417,14 +1452,16 @@
                 datalabels: {
                     color: '#0c233d', anchor: 'end', align: 'top', font: { size: 6.5, weight: '600' },
                     rotation: -90, offset: 4, formatter: Math.round, padding: 0,
-                    display: function (context) { 
-                        return context.dataset.data[context.dataIndex] === 0 ? false : 'auto'; 
+                    display: function (context) {
+                        const val = context.dataset.data[context.dataIndex];
+                        return (!val || val === 0) ? false : 'auto';
                     }
                 }
             },
             scales: {
-                x: { grid: { display: false }, ticks: { font: { size: 9, weight: '600' }, maxRotation: 0, minRotation: 0, color: function (ctx) { const label = ctx.tick && ctx.tick.label ? ctx.tick.label : ''; return ['15-Aug', '22-Aug', '23-Aug'].includes(label) ? '#ef3340' : '#0c233d'; } } },
-                y: { grid: { color: 'rgba(0, 82, 155, 0.1)', drawBorder: false }, ticks: { font: { size: 10 } }, beginAtZero: true, min: 0 }
+                x: { grid: { display: false }, ticks: { font: { size: 7.5, weight: '600' }, maxRotation: 45, minRotation: 0, color: function (ctx) { const label = ctx.tick && ctx.tick.label ? ctx.tick.label : ''; return ['09-Aug', '16-Aug', '17-Aug', '23-Aug', '30-Aug'].includes(label) ? '#ef3340' : '#0c233d'; } } },
+                y: { grid: { color: 'rgba(0, 82, 155, 0.1)', drawBorder: false }, ticks: { font: { size: 10 } }, beginAtZero: true, min: 0 },
+                y1: { display: false, beginAtZero: true, min: 0 }
             },
             layout: { padding: { top: 15 } },
             elements: { bar: { borderRadius: 3 } },
@@ -1562,141 +1599,272 @@
             });
         }
 
-                // NPT source data (for cross-chart filtering)
-        const rawNptData = [
-    { mk: 'AKM', date: '03-Aug', cat: '52', val: 16 },
-    { mk: 'AKM', date: '04-Aug', cat: '52', val: 32 },
-    { mk: 'AKM', date: '05-Aug', cat: '52', val: 72 },
-    { mk: 'AKM', date: '06-Aug', cat: '44', val: 176 },
-    { mk: 'AKM', date: '07-Aug', cat: '52', val: 24 },
-    { mk: 'AKM', date: '08-Aug', cat: '41', val: 16 },
-    { mk: 'AKM', date: '08-Aug', cat: '52', val: 48 },
-    { mk: 'AKM', date: '09-Aug', cat: '48', val: 46 },
-    { mk: 'AKM', date: '10-Aug', cat: '52', val: 144 },
-    { mk: 'AKM', date: '11-Aug', cat: '44', val: 688 },
-    { mk: 'AKM', date: '11-Aug', cat: '47', val: 376 },
-    { mk: 'AKM', date: '11-Aug', cat: '52', val: 24 },
-    { mk: 'AKM', date: '13-Aug', cat: '52', val: 24 },
-    { mk: 'AKM', date: '14-Aug', cat: '52', val: 16 },
-    { mk: 'AKM', date: '15-Aug', cat: '44', val: 48 },
-    { mk: 'AKM', date: '18-Aug', cat: '44', val: 104 },
-    { mk: 'AKM', date: '18-Aug', cat: '52', val: 24 },
-    { mk: 'AKM', date: '19-Aug', cat: '52', val: 16 },
-    { mk: 'AKM', date: '20-Aug', cat: '47', val: 224 },
-    { mk: 'AKM', date: '26-Aug', cat: '26', val: 904 },
-    { mk: 'AKM', date: '27-Aug', cat: '47', val: 35 },
-    { mk: 'AKM', date: '28-Aug', cat: '44', val: 184 },
-    { mk: 'AKM', date: '28-Aug', cat: '47', val: 328 },
-    { mk: 'AKM', date: '29-Aug', cat: '47', val: 328 },
-    { mk: 'AKM', date: '30-Aug', cat: '47', val: 80 },
-    { mk: 'AKM', date: '31-Aug', cat: '44', val: 430 },
-    { mk: 'AKM', date: '01-Sep', cat: '44', val: 313 },
-    { mk: 'AKM', date: '01-Sep', cat: '47', val: 40 },
-    { mk: 'AKM', date: '02-Sep', cat: '44', val: 100 },
-    { mk: 'BKA', date: '04-Aug', cat: '41', val: 90 },
-    { mk: 'BKA', date: '04-Aug', cat: '43', val: 40 },
-    { mk: 'BKA', date: '05-Aug', cat: '43', val: 96 },
-    { mk: 'BKA', date: '06-Aug', cat: '41', val: 108 },
-    { mk: 'BKA', date: '07-Aug', cat: '41', val: 100 },
-    { mk: 'BKA', date: '10-Aug', cat: '43', val: 8 },
-    { mk: 'BKA', date: '10-Aug', cat: '48', val: 16 },
-    { mk: 'BKA', date: '14-Aug', cat: '25', val: 96 },
-    { mk: 'BKA', date: '18-Aug', cat: '48', val: 56 },
-    { mk: 'BKA', date: '19-Aug', cat: '43', val: 40 },
-    { mk: 'BKA', date: '20-Aug', cat: '48', val: 32 },
-    { mk: 'BKA', date: '21-Aug', cat: '48', val: 168 },
-    { mk: 'BKA', date: '21-Aug', cat: '52', val: 24 },
-    { mk: 'BKA', date: '24-Aug', cat: '48', val: 168 },
-    { mk: 'BKA', date: '25-Aug', cat: '43', val: 32 },
-    { mk: 'BKA', date: '25-Aug', cat: '48', val: 32 },
-    { mk: 'BKA', date: '26-Aug', cat: '26', val: 392 },
-    { mk: 'BKA', date: '28-Aug', cat: '47', val: 185 },
-    { mk: 'BKA', date: '29-Aug', cat: '44', val: 40 },
-    { mk: 'BKA', date: '30-Aug', cat: '44', val: 40 },
-    { mk: 'BKA', date: '31-Aug', cat: '52', val: 40 },
-    { mk: 'KPRE01', date: '26-Aug', cat: '26', val: 264 },
-    { mk: 'NKHO', date: '03-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '03-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '03-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '04-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '04-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '04-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '05-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '05-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '05-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '06-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '06-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '06-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '07-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '07-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '07-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '08-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '08-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '08-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '09-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '09-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '09-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '10-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '10-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '10-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '11-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '11-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '11-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '12-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '12-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '12-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '13-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '13-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '13-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '14-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '14-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '14-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '15-Aug', cat: '44', val: 189 },
-    { mk: 'NKHO', date: '15-Aug', cat: '43', val: 9 },
-    { mk: 'NKHO', date: '15-Aug', cat: '48', val: 27 },
-    { mk: 'NKHO', date: '20-Aug', cat: '47', val: 128 },
-    { mk: 'NKHO', date: '20-Aug', cat: '52', val: 16 },
-    { mk: 'NKHO', date: '27-Aug', cat: '48', val: 32 },
-    { mk: 'NKHO', date: '30-Aug', cat: '25', val: 50 },
-    { mk: 'NKHO', date: '30-Aug', cat: '47', val: 144 },
-    { mk: 'NKHO', date: '31-Aug', cat: '47', val: 136 },
-    { mk: 'RDPE', date: '26-Aug', cat: '26', val: 360 },
-    { mk: 'SGJR', date: '04-Aug', cat: '23', val: 8 },
-    { mk: 'SGJR', date: '05-Aug', cat: '23', val: 8 },
-    { mk: 'SGJR', date: '10-Aug', cat: '44', val: 64 },
-    { mk: 'SGJR', date: '11-Aug', cat: '44', val: 80 },
-    { mk: 'SGJR', date: '12-Aug', cat: '49', val: 96 },
-    { mk: 'SGJR', date: '13-Aug', cat: '49', val: 96 },
-    { mk: 'SGJR', date: '14-Aug', cat: '44', val: 32 },
-    { mk: 'SGJR', date: '27-Aug', cat: '44', val: 40 },
-    { mk: 'SGJR', date: '28-Aug', cat: '44', val: 48 },
-];
-const _nptUniqueDates = ['01-Aug', '02-Aug', '03-Aug', '04-Aug', '05-Aug', '06-Aug', '07-Aug', '08-Aug', '09-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '17-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '23-Aug', '24-Aug', '26-Aug', '27-Aug', '28-Aug', '29-Aug', '30-Aug', '31-Aug', '01-Sep', '02-Sep'];
-const _nptCategoryKeys = ['25', '26', '41', '43', '44', '47', '48', '52', '23', '49'];
-// Keep track of the dataset indices
-const _nptCategoryMap = {
-    '25': 0, // Access road blockage
-    '26': 1, // SWA-Rain
-    '41': 2, // Wait for Supplies/Tools
-    '43': 3, // Equipment Under Repair
-    '44': 4, // Wait for Instruction
-    '47': 5, // Wait for others work
-    '48': 6, // Wait for Manpower
-    '52': 7, // Permitting/Licence
-    '23': 8, // SWA/SSWA
-    '49': 9  // Wait For Equipment
-};
+        // NPT source data (for cross-chart filtering)
+        const nptCauses = [
+            { mk: 'AKM', date: '01-Aug', cat: '52', cause: 'DT standby driver Proses KP & Badge' },
+            { mk: 'NKHO', date: '01-Aug', cat: '44', cause: 'Issue Internal team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '01-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '01-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '01-Aug', cat: '49', cause: 'Excavator Rusak sehingga DT standby' },
+            { mk: 'NKHO', date: '03-Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource  team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '03-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '03-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '03-Aug', cat: '41', cause: 'Terhambatnya Fuel Truck mensupply Solar ke Lokasi, mengakibatkan beberapa unit DT tidak dapat beroperasi optimal.' },
+            { mk: 'BKA', date: '03-Aug', cat: '43', cause: 'Beberapa unit Dt sedang dalam perbaikan, dan menunggu spare part tersedia.' },
+            { mk: 'AKM', date: '03-Aug', cat: '52', cause: 'DT standby driver Proses KP & Badge' },
+            { mk: 'AKM', date: '04-Aug', cat: '52', cause: 'DT standby driver Proses KP, Badge & Green pass' },
+            { mk: 'NKHO', date: '04-Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource  team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '04-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '04-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '04-Aug', cat: '43', cause: 'Beberapa unit Dt sedang dalam perbaikan, dan menunggu spare part tersedia.' },
+            { mk: 'SGJR', date: '04-Aug', cat: '23', cause: 'DT SSWA terpal DT tidak tersedia' },
+            { mk: 'NKHO', date: '05-Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource  team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '05-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '05-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '05-Aug', cat: '41', cause: 'TerLambatnya Fuel Truck mensupply Solar ke Lokasi, mengakibatkan Progres Hauling tidak maksimal' },
+            { mk: 'AKM', date: '05-Aug', cat: '52', cause: 'DT standby driver Proses KP, Badge dan greenpass' },
+            { mk: 'SGJR', date: '05-Aug', cat: '23', cause: 'DT SSWA terpal DT tidak tersedia' },
+            { mk: 'NKHO', date: '06-Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource  team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '06-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '06-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '06-Aug', cat: '41', cause: 'TerLambatnya Fuel Truck mensupply Solar ke Lokasi, mengakibatkan Progres Hauling tidak maksimal' },
+            { mk: 'AKM', date: '06-Aug', cat: '52', cause: 'DT standby driver Proses KP, Badge' },
+            { mk: 'AKM', date: '06-Aug', cat: '44', cause: 'DT Standby menunggu mobilisasi ke lokasi yang baru' },
+            { mk: 'AKM', date: '07-Aug', cat: '52', cause: 'DT standby driver Proses KP, Badge' },
+            { mk: 'NKHO', date: '07-Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource  team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '07-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '07-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'NKHO', date: '08-Aug', cat: '44', cause: 'Issue Internal karena terdapat dispute terkait permintaan migrasi resource  team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '08-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '08-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '08-Aug', cat: '48', cause: 'DT standby PMCoW tarining PACE' },
+            { mk: 'AKM', date: '07-Aug', cat: '41', cause: 'DT standby BBM telat sampai Balam jam 15.30' },
+            { mk: 'AKM', date: '10-Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP serta permit untuk CMP Candi Kwartet' },
+            { mk: 'NKHO', date: '10-Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '10-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '10-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '10-Aug', cat: '48', cause: 'Driver izin sakit' },
+            { mk: 'BKA', date: '10-Aug', cat: '43', cause: 'Valve Bocor Butuh Perbaikan' },
+            { mk: 'SGJR', date: '10-Aug', cat: '44', cause: 'DT SGJ menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'AKM', date: '11-Aug', cat: '44', cause: 'DT standby menunggu kesiapan lokasi pekerjaan berikutnya (P_CAND25_0002, 0003, 0004, 0005)' },
+            { mk: 'AKM', date: '11-Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP' },
+            { mk: 'NKHO', date: '11-Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '11-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '11-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '11-Aug', cat: '47', cause: 'DT standby Menunggu Install Geotex ' },
+            { mk: 'SGJR', date: '11-Aug', cat: '44', cause: 'DT standby menunggu kesiapan borrow pit' },
+            { mk: 'AKM', date: '11-Aug', cat: '52', cause: 'DT standby proses KP' },
+            { mk: 'AKM', date: '11-Aug', cat: '44', cause: 'DT standby menunggu menunggu instal geotext' },
+            { mk: 'AKM', date: '12-Aug', cat: '44', cause: 'DT standby menunggu kesiapan lokasi pekerjaan berikutnya (P_CAND25_0002, 0003, 0004, 0005)' },
+            { mk: 'NKHO', date: '12-Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '12-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '12-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '12-Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP' },
+            { mk: 'SGJR', date: '12-Aug', cat: '49', cause: 'DT standby Dampak dari Mini Bus tidak ada' },
+            { mk: 'AKM', date: '12-Aug', cat: '47', cause: 'DT standby Menunggu Install Geotex ' },
+            { mk: 'NKHO', date: '13-Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '13-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '13-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'AKM', date: '13-Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP' },
+            { mk: 'SGJR', date: '13-Aug', cat: '49', cause: 'DT standby Dampak dari Mini Bus tidak ada' },
+            { mk: 'NKHO', date: '14-Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '14-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '14-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'NKHO', date: '15-Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '15-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '15-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '15-Aug', cat: '25', cause: 'DT standby karena akses unsafe condition pasca hujan malam hari.' },
+            { mk: 'AKM', date: '15-Aug', cat: '44', cause: 'DT Standby menunggu mobilisasi ke lokasi yang baru' },
+            { mk: 'AKM', date: '14-Aug', cat: '52', cause: 'DT standby menunggu Badge dan KP' },
+            { mk: 'SGJR', date: '14-Aug', cat: '44', cause: 'DT SGJ menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'AKM', date: '18-Aug', cat: '44', cause: 'DT Standby menunggu mobilisasi ke lokasi yang baru' },
+            { mk: 'NKHO', date: '18-Aug', cat: '44', cause: 'Issue Internal Ramping Down team Standby, 21 Unit Standby' },
+            { mk: 'NKHO', date: '18-Aug', cat: '48', cause: '2 Operator Menunggu Nomer Rquest KP dari Security admin, 1 Operator Izin ' },
+            { mk: 'NKHO', date: '18-Aug', cat: '43', cause: '1 Unit DT Service Rutin' },
+            { mk: 'BKA', date: '18-Aug', cat: '48', cause: 'Driver izin sakit ' },
+            { mk: 'AKM', date: '18-Aug', cat: '52', cause: 'DT Standby menunggu proses KP dan CCPM' },
+            { mk: 'BKA', date: '19-Aug', cat: '48', cause: 'Driver izin sakit ' },
+            { mk: 'BKA', date: '19-Aug', cat: '43', cause: '1 Unit FT mengalami kerusakan, untuk itu terkendala untuk pengisian solar ke unit' },
+            { mk: 'AKM', date: '19-Aug', cat: '52', cause: 'DT Standby menunggu proses KP dan CCPM' },
+            { mk: 'AKM', date: '20-Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'NKHO', date: '20-Aug', cat: '47', cause: 'DT Standby karena penutupan akses jalan akibat pekerjaan lain' },
+            { mk: 'AKM', date: '20-Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'NKHO', date: '20-Aug', cat: '52', cause: 'Proses KP' },
+            { mk: 'BKA', date: '21-Aug', cat: '48', cause: '28 DT standby karena kurangnya personel Spotter dan Flagman yang hadir.' },
+            { mk: 'BKA', date: '23-Aug', cat: '48', cause: '28 DT standby karena kurangnya personel Spotter dan Flagman yang hadir.' },
+            { mk: 'BKA', date: '21-Aug', cat: '52', cause: 'Greenpass Expired' },
+            { mk: 'BKA', date: '24-Aug', cat: '48', cause: '4 DT StandBy Driver Izin' },
+            { mk: 'BKA', date: '24-Aug', cat: '43', cause: '4 DT Rusak' },
+            { mk: 'AKM', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'SGJR', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'AKM', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'KPRE01', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'RDPE', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'SGJR', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'AKM', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'NKHO', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'SGJR', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'BKA', date: '26-Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
+            { mk: 'SGJR', date: '27-Aug', cat: '44', cause: 'DT Standby menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'BKA', date: '27-Aug', cat: '47', cause: 'Start Hauling siang, setelah lokasi pekerjaan safe' },
+            { mk: 'AKM', date: '27-Aug', cat: '47', cause: 'Start Hauling menunggu Lokasi dan BP di dress up terlebih dahulu' },
+            { mk: 'BKA', date: '27-Aug', cat: '47', cause: 'Start Hauling siang, setelah lokasi pekerjaan safe' },
+            { mk: 'SGJR', date: '28-Aug', cat: '44', cause: 'DT Standby menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'AKM', date: '28-Aug', cat: '44', cause: 'DT mobilisasi ke lokasi yang baru' },
+            { mk: 'AKM', date: '30-Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'AKM', date: '28-Aug', cat: '47', cause: 'DT standby Menunggu Clearing Area' },
+            { mk: 'AKM', date: '29-Aug', cat: '47', cause: 'DT standby Menunggu Clearing Area' },
+            { mk: 'BKA', date: '28-Aug', cat: '44', cause: 'DT standby Menunggu lokasi close mudpit' },
+            { mk: 'BKA', date: '29-Aug', cat: '44', cause: 'DT standby Menunggu lokasi close mudpit' },
+            { mk: 'AKM', date: '31-Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'SGJR', date: '31-Aug', cat: '44', cause: 'DT standby menunggu lokasi pekerjaan berikutnya' },
+            { mk: 'BKA', date: '31-Aug', cat: '52', cause: 'DT standby Proses Administrasi dokumen equipment' },
+            { mk: 'NKHO', date: '31-Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
+            { mk: 'AKM', date: '31-Aug', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'NKHO', date: '31-Aug', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'SGJR', date: '31-Aug', cat: '47', cause: 'DT standby menunggu compaction di lokasi' },
+            { mk: 'AKM', date: '31-Aug', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'AKM', date: '31-Aug', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'SGJR', date: '01-Sep', cat: '47', cause: 'DT standby menunggu kesiapan Borrow pit' },
+            { mk: 'AKM', date: '01-Sep', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'NKHO', date: '01-Sep', cat: '47', cause: 'DT standby menunggu pemasangan geotext' },
+            { mk: 'AKM', date: '01-Sep', cat: '25', cause: 'DT standby menunggu dress up akses sebelum hauling' },
+            { mk: 'AKM', date: '01-Sep', cat: '44', cause: 'DT standby Sosialisasi Jmp Tour & Menunggu Info Lokasi Ready' },
+            { mk: 'SGJR', date: '02-Sep', cat: '44', cause: 'DT standby menunggu lokasi pekerjaan berikutnya' }
+        ];
 
-        const _mksWithNPT = ["AKM","BKA","KPRE01","NKHO","RDPE","SGJR"];
+        const rawNptData = [
+            { mk: 'AKM', date: '03-Aug', cat: '41', val: 90 },
+            { mk: 'NKHO', date: '03-Aug', cat: '43', val: 49 },
+            { mk: 'NKHO', date: '03-Aug', cat: '44', val: 189 },
+            { mk: 'NKHO', date: '03-Aug', cat: '48', val: 27 },
+            { mk: 'AKM', date: '03-Aug', cat: '52', val: 16 },
+            { mk: 'SGJR', date: '04-Aug', cat: '23', val: 8 },
+            { mk: 'BKA', date: '04-Aug', cat: '43', val: 86 },
+            { mk: 'NKHO', date: '04-Aug', cat: '43', val: 19 },
+            { mk: 'NKHO', date: '04-Aug', cat: '44', val: 189 },
+            { mk: 'NKHO', date: '04-Aug', cat: '48', val: 27 },
+            { mk: 'AKM', date: '04-Aug', cat: '52', val: 32 },
+            { mk: 'SGJR', date: '05-Aug', cat: '23', val: 8 },
+            { mk: 'AKM', date: '05-Aug', cat: '41', val: 108 },
+            { mk: 'BKA', date: '05-Aug', cat: '43', val: 8 },
+            { mk: 'NKHO', date: '05-Aug', cat: '43', val: 1 },
+            { mk: 'NKHO', date: '05-Aug', cat: '44', val: 189 },
+            { mk: 'NKHO', date: '05-Aug', cat: '48', val: 27 },
+            { mk: 'AKM', date: '05-Aug', cat: '52', val: 72 },
+            { mk: 'BKA', date: '06-Aug', cat: '41', val: 100 },
+            { mk: 'NKHO', date: '06-Aug', cat: '43', val: 9 },
+            { mk: 'NKHO', date: '06-Aug', cat: '44', val: 189 },
+            { mk: 'AKM', date: '06-Aug', cat: '44', val: 176 },
+            { mk: 'NKHO', date: '06-Aug', cat: '48', val: 27 },
+            { mk: 'AKM', date: '06-Aug', cat: '52', val: 24 },
+            { mk: 'BKA', date: '07-Aug', cat: '41', val: 16 },
+            { mk: 'NKHO', date: '07-Aug', cat: '43', val: 9 },
+            { mk: 'NKHO', date: '07-Aug', cat: '44', val: 189 },
+            { mk: 'NKHO', date: '07-Aug', cat: '48', val: 27 },
+            { mk: 'AKM', date: '07-Aug', cat: '52', val: 48 },
+            { mk: 'NKHO', date: '08-Aug', cat: '43', val: 9 },
+            { mk: 'NKHO', date: '08-Aug', cat: '44', val: 189 },
+            { mk: 'NKHO', date: '08-Aug', cat: '48', val: 73 },
+            { mk: 'NKHO', date: '10-Aug', cat: '43', val: 9 },
+            { mk: 'BKA', date: '10-Aug', cat: '43', val: 8 },
+            { mk: 'NKHO', date: '10-Aug', cat: '44', val: 189 },
+            { mk: 'SGJR', date: '10-Aug', cat: '44', val: 64 },
+            { mk: 'NKHO', date: '10-Aug', cat: '48', val: 27 },
+            { mk: 'BKA', date: '10-Aug', cat: '48', val: 16 },
+            { mk: 'AKM', date: '10-Aug', cat: '52', val: 144 },
+            { mk: 'NKHO', date: '11-Aug', cat: '43', val: 9 },
+            { mk: 'AKM', date: '11-Aug', cat: '44', val: 688 },
+            { mk: 'NKHO', date: '11-Aug', cat: '44', val: 189 },
+            { mk: 'SGJR', date: '11-Aug', cat: '44', val: 80 },
+            { mk: 'AKM', date: '11-Aug', cat: '47', val: 88 },
+            { mk: 'NKHO', date: '11-Aug', cat: '48', val: 27 },
+            { mk: 'AKM', date: '11-Aug', cat: '52', val: 96 },
+            { mk: 'NKHO', date: '12-Aug', cat: '43', val: 9 },
+            { mk: 'NKHO', date: '12-Aug', cat: '44', val: 565 },
+            { mk: 'AKM', date: '12-Aug', cat: '47', val: 344 },
+            { mk: 'NKHO', date: '12-Aug', cat: '48', val: 27 },
+            { mk: 'SGJR', date: '12-Aug', cat: '49', val: 96 },
+            { mk: 'AKM', date: '12-Aug', cat: '52', val: 24 },
+            { mk: 'NKHO', date: '13-Aug', cat: '43', val: 9 },
+            { mk: 'NKHO', date: '13-Aug', cat: '44', val: 189 },
+            { mk: 'NKHO', date: '13-Aug', cat: '48', val: 27 },
+            { mk: 'SGJR', date: '13-Aug', cat: '49', val: 96 },
+            { mk: 'AKM', date: '13-Aug', cat: '52', val: 24 },
+            { mk: 'NKHO', date: '14-Aug', cat: '43', val: 9 },
+            { mk: 'NKHO', date: '14-Aug', cat: '44', val: 189 },
+            { mk: 'SGJR', date: '14-Aug', cat: '44', val: 32 },
+            { mk: 'NKHO', date: '14-Aug', cat: '48', val: 27 },
+            { mk: 'AKM', date: '14-Aug', cat: '52', val: 16 },
+            { mk: 'AKM', date: '15-Aug', cat: '25', val: 96 },
+            { mk: 'NKHO', date: '15-Aug', cat: '43', val: 9 },
+            { mk: 'NKHO', date: '15-Aug', cat: '44', val: 189 },
+            { mk: 'AKM', date: '15-Aug', cat: '44', val: 48 },
+            { mk: 'NKHO', date: '15-Aug', cat: '48', val: 27 },
+            { mk: 'AKM', date: '18-Aug', cat: '43', val: 9 },
+            { mk: 'AKM', date: '18-Aug', cat: '44', val: 293 },
+            { mk: 'BKA', date: '18-Aug', cat: '48', val: 83 },
+            { mk: 'AKM', date: '18-Aug', cat: '52', val: 24 },
+            { mk: 'BKA', date: '19-Aug', cat: '43', val: 40 },
+            { mk: 'AKM', date: '19-Aug', cat: '48', val: 32 },
+            { mk: 'AKM', date: '19-Aug', cat: '52', val: 16 },
+            { mk: 'AKM', date: '20-Aug', cat: '47', val: 224 },
+            { mk: 'NKHO', date: '20-Aug', cat: '47', val: 128 },
+            { mk: 'NKHO', date: '20-Aug', cat: '52', val: 16 },
+            { mk: 'BKA', date: '21-Aug', cat: '48', val: 168 },
+            { mk: 'BKA', date: '21-Aug', cat: '52', val: 24 },
+            { mk: 'AKM', date: '23-Aug', cat: '48', val: 168 },
+            { mk: 'AKM', date: '24-Aug', cat: '43', val: 32 },
+            { mk: 'BKA', date: '24-Aug', cat: '48', val: 32 },
+            { mk: 'AKM', date: '26-Aug', cat: '26', val: 1021 },
+            { mk: 'BKA', date: '26-Aug', cat: '26', val: 443 },
+            { mk: 'RDPE', date: '26-Aug', cat: '26', val: 406 },
+            { mk: 'KPRE01', date: '26-Aug', cat: '26', val: 298 },
+            { mk: 'SGJR', date: '27-Aug', cat: '44', val: 40 },
+            { mk: 'AKM', date: '27-Aug', cat: '47', val: 220 },
+            { mk: 'AKM', date: '28-Aug', cat: '44', val: 216 },
+            { mk: 'SGJR', date: '28-Aug', cat: '44', val: 56 },
+            { mk: 'AKM', date: '28-Aug', cat: '47', val: 210 },
+            { mk: 'BKA', date: '28-Aug', cat: '47', val: 118 },
+            { mk: 'BKA', date: '29-Aug', cat: '44', val: 40 },
+            { mk: 'AKM', date: '29-Aug', cat: '47', val: 328 },
+            { mk: 'NKHO', date: '30-Aug', cat: '47', val: 51 },
+            { mk: 'AKM', date: '30-Aug', cat: '47', val: 29 },
+            { mk: 'AKM', date: '31-Aug', cat: '25', val: 480 },
+            { mk: 'AKM', date: '31-Aug', cat: '44', val: 64 },
+            { mk: 'NKHO', date: '31-Aug', cat: '47', val: 196 },
+            { mk: 'BKA', date: '31-Aug', cat: '52', val: 40 },
+            { mk: 'AKM', date: '01-Sep', cat: '25', val: 313 },
+            { mk: 'AKM', date: '01-Sep', cat: '44', val: 100 },
+            { mk: 'AKM', date: '01-Sep', cat: '47', val: 216 }
+        ];
+        const _nptUniqueDates = ['01-Aug', '02-Aug', '03-Aug', '04-Aug', '05-Aug', '06-Aug', '07-Aug', '08-Aug', '09-Aug', '10-Aug', '11-Aug', '12-Aug', '13-Aug', '14-Aug', '15-Aug', '17-Aug', '18-Aug', '19-Aug', '20-Aug', '21-Aug', '23-Aug', '24-Aug', '26-Aug', '27-Aug', '28-Aug', '29-Aug', '30-Aug', '31-Aug', '01-Sep', '02-Sep'];
+        const _nptCategoryKeys = ['25', '26', '41', '43', '44', '47', '48', '52', '23', '49'];
+        // Keep track of the dataset indices
+        const _nptCategoryMap = {
+            '25': 0, // Access road blockage
+            '26': 1, // SWA-Rain
+            '41': 2, // Wait for Supplies/Tools
+            '43': 3, // Equipment Under Repair
+            '44': 4, // Wait for Instruction
+            '47': 5, // Wait for others work
+            '48': 6, // Wait for Manpower
+            '52': 7, // Permitting/Licence
+            '23': 8, // SWA/SSWA
+            '49': 9  // Wait For Equipment
+        };
+
+        const _mksWithNPT = ["AKM", "BKA", "KPRE01", "NKHO", "RDPE", "SGJR"];
 
         function updateNPTFilter(visibleMks) {
-            const charts = slideChartInstances[0];
-            if (!charts || charts.length < 2) return;
-            const chart2 = charts[1];
+            const slideCharts = slideChartInstances[0];
+            if (!slideCharts || slideCharts.length < 2) return;
+            const chart2 = slideCharts[1];
             const canvasWrap = document.getElementById('npt-canvas-wrap');
             const noDataEl = document.getElementById('npt-no-data-msg');
 
             const active = visibleMks.filter(mk => _mksWithNPT.includes(mk));
+            window._currentActiveNPTMks = active;
             if (active.length === 0) {
                 canvasWrap.style.display = 'none';
                 noDataEl.style.display = 'flex';
@@ -1750,7 +1918,7 @@ const _nptCategoryMap = {
                     ...commonOptions.plugins.legend,
                     labels: {
                         ...commonOptions.plugins.legend.labels,
-                        generateLabels: function(chart) {
+                        generateLabels: function (chart) {
                             const original = Chart.defaults.plugins.legend.labels.generateLabels(chart);
                             let allVisible = true;
                             for (let i = 0; i < chart.data.datasets.length; i++) {
@@ -1770,7 +1938,7 @@ const _nptCategoryMap = {
                             return original;
                         }
                     },
-                    onClick: function(e, legendItem, legend) {
+                    onClick: function (e, legendItem, legend) {
                         const chart = legend.chart;
                         if (legendItem.datasetIndex === -1) {
                             let allVisible = true;
@@ -1785,14 +1953,37 @@ const _nptCategoryMap = {
                                     chart.setDatasetVisibility(i, !allVisible);
                                 }
                             });
-                        } else {
+                        } else if (chart.data.datasets[legendItem.datasetIndex].label === 'Trendline') {
+                            // Klik legend Trendline hanya toggle trendline itu sendiri
                             const idx = legendItem.datasetIndex;
                             const isVisible = chart.isDatasetVisible(idx);
                             chart.setDatasetVisibility(idx, !isVisible);
+                        } else {
+                            const idx = legendItem.datasetIndex;
+                            const totalDatasets = chart.data.datasets.length;
+                            let visibleCount = 0;
+                            let onlyVisibleIdx = -1;
+                            for (let i = 0; i < totalDatasets; i++) {
+                                if (chart.data.datasets[i].label !== 'Trendline' && chart.isDatasetVisible(i)) {
+                                    visibleCount++;
+                                    onlyVisibleIdx = i;
+                                }
+                            }
+                            if (visibleCount === 1 && onlyVisibleIdx === idx) {
+                                // Already isolated to this MK -> clicking again shows all MK
+                                chart.data.datasets.forEach((ds, i) => {
+                                    if (ds.label !== 'Trendline') chart.setDatasetVisibility(i, true);
+                                });
+                            } else {
+                                // Isolate: show only the clicked MK
+                                chart.data.datasets.forEach((ds, i) => {
+                                    if (ds.label !== 'Trendline') chart.setDatasetVisibility(i, i === idx);
+                                });
+                            }
                         }
                         if (typeof updateTrendline === 'function') updateTrendline(chart);
                         chart.update();
-                        
+
                         const visibleMks = chart.data.datasets
                             .filter((ds, i) => ds.label !== 'Trendline' && chart.isDatasetVisible(i))
                             .map(ds => ds.label);
@@ -1800,7 +1991,7 @@ const _nptCategoryMap = {
                     }
                 }
             },
-            onClick: function(e, elements, chart) {
+            onClick: function (e, elements, chart) {
                 if (elements.length > 0) {
                     const datasetIndex = elements[0].datasetIndex;
                     const totalDatasets = chart.data.datasets.length;
@@ -1832,30 +2023,45 @@ const _nptCategoryMap = {
         registerChart(0, 'chart2_main', 'NON PRODUCTIVITY TIME BY MITRA KERJA', 'bar', {
             labels: _nptUniqueDates,
             datasets: [
-                { label: 'Access road blockage', backgroundColor: '#1F497D', data: [] },
-                { label: 'SWA-Rain', backgroundColor: '#ED7D31', data: [] },
-                { label: 'Wait for Supplies/Tools', backgroundColor: '#7030A0', data: [] },
-                { label: 'Equipment Under Repair', backgroundColor: '#FF66B2', data: [] },
-                { label: 'Wait for Instruction', backgroundColor: '#9B2D8C', data: [] },
-                { label: 'Wait for others work', backgroundColor: '#FFC000', data: [] },
-                { label: 'Wait for Manpower', backgroundColor: '#FF0000', data: [] },
-                { label: 'Permitting/Licence', backgroundColor: '#00B050', data: [] },
-                { label: 'SWA/SSWA', backgroundColor: '#00B0F0', data: [] },
-                { label: 'Wait For Equipment', backgroundColor: '#008080', data: [] }
+                { label: '25 = Access road blockage', backgroundColor: '#1F497D', data: [] },
+                { label: '26 = SWA-Rain', backgroundColor: '#ED7D31', data: [] },
+                { label: '41 = Wait for Supplies/Tools', backgroundColor: '#7030A0', data: [] },
+                { label: '43 = Equipment Under Repair', backgroundColor: '#FF66B2', data: [] },
+                { label: '44 = Wait for Instruction', backgroundColor: '#9B2D8C', data: [] },
+                { label: '47 = Wait for others work', backgroundColor: '#FFC000', data: [] },
+                { label: '48 = Wait for Manpower', backgroundColor: '#FF0000', data: [] },
+                { label: '52 = Permitting/Licence', backgroundColor: '#00B050', data: [] },
+                { label: '23 = SWA/SSWA', backgroundColor: '#00B0F0', data: [] },
+                { label: '49 = Wait For Equipment', backgroundColor: '#008080', data: [] }
             ]
         }, {
             ...commonOptions,
             scales: {
                 ...commonOptions.scales,
+                y: {
+                    ...commonOptions.scales.y,
+                    type: 'logarithmic',
+                    min: 1,
+                    ticks: {
+                        font: { size: 10 },
+                        callback: function (val) {
+                            return (Number.isInteger(Math.log10(val)) || val === 200 || val === 500) ? val : null;
+                        }
+                    }
+                },
                 x: {
                     ...commonOptions.scales.x,
                     title: {
                         display: true,
-                        text: ' ', // Use a space so Chart.js actually renders it and applies padding
-                        padding: { top: 20, bottom: 0 }
+                        text: ' ',
+                        padding: { top: 10, bottom: 0 }
                     },
                     ticks: {
                         ...commonOptions.scales.x.ticks,
+                        font: { size: 9, weight: '600' },
+                        maxRotation: 45,
+                        minRotation: 45,
+                        autoSkip: false,
                         callback: function (val, index) {
                             const label = this.getLabelForValue(val);
                             return Array.isArray(label) ? label[0] : label;
@@ -1863,18 +2069,19 @@ const _nptCategoryMap = {
                     }
                 }
             },
+            datasets: { bar: { categoryPercentage: 0.95, barPercentage: 1.0 } },
             plugins: {
                 ...commonOptions.plugins,
-                datalabels: {
-                    ...commonOptions.plugins.datalabels,
-                    font: { size: 5.5, weight: '600' },
-                    rotation: -90,
-                    offset: 2,
-                    formatter: function (value) { return value; }
-                },
                 legend: {
-                    position: 'bottom',
-                    labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true },
+                    position: 'top',
+                    labels: {
+                        font: { size: 10, weight: '600' },
+                        boxWidth: 8,
+                        boxHeight: 8,
+                        padding: 10,
+                        usePointStyle: true,
+                        pointStyle: 'rectRounded'
+                    },
                     onClick: function (e, legendItem, legend) {
                         const idx = legendItem.datasetIndex;
                         const chart = legend.chart;
@@ -1900,6 +2107,91 @@ const _nptCategoryMap = {
                         }
                         chart.update();
                     }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    color: '#475569',
+                    font: { size: 9, weight: 'bold', family: "'Inter', sans-serif" },
+                    formatter: (val) => val === 0 ? '' : Math.round(val),
+                    display: 'auto'
+                },
+                tooltip: {
+                    enabled: false,
+                    position: 'nearest',
+                    external: function (context) {
+                        let tooltipEl = document.getElementById('chartjs-tooltip');
+                        if (!tooltipEl) {
+                            tooltipEl = document.createElement('div');
+                            tooltipEl.id = 'chartjs-tooltip';
+                            tooltipEl.style.background = 'rgba(255, 255, 255, 0.95)';
+                            tooltipEl.style.borderRadius = '3px';
+                            tooltipEl.style.color = '#333';
+                            tooltipEl.style.opacity = 1;
+                            tooltipEl.style.pointerEvents = 'none';
+                            tooltipEl.style.position = 'absolute';
+                            tooltipEl.style.transform = 'translate(-50%, -100%)';
+                            tooltipEl.style.marginTop = '-10px';
+                            tooltipEl.style.transition = 'all .1s ease';
+                            tooltipEl.style.boxShadow = '0 2px 4px rgba(0,0,0,0.2)';
+                            tooltipEl.style.border = '1px solid #ddd';
+                            tooltipEl.style.padding = '8px 12px';
+                            tooltipEl.style.zIndex = 9999;
+                            tooltipEl.style.fontFamily = "'Inter', sans-serif";
+                            tooltipEl.style.fontSize = '11px';
+                            document.body.appendChild(tooltipEl);
+                        }
+
+                        const tooltipModel = context.tooltip;
+                        if (tooltipModel.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+                            return;
+                        }
+
+                        if (tooltipModel.body) {
+                            const dataPoint = tooltipModel.dataPoints[0];
+                            let dateStr = dataPoint.label;
+                            let categoryName = dataPoint.dataset.label;
+                            let datasetIndex = dataPoint.datasetIndex;
+                            let catCode = '';
+                            for (let key in _nptCategoryMap) {
+                                if (_nptCategoryMap[key] === datasetIndex) {
+                                    catCode = key; break;
+                                }
+                            }
+
+                            let activeMks = window._currentActiveNPTMks || [];
+                            let causes = typeof nptCauses !== 'undefined' ? nptCauses.filter(c => c.date === dateStr && c.cat === catCode && activeMks.includes(c.mk)) : [];
+
+                            let uniqueCauses = [...new Set(causes.map(c => c.cause))];
+                            let causeHtml = '';
+                            if (uniqueCauses.length === 0) causeHtml = '-';
+                            else if (uniqueCauses.length === 1) causeHtml = uniqueCauses[0];
+                            else causeHtml = uniqueCauses.map(c => '<div style="margin-bottom:2px;">• ' + c + '</div>').join('');
+
+                            const isFocus = context.chart.canvas.id === 'chart-focus-canvas';
+                            tooltipEl.style.padding = isFocus ? '16px 24px' : '8px 12px';
+                            tooltipEl.style.fontSize = isFocus ? '18px' : '11px';
+                            tooltipEl.style.boxShadow = isFocus ? '0 6px 16px rgba(0,0,0,0.3)' : '0 2px 4px rgba(0,0,0,0.2)';
+                            const titleSz = isFocus ? '22px' : '13px';
+                            const bodySz = isFocus ? '18px' : '11px';
+                            const maxW = isFocus ? '500px' : '250px';
+                            let innerHtml = `
+                                <table style="margin: 0; padding: 0; border-spacing: 0; text-align: left; border-collapse: separate; border-spacing: 6px 2px; font-size: ${bodySz};">
+                                    <tr><td style="color: #64748b; font-weight: 500; font-size: ${titleSz};">Tanggal</td><td style="color: #0f172a; font-weight: 600; font-size: ${titleSz};">${dateStr}</td></tr>
+                                    <tr><td style="color: #64748b; font-weight: 500;">Code</td><td style="color: #0f172a; font-weight: 600;">${categoryName}</td></tr>
+                                    <tr><td style="color: #64748b; font-weight: 500;">Lost Hours</td><td style="color: #ef3340; font-weight: 700;">${dataPoint.parsed.y}</td></tr>
+                                    <tr><td style="color: #64748b; font-weight: 500; vertical-align: top;">NPT Cause</td><td style="color: #0f172a; font-weight: 600; max-width: ${maxW}; white-space: normal; line-height: 1.4;">${causeHtml}</td></tr>
+                                </table>
+                            `;
+                            tooltipEl.innerHTML = innerHtml;
+                        }
+
+                        const position = context.chart.canvas.getBoundingClientRect();
+                        tooltipEl.style.opacity = 1;
+                        tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                        tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+                    }
                 }
             }
         }, [verticalLinePluginChart2]);
@@ -1908,8 +2200,9 @@ const _nptCategoryMap = {
                 id: 'AKM', color: '#00529b', title: 'PT. ANDALAS KARYA MULIA (AKM)', statsTitle: 'PT. ANDALAS KARYA MULIA (AKM)',
                 first_swc: "07:09:00 AM", avg_first_swc: "07:51:40 AM", avg_first_tag: "06:56:40 AM", avg_jam_berangkat: "06:07:51 AM",
                 trip_p1: "2.010", trip_p2: "1.344", trip_p3: "1.924",
-                change1_text: "▼ -666 (-33,1%)", change1_color: "#ef3340", change1_bg: "rgba(239, 51, 64, 0.1)",
-                change2_text: "▲ +580 (+43,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                change1_text: " -666 (-33,1%)", change1_color: "#ef3340", change1_bg: "rgba(239, 51, 64, 0.1)",
+                change2_text: "â–² +580 (+43,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                trip_p4: "2.902", change3_text: "â–² +978 (+50.8%)", change3_color: "#008751", change3_bg: "rgba(0, 135, 81, 0.1)",
                 insights: [
                     "Terdapat fluktuasi signifikan pada produktivitas hauling. Dari <strong>2.010</strong> trip (3-8 Ags) turun menjadi <strong>1.344</strong> trip (10-15 Ags), atau <strong>-33,1%</strong>.",
                     "Namun, produktivitas berhasil <strong>RECOVERY</strong> ke angka <strong>1.924</strong> trip (18-23 Ags), mencatatkan kenaikan impresif <strong>+43,2%</strong>.",
@@ -1918,26 +2211,27 @@ const _nptCategoryMap = {
                     "<strong>40 Jam NPT Permitting/License:</strong> DT Standby menunggu proses KP dan CCPM."
                 ],
                 chart1Data: [241, 455, 322, 362, 404, 226, null, 204, 103, 184, 327, 313, 213, null, 219, 303, 265, 288, 378, 471, null, 403, 0, 323, 394, 453, 449, 383, 314, 183],
-                                issuesDates: ["01-Aug-26","02-Aug-26","03-Aug-26","04-Aug-26","05-Aug-26","06-Aug-26","07-Aug-26","08-Aug-26","10-Aug-26","11-Aug-26","13-Aug-26","14-Aug-26","15-Aug-26","18-Aug-26","19-Aug-26","20-Aug-26","26-Aug-26","27-Aug-26","28-Aug-26","29-Aug-26","30-Aug-26","31-Aug-26","01-Sep-26","02-Sep-26"],
+                issuesDates: ["01-Aug-26", "02-Aug-26", "03-Aug-26", "04-Aug-26", "05-Aug-26", "06-Aug-26", "07-Aug-26", "08-Aug-26", "10-Aug-26", "11-Aug-26", "13-Aug-26", "14-Aug-26", "15-Aug-26", "18-Aug-26", "19-Aug-26", "20-Aug-26", "26-Aug-26", "27-Aug-26", "28-Aug-26", "29-Aug-26", "30-Aug-26", "31-Aug-26", "01-Sep-26", "02-Sep-26"],
                 issuesData: {
-                    'SWA/SSWA': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'Access road blockage': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'SWA-Rain': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,904,0,0,0,0,0,0,0],
-                    'Wait for Supplies/Tools': [0,0,0,0,0,16,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'Equipment Under Repair': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'Wait for Instruction': [0,0,0,176,0,0,0,0,0,688,0,0,48,104,0,0,0,0,184,0,0,430,313,100],
-                    'Wait for others work': [0,0,0,0,0,0,0,0,0,344,0,0,0,0,0,224,0,35,328,328,80,0,40,0],
-                    'Wait for Manpower': [0,0,0,0,0,0,0,46,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'Wait For Equipment': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'Permitting/Licence': [16,32,72,0,24,0,48,0,144,24,24,16,0,24,16,0,0,0,0,0,0,0,0,0],
+                    'SWA/SSWA': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Access road blockage': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'SWA-Rain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 904, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Supplies/Tools': [0, 0, 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Equipment Under Repair': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Instruction': [0, 0, 0, 176, 0, 0, 0, 0, 0, 688, 0, 0, 48, 104, 0, 0, 0, 0, 184, 0, 0, 430, 313, 100],
+                    'Wait for others work': [0, 0, 0, 0, 0, 0, 0, 0, 0, 344, 0, 0, 0, 0, 0, 224, 0, 35, 328, 328, 80, 0, 40, 0],
+                    'Wait for Manpower': [0, 0, 0, 0, 0, 0, 0, 46, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait For Equipment': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Permitting/Licence': [16, 32, 72, 0, 24, 0, 48, 0, 144, 24, 24, 16, 0, 24, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0],
                 }
             },
             {
                 id: 'BKA', color: '#f37021', title: 'PT. BINA REKAYASA ANUGRAH (BKA)', statsTitle: 'PT. BINA REKAYASA ANUGRAH',
                 first_swc: "07:36:00 AM", avg_first_swc: "08:08:00 AM", avg_first_tag: "07:06:40 AM", avg_jam_berangkat: "06:30:22 AM",
                 trip_p1: "641", trip_p2: "759", trip_p3: "714",
-                change1_text: "▲ +118 (+18,4%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
-                change2_text: "▼ -45 (-5,9%)", change2_color: "#ef3340", change2_bg: "rgba(239, 51, 64, 0.1)",
+                change1_text: "â–² +118 (+18,4%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "â–¼ -45 (-5,9%)", change2_color: "#ef3340", change2_bg: "rgba(239, 51, 64, 0.1)",
+                trip_p4: "942", change3_text: "â–² +228 (+31.9%)", change3_color: "#008751", change3_bg: "rgba(0, 135, 81, 0.1)",
                 insights: [
                     "Produktivitas hauling sempat naik dari <strong>641</strong> trip (3-8 Ags) ke <strong>759</strong> trip (10-15 Ags), naik <strong>+18,4%</strong>.",
                     "Namun pada periode terbaru (18-23 Ags), produktivitas kembali turun tipis ke <strong>714</strong> trip (<strong>-5,9%</strong>).",
@@ -1946,24 +2240,25 @@ const _nptCategoryMap = {
                     "<strong>24 Jam NPT Permitting/License:</strong> DT Standby karena Greenpass Expired."
                 ],
                 chart1Data: [89, 89, 101, 119, 128, 115, null, 121, 146, 188, 136, 144, 24, null, 161, 138, 132, 61, 144, 78, null, 118, 0, 74, 153, 127, 119, 122, 229, 0],
-                issuesDates: ["01-Aug-26","03-Aug-26","05-Aug-26","07-Aug-26","10-Aug-26","15-Aug-26","18-Aug-26","19-Aug-26","21-Aug-26","23-Aug-26","24-Aug-26","26-Aug-26","27-Aug-26","29-Aug-26","30-Aug-26","02-Sep-26"],
-issuesData: {
-    'Access road blockage': [0,0,0,0,0,96,0,0,0,0,0,0,0,0,0,0],
-    'SWA-Rain': [0,0,0,0,0,0,0,0,0,0,0,392,0,0,0,0],
-    'Wait for Supplies/Tools': [90,0,108,100,0,0,0,0,0,0,0,0,0,0,0,0],
-    'Equipment Under Repair': [40,96,0,0,8,0,0,40,0,0,32,0,0,0,0,0],
-    'Wait for Instruction': [0,0,0,0,0,0,0,0,0,0,0,0,0,40,40,0],
-    'Wait for others work': [0,0,0,0,0,0,0,0,0,0,0,0,185,0,0,0],
-    'Wait for Manpower': [0,0,0,0,16,0,56,32,168,168,32,0,0,0,0,0],
-    'Permitting/Licence': [0,0,0,0,0,0,0,0,24,0,0,0,0,0,0,40],
-}
+                issuesDates: ["01-Aug-26", "03-Aug-26", "05-Aug-26", "07-Aug-26", "10-Aug-26", "15-Aug-26", "18-Aug-26", "19-Aug-26", "21-Aug-26", "23-Aug-26", "24-Aug-26", "26-Aug-26", "27-Aug-26", "29-Aug-26", "30-Aug-26", "02-Sep-26"],
+                issuesData: {
+                    'Access road blockage': [0, 0, 0, 0, 0, 96, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'SWA-Rain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 392, 0, 0, 0, 0],
+                    'Wait for Supplies/Tools': [90, 0, 108, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Equipment Under Repair': [40, 96, 0, 0, 8, 0, 0, 40, 0, 0, 32, 0, 0, 0, 0, 0],
+                    'Wait for Instruction': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 40, 0],
+                    'Wait for others work': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 185, 0, 0, 0],
+                    'Wait for Manpower': [0, 0, 0, 0, 16, 0, 56, 32, 168, 168, 32, 0, 0, 0, 0, 0],
+                    'Permitting/Licence': [0, 0, 0, 0, 0, 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 40],
+                }
             },
             {
                 id: 'NKHO', color: '#a3a3a3', title: 'PT. NINDYA KARYA (NKHO)', statsTitle: 'PT. NINDYA KARYA',
                 first_swc: "07:23:00 AM", avg_first_swc: "07:53:40 AM", avg_first_tag: "07:30:10 AM", avg_jam_berangkat: "06:11:07 AM",
                 trip_p1: "502", trip_p2: "702", trip_p3: "887",
-                change1_text: "▲ +200 (+39,8%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
-                change2_text: "▲ +185 (+26,4%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                change1_text: "â–² +200 (+39,8%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "â–² +185 (+26,4%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                trip_p4: "1.320", change3_text: "â–² +433 (+48.8%)", change3_color: "#008751", change3_bg: "rgba(0, 135, 81, 0.1)",
                 insights: [
                     "Kinerja luar biasa! Menunjukkan tren <strong>POSITIF KONSISTEN</strong> selama 3 periode berturut-turut.",
                     "Naik dari <strong>502</strong> trip (3-8 Ags) ke <strong>702</strong> trip (<strong>+39,8%</strong>), dan terus melesat ke <strong>887</strong> trip di 18-23 Ags (<strong>+26,4%</strong>).",
@@ -1974,26 +2269,27 @@ issuesData: {
                     "<strong>9 Jam NPT Equipment Under Repairs:</strong> 1 Unit DT Service Rutin."
                 ],
                 chart1Data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 132, 59, 151, 186, 259, 223, 41, 100, 169],
-                                issuesDates: ["01-Aug-26","02-Aug-26","03-Aug-26","04-Aug-26","05-Aug-26","06-Aug-26","07-Aug-26","09-Aug-26","10-Aug-26","11-Aug-26","12-Aug-26","13-Aug-26","14-Aug-26","15-Aug-26","17-Aug-26","20-Aug-26","27-Aug-26","01-Sep-26","02-Sep-26"],
+                issuesDates: ["01-Aug-26", "02-Aug-26", "03-Aug-26", "04-Aug-26", "05-Aug-26", "06-Aug-26", "07-Aug-26", "09-Aug-26", "10-Aug-26", "11-Aug-26", "12-Aug-26", "13-Aug-26", "14-Aug-26", "15-Aug-26", "17-Aug-26", "20-Aug-26", "27-Aug-26", "01-Sep-26", "02-Sep-26"],
                 issuesData: {
-                    'SWA/SSWA': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'Access road blockage': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,50,0],
-                    'SWA-Rain': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'Wait for Supplies/Tools': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'Equipment Under Repair': [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,0,0,0,0],
-                    'Wait for Instruction': [189,189,189,189,189,189,189,189,189,189,189,189,189,189,189,0,0,0,0],
-                    'Wait for others work': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,128,0,144,136],
-                    'Wait for Manpower': [27,27,27,27,27,27,27,27,27,27,27,27,27,27,27,0,32,0,0],
-                    'Wait For Equipment': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
-                    'Permitting/Licence': [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,0],
+                    'SWA/SSWA': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Access road blockage': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0],
+                    'SWA-Rain': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Supplies/Tools': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Equipment Under Repair': [9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 0, 0, 0, 0],
+                    'Wait for Instruction': [189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 189, 0, 0, 0, 0],
+                    'Wait for others work': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 128, 0, 144, 136],
+                    'Wait for Manpower': [27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 0, 32, 0, 0],
+                    'Wait For Equipment': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Permitting/Licence': [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 0, 0, 0],
                 }
             },
             {
                 id: 'RDPE', color: '#ffc000', title: 'PT. RIFANSI DWI PUTRA (RDPE)', statsTitle: 'PT. RIFANSI DWI PUTRA',
                 first_swc: "07:09:00 AM", avg_first_swc: "07:28:15 AM", avg_first_tag: "06:59:36 AM", avg_jam_berangkat: "06:21:25 AM",
                 trip_p1: "858", trip_p2: "895", trip_p3: "993",
-                change1_text: "▲ +37 (+4,3%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
-                change2_text: "▲ +98 (+10,9%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                change1_text: "â–² +37 (+4,3%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "â–² +98 (+10,9%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                trip_p4: "770", change3_text: "â–¼ -223 (-22.5%)", change3_color: "#ef3340", change3_bg: "rgba(239, 51, 64, 0.1)",
                 insights: [
                     "Menunjukkan <strong>PERTUMBUHAN SOLID</strong>. Dimulai dari <strong>858</strong> trip pada awal bulan (3-8 Ags).",
                     "Naik perlahan ke <strong>895</strong> trip (<strong>+4,3%</strong>) pada pertengahan bulan.",
@@ -2001,7 +2297,7 @@ issuesData: {
                     "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:03:00 AM</strong>."
                 ],
                 chart1Data: [115, 132, 129, 164, 158, 160, null, 158, 114, 165, 154, 169, 135, null, 143, 121, 153, 174, 205, 197, null, 47, 0, 96, 158, 158, 0, 139, 172, 0],
-                                issuesDates: ["26-Aug-26"],
+                issuesDates: ["26-Aug-26"],
                 issuesData: {
                     'SWA/SSWA': [0],
                     'Access road blockage': [0],
@@ -2019,8 +2315,9 @@ issuesData: {
                 id: 'SGJR', color: '#5b9bd5', title: 'PT. SUMI GITA JAYA (SGJR)', statsTitle: 'PT. SUMI GITA JAYA',
                 first_swc: "07:19:10 AM", avg_first_swc: "07:49:10 AM", avg_first_tag: "07:13:20 AM", avg_jam_berangkat: "06:25:43 AM",
                 trip_p1: "275", trip_p2: "296", trip_p3: "415",
-                change1_text: "▲ +21 (+7,6%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
-                change2_text: "▲ +119 (+40,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                change1_text: "â–² +21 (+7,6%)", change1_color: "#008751", change1_bg: "rgba(0, 135, 81, 0.1)",
+                change2_text: "â–² +119 (+40,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
+                trip_p4: "260", change3_text: "â–¼ -155 (-37.3%)", change3_color: "#ef3340", change3_bg: "rgba(239, 51, 64, 0.1)",
                 insights: [
                     "Menunjukkan <strong>LONJAKAN KINERJA</strong> yang sangat impresif di akhir bulan.",
                     "Berawal dari stagnansi <strong>275</strong> ke <strong>296</strong> trip (<strong>+7,6%</strong>) di pertengahan bulan.",
@@ -2028,18 +2325,18 @@ issuesData: {
                     "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:33:00 AM</strong>."
                 ],
                 chart1Data: [24, 26, 44, 54, 50, 77, null, 32, 35, 45, 58, 44, 82, null, 79, 73, 117, 51, 95, 0, null, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21],
-                                issuesDates: ["01-Aug-26","02-Aug-26","10-Aug-26","11-Aug-26","12-Aug-26","13-Aug-26","14-Aug-26","29-Aug-26","30-Aug-26"],
+                issuesDates: ["01-Aug-26", "02-Aug-26", "10-Aug-26", "11-Aug-26", "12-Aug-26", "13-Aug-26", "14-Aug-26", "29-Aug-26", "30-Aug-26"],
                 issuesData: {
-                    'SWA/SSWA': [8,8,0,0,0,0,0,0,0],
-                    'Access road blockage': [0,0,0,0,0,0,0,0,0],
-                    'SWA-Rain': [0,0,0,0,0,0,0,0,0],
-                    'Wait for Supplies/Tools': [0,0,0,0,0,0,0,0,0],
-                    'Equipment Under Repair': [0,0,0,0,0,0,0,0,0],
-                    'Wait for Instruction': [0,0,64,80,0,0,32,40,48],
-                    'Wait for others work': [0,0,0,0,0,0,0,0,0],
-                    'Wait for Manpower': [0,0,0,0,0,0,0,0,0],
-                    'Wait For Equipment': [0,0,0,0,96,96,0,0,0],
-                    'Permitting/Licence': [0,0,0,0,0,0,0,0,0],
+                    'SWA/SSWA': [8, 8, 0, 0, 0, 0, 0, 0, 0],
+                    'Access road blockage': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'SWA-Rain': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Supplies/Tools': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Equipment Under Repair': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Instruction': [0, 0, 64, 80, 0, 0, 32, 40, 48],
+                    'Wait for others work': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait for Manpower': [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                    'Wait For Equipment': [0, 0, 0, 0, 96, 96, 0, 0, 0],
+                    'Permitting/Licence': [0, 0, 0, 0, 0, 0, 0, 0, 0],
                 }
             },
             {
@@ -2048,11 +2345,12 @@ issuesData: {
                 trip_p1: "-", trip_p2: "-", trip_p3: "-",
                 change1_text: "-", change1_color: "#a3a3a3", change1_bg: "rgba(163, 163, 163, 0.1)",
                 change2_text: "-", change2_color: "#a3a3a3", change2_bg: "rgba(163, 163, 163, 0.1)",
+                trip_p4: "420", change3_text: "-", change3_color: "#a3a3a3", change3_bg: "rgba(163, 163, 163, 0.1)",
                 insights: [
                     "Data terbaru telah ditambahkan untuk <strong>KPRE01</strong>."
                 ],
                 chart1Data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 109, 0, 74, 90, 147, 0, 50, 130, 0],
-                                issuesDates: ["26-Aug-26"],
+                issuesDates: ["26-Aug-26"],
                 issuesData: {
                     'SWA/SSWA': [0],
                     'Access road blockage': [0],
@@ -2180,6 +2478,11 @@ ${mk.issuesDates.length > 0 ? `
               <div style="font-size: 12px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">${mk.trip_p3}</div>
               <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 9px; font-weight: 700; color: ${mk.change2_color}; background: ${mk.change2_bg}; padding: 2px 4px; border-radius: 4px;">${mk.change2_text}</span></div>
           </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; background: #f8fafc; border-radius: 6px; padding: 2px 6px;">
+              <div style="font-size: 10px; font-weight: 700; color: #475569; width: 60px;">24A - 2 SEP</div>
+              <div style="font-size: 12px; font-weight: 800; color: var(--primary-dark); width: 75px; text-align: center;">${mk.trip_p4}</div>
+              <div style="flex: 1; display: flex; justify-content: flex-end;"><span style="font-size: 9px; font-weight: 700; color: ${mk.change3_color}; background: ${mk.change3_bg}; padding: 2px 4px; border-radius: 4px;">${mk.change3_text}</span></div>
+          </div>
       </div>
   </div>
 <div class="key-message-box" style="flex: 3 1 0; overflow: hidden; padding-bottom: 5px;">
@@ -2241,17 +2544,17 @@ ${mk.statsTitle}
                     registerChart(sIdx, `chart2_mk_${mkCopy.id}`, `NON PRODUCTIVITY TIME - ${mkCopy.id} (3 AGS - 2 SEP)`, 'bar',
                         { labels: mkCopy.issuesDates, datasets: issueDatasets }, {
                         ...commonOptions,
-                        plugins: { 
-                            ...commonOptions.plugins, 
+                        plugins: {
+                            ...commonOptions.plugins,
                             datalabels: { ...commonOptions.plugins.datalabels, font: { size: 5.5, weight: '600' }, offset: 2 },
-                            legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } } 
+                            legend: { position: 'bottom', labels: { font: { size: 10, weight: '600' }, padding: 15, usePointStyle: true } }
                         }
                     }
                     );
                 }
             }(mk, slideIndex));
         }); // end mks.forEach
-        
+
 
 
         const allSlides = document.querySelectorAll('.slide');
@@ -2299,7 +2602,7 @@ ${mk.statsTitle}
             else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { prevSlide(); }
         });
 
-        // ── Touch Swipe Navigation for Mobile ──────────────────────────────
+        // Touch Swipe Navigation for Mobile
         let touchStartX = 0;
         let touchEndX = 0;
         document.addEventListener('touchstart', e => {
@@ -2329,14 +2632,14 @@ ${mk.statsTitle}
         window.addEventListener('resize', resizePresentation);
         resizePresentation();
 
-        // ── Chart Focus Modal (Power BI style) ──────────────────────────────
+        // Chart Focus Modal (Power BI style)
         const _focusOverlay = document.createElement('div');
         _focusOverlay.className = 'chart-focus-overlay';
         _focusOverlay.innerHTML = `
             <div class="chart-focus-modal">
                 <div class="chart-focus-header">
                     <div class="chart-focus-title" id="_focus-title">Chart</div>
-                    <button class="chart-focus-close" id="_focus-close">✕</button>
+                    <button class="chart-focus-close" id="_focus-close">âœ•</button>
                 </div>
                 <div class="chart-focus-canvas-wrap">
                     <canvas id="chart-focus-canvas"></canvas>
@@ -2348,15 +2651,52 @@ ${mk.statsTitle}
         function openFocusChart(canvasId) {
             const cfg = _chartModalConfigs[canvasId];
             if (!cfg) return;
+            const activeChart = Chart.getChart(canvasId);
+            if (!activeChart) return;
             if (_focusChart) { _focusChart.destroy(); _focusChart = null; }
             document.getElementById('_focus-title').textContent = cfg.title;
             _focusOverlay.classList.add('open');
             requestAnimationFrame(() => {
                 const ctx = document.getElementById('chart-focus-canvas').getContext('2d');
+                const currentData = JSON.parse(JSON.stringify(cfg.data));
+                if (activeChart.data.labels) { currentData.labels = [...activeChart.data.labels]; }
+                if (currentData.datasets) {
+                    currentData.datasets.forEach((ds, i) => {
+                        ds.hidden = !activeChart.isDatasetVisible(i);
+                        if (activeChart.data.datasets[i] && activeChart.data.datasets[i].data) {
+                            ds.data = [...activeChart.data.datasets[i].data];
+                        }
+                    });
+                }
+                let modalOptions = JSON.parse(JSON.stringify(cfg.options));
+                modalOptions.animation = false;
+                modalOptions.layout = { padding: { top: 30, right: 30, bottom: 20, left: 20 } };
+                if (modalOptions.plugins && modalOptions.plugins.datalabels) {
+                    if (!modalOptions.plugins.datalabels.font) modalOptions.plugins.datalabels.font = {};
+                    modalOptions.plugins.datalabels.font.size = 14;
+                }
+                if (modalOptions.plugins && modalOptions.plugins.legend && modalOptions.plugins.legend.labels) {
+                    if (!modalOptions.plugins.legend.labels.font) modalOptions.plugins.legend.labels.font = {};
+                    modalOptions.plugins.legend.labels.font.size = 14;
+                }
+                if (modalOptions.scales) {
+                    for (let key in modalOptions.scales) {
+                        if (modalOptions.scales[key].ticks) {
+                            if (!modalOptions.scales[key].ticks.font) modalOptions.scales[key].ticks.font = {};
+                            modalOptions.scales[key].ticks.font.size = 14;
+                        }
+                    }
+                }
+                if (activeChart.options.scales && activeChart.options.scales.x) {
+                    if (!modalOptions.scales) modalOptions.scales = {};
+                    if (!modalOptions.scales.x) modalOptions.scales.x = {};
+                    modalOptions.scales.x.min = activeChart.options.scales.x.min;
+                    modalOptions.scales.x.max = activeChart.options.scales.x.max;
+                }
                 _focusChart = new Chart(ctx, {
                     type: cfg.type,
-                    data: JSON.parse(JSON.stringify(cfg.data)), // deep clone data
-                    options: { ...cfg.options, animation: false },
+                    data: currentData,
+                    options: modalOptions,
                     plugins: cfg.plugins || []
                 });
             });
@@ -2377,7 +2717,7 @@ ${mk.statsTitle}
                 e.stopImmediatePropagation();
                 openFocusChart(btn.dataset.canvas);
             }
-        }, true); // capture phase — runs before nextSlide
+        }, true); // capture phase â€” runs before nextSlide
 
         document.addEventListener('keydown', e => {
             if (e.key === 'Escape' && _focusOverlay.classList.contains('open')) {
@@ -2386,7 +2726,7 @@ ${mk.statsTitle}
             }
         }, true);
 
-        // ── Chart Date Filtering and Slider Logic ──────────────────────────────
+        // Chart Date Filtering and Slider Logic
         function getChartByCanvasId(canvasId) {
             for (let key in slideChartInstances) {
                 let arr = slideChartInstances[key];
@@ -2399,10 +2739,10 @@ ${mk.statsTitle}
         }
 
         const _chart1DateMap = [
-            '2026-08-03', '2026-08-04', '2026-08-05', '2026-08-06', '2026-08-07', '2026-08-08', '2026-08-09', 
-            '2026-08-10', '2026-08-11', '2026-08-12', '2026-08-13', '2026-08-14', '2026-08-15', '2026-08-17', 
-            '2026-08-18', '2026-08-19', '2026-08-20', '2026-08-21', '2026-08-22', '2026-08-23', '2026-08-24', 
-            '2026-08-24', '2026-08-26', '2026-08-27', '2026-08-28', '2026-08-29', '2026-08-30', '2026-08-31', 
+            '2026-08-03', '2026-08-04', '2026-08-05', '2026-08-06', '2026-08-07', '2026-08-08', '2026-08-09',
+            '2026-08-10', '2026-08-11', '2026-08-12', '2026-08-13', '2026-08-14', '2026-08-15', '2026-08-17',
+            '2026-08-18', '2026-08-19', '2026-08-20', '2026-08-21', '2026-08-22', '2026-08-23', '2026-08-24',
+            '2026-08-24', '2026-08-26', '2026-08-27', '2026-08-28', '2026-08-29', '2026-08-30', '2026-08-31',
             '2026-09-01', '2026-09-02'
         ].map(d => new Date(d).getTime());
 
@@ -2411,10 +2751,10 @@ ${mk.statsTitle}
             const container = inputEl.closest('.date-slicer-container');
             const startInput = container.querySelector('.start-date');
             const endInput = container.querySelector('.end-date');
-            
+
             const startVal = startInput.value ? new Date(startInput.value).getTime() : null;
             const endVal = endInput.value ? new Date(endInput.value).getTime() : null;
-            
+
             if (!startVal && !endVal) return;
 
             const chart = getChartByCanvasId(canvasId);
@@ -2439,15 +2779,15 @@ ${mk.statsTitle}
                 if (idx !== -1) maxIdx = idx;
                 else maxIdx = minIdx;
             }
-            
+
             if (minIdx > maxIdx) maxIdx = minIdx;
 
             chart.options.scales.x.min = minIdx;
             chart.options.scales.x.max = maxIdx;
-            
+
             const slider = inputEl.closest('.chart-box').querySelector('.powerbi-slider');
             if (slider) slider.value = maxIdx;
-            
+
             chart.update();
         };
 
@@ -2456,19 +2796,19 @@ ${mk.statsTitle}
             const container = btnEl.closest('.date-slicer-container');
             const startInput = container.querySelector('.start-date');
             const endInput = container.querySelector('.end-date');
-            
+
             startInput.value = '';
             endInput.value = '';
-            
+
             const chart = getChartByCanvasId(canvasId);
             if (!chart) return;
-            
+
             chart.options.scales.x.min = 0;
             chart.options.scales.x.max = chart.data.labels.length - 1;
-            
+
             const slider = btnEl.closest('.chart-box').querySelector('.powerbi-slider');
             if (slider) slider.value = 19;
-            
+
             chart.update();
         };
 
@@ -2529,13 +2869,13 @@ ${mk.statsTitle}
                 console.error("Error sliding Y axis:", e);
             }
         };
-        window.onload = function() {
+        window.onload = function () {
             if (typeof updateNPTFilter === 'function' && typeof _mksWithNPT !== 'undefined') {
                 updateNPTFilter(_mksWithNPT);
             }
         };
 
-        window.updateTrendline = function(chart) {
+        window.updateTrendline = function (chart) {
             let trendlineDataset = chart.data.datasets.find(ds => ds.label === 'Trendline');
             if (!trendlineDataset) {
                 trendlineDataset = {
@@ -2544,11 +2884,13 @@ ${mk.statsTitle}
                     data: [],
                     borderColor: '#00B050', // Green color to match user example
                     borderWidth: 3,
-                    borderDash: [8, 6],
+                    borderDash: [8, 4], // Dashed trendline
+
                     fill: false,
                     pointRadius: 0,
                     pointHoverRadius: 0,
                     tension: 0,
+                    yAxisID: 'y1',
                     datalabels: { display: false },
                     order: 0
                 };
@@ -2560,7 +2902,7 @@ ${mk.statsTitle}
 
             let points = [];
             const numLabels = chart.data.labels.length;
-            
+
             for (let i = 0; i < numLabels; i++) {
                 let sum = 0;
                 let hasData = false;
@@ -2599,7 +2941,7 @@ ${mk.statsTitle}
             for (let i = 0; i < numLabels; i++) {
                 trendData[i] = slope * i + intercept;
             }
-            
+
             trendlineDataset.data = trendData;
         };
     </script>
