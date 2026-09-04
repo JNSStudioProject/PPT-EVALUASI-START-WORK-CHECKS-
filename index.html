@@ -1704,9 +1704,9 @@
             { mk: 'SGJR', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
             { mk: 'BKA', date: '26Aug', cat: '26', cause: 'DT Standby lokasi hujan/ basah' },
             { mk: 'SGJR', date: '27Aug', cat: '44', cause: 'DT Standby menunggu lokasi pekerjaan berikutnya' },
-            { mk: 'BKA', date: '27Aug', cat: '47', cause: 'Start Hauling siang, setelah lokasi pekerjaan safe' },
+            { mk: 'BKA', date: '27Aug', cat: '25', cause: ' Start Hauling Terlambat karena menunggu perkerjaan dress up selesai' },
             { mk: 'AKM', date: '27Aug', cat: '47', cause: 'Start Hauling menunggu Lokasi dan BP di dress up terlebih dahulu' },
-            { mk: 'BKA', date: '27Aug', cat: '47', cause: 'Start Hauling siang, setelah lokasi pekerjaan safe' },
+            { mk: 'BKA', date: '27Aug', cat: '25', cause: ' Start Hauling Terlambat karena menunggu perkerjaan dress up selesai' },
             { mk: 'SGJR', date: '28Aug', cat: '44', cause: 'DT Standby menunggu lokasi pekerjaan berikutnya' },
             { mk: 'AKM', date: '28Aug', cat: '44', cause: 'DT mobilisasi ke lokasi yang baru' },
             { mk: 'AKM', date: '30Aug', cat: '47', cause: 'DT standby menunggu Clearing Area' },
@@ -1759,10 +1759,9 @@
             { mk: 'AKM', date: '30Aug', cat: '47', val: 80 },
             { mk: 'AKM', date: '31Aug', cat: '25', val: 430 },
             { mk: 'AKM', date: '31Aug', cat: '44', val: 64 },
-            { mk: 'AKM', date: '31Aug', cat: '47', val: 52 },
+            { mk: 'AKM', date: '31Aug', cat: '47', val: 40 },
             { mk: 'AKM', date: '01Sep', cat: '25', val: 313 },
             { mk: 'AKM', date: '01Sep', cat: '44', val: 100 },
-            { mk: 'AKM', date: '01Sep', cat: '47', val: 80 },
             { mk: 'AKM', date: '02Sep', cat: '44', val: 100 },
 
             // --- DATA BKA ---
@@ -1783,7 +1782,7 @@
             { mk: 'BKA', date: '24Aug', cat: '43', val: 32 },
             { mk: 'BKA', date: '24Aug', cat: '48', val: 32 },
             { mk: 'BKA', date: '26Aug', cat: '26', val: 392 },
-            { mk: 'BKA', date: '27Aug', cat: '47', val: 185 },
+            { mk: 'BKA', date: '27Aug', cat: '25', val: 185 },
             { mk: 'BKA', date: '28Aug', cat: '44', val: 40 },
             { mk: 'BKA', date: '29Aug', cat: '44', val: 40 },
             { mk: 'BKA', date: '31Aug', cat: '52', val: 40 },
@@ -1846,6 +1845,9 @@
             { mk: 'SGJR', date: '26Aug', cat: '26', val: 216 },
             { mk: 'SGJR', date: '27Aug', cat: '44', val: 40 },
             { mk: 'SGJR', date: '28Aug', cat: '44', val: 48 },
+            { mk: 'SGJR', date: '31Aug', cat: '44', val: 64 },
+            { mk: 'SGJR', date: '31Aug', cat: '47', val: 12 },
+            { mk: 'SGJR', date: '01Sep', cat: '47', val: 80 }, //latest
 
             // --- DATA RDPE ---
             { mk: 'RDPE', date: '26Aug', cat: '26', val: 360 },
@@ -2224,10 +2226,9 @@
                 change2_text: "▲ +580 (+43,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
                 trip_p4: "2.902", change3_text: "▲ +978 (+50.8%)", change3_color: "#008751", change3_bg: "rgba(0, 135, 81, 0.1)",
                 insights: [
-                    "Produktivitas fluktuatif, turun ke <strong>1.344</strong> trip (10-15 Ags), namun <strong>RECOVERY</strong> dan memuncak di <strong>2.902</strong> trip pada 24 Ags - 2 Sep (<strong>+50,8%</strong>).",
-                    "<strong>1.184 Jam NPT Others Work:</strong> Menunggu clearing area selesai.",
-                    "<strong>96 Jam NPT Wait For Equipment:</strong> Menunggu alat berat.",
-                    "<strong>340 Jam NPT Permitting:</strong> Menunggu KP dan CCPM."
+                    "<strong>904 Jam NPT SWA-Rain:</strong> Dampak curah hujan tinggi yang memicu SWA.",
+                    "<strong>811 Jam NPT Wait for others work:</strong> DT standby menunggu pekerjaan clearing area."
+
                 ],
                 chart1Data: [241, 455, 322, 362, 404, 226, null, 204, 103, 184, 327, 313, 213, null, 219, 303, 265, 288, 378, 471, null, 403, 0, 323, 394, 453, 449, 383, 314, 183],
                 issuesDates: ["01Aug26", "02Aug26", "03Aug26", "04Aug26", "05Aug26", "06Aug26", "07Aug26", "08Aug26", "10Aug26", "11Aug26", "13Aug26", "14Aug26", "15Aug26", "18Aug26", "19Aug26", "20Aug26", "26Aug26", "27Aug26", "28Aug26", "29Aug26", "30Aug26", "31Aug26", "01Sep26", "02Sep26"],
@@ -2252,10 +2253,9 @@
                 change2_text: "▼ -45 (-5,9%)", change2_color: "#ef3340", change2_bg: "rgba(239, 51, 64, 0.1)",
                 trip_p4: "942", change3_text: "▲ +228 (+31.9%)", change3_color: "#008751", change3_bg: "rgba(0, 135, 81, 0.1)",
                 insights: [
-                    "Sempat turun ke <strong>714</strong> trip (18-23 Ags), namun naik tajam memuncak di <strong>942</strong> trip (24 Ags - 2 Sep).",
-                    "<strong>336 Jam NPT Man Power:</strong> Kurang Spotter/Flagman & driver sakit.",
-                    "<strong>40 Jam NPT Repair:</strong> FT rusak hambat suplai solar.",
-                    "<strong>268 Jam NPT Permitting:</strong> Greenpass Expired."
+                    "<strong>392 Jam NPT SWA-Rain:</strong> Terdampak curah hujan tinggi.",
+                    "<strong>185 Jam NPT Access road blockage:</strong> Start Hauling Terlambat karena menunggu perkerjaan dress up selesai.",
+
                 ],
                 chart1Data: [89, 89, 101, 119, 128, 115, null, 121, 146, 188, 136, 144, 24, null, 161, 138, 132, 61, 144, 78, null, 118, 0, 74, 153, 127, 119, 122, 229, 0],
                 issuesDates: ["01Aug26", "03Aug26", "05Aug26", "07Aug26", "10Aug26", "15Aug26", "18Aug26", "19Aug26", "21Aug26", "23Aug26", "24Aug26", "26Aug26", "27Aug26", "29Aug26", "30Aug26", "02Sep26"],
@@ -2278,12 +2278,8 @@
                 change2_text: "▲ +185 (+26,4%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
                 trip_p4: "1.320", change3_text: "▲ +433 (+48.8%)", change3_color: "#008751", change3_bg: "rgba(0, 135, 81, 0.1)",
                 insights: [
-                    "Kinerja <strong>POSITIF KONSISTEN</strong>! Melesat hingga memuncak di <strong>1.320</strong> trip pada 24 Ags - 2 Sep.",
-                    "<strong>1.229 Jam NPT Wait for Instruction:</strong> DT standby terkait isu ramping down.",
-                    "<strong>221 Jam NPT Others Work:</strong> Penutupan akses jalan.",
-                    "<strong>27 Jam NPT Man Power:</strong> Operator izin/tunggu KP.",
-                    "<strong>8 Jam NPT Permitting:</strong> Proses KP Driver.",
-                    "<strong>9 Jam NPT Repair:</strong> DT Service Rutin."
+                    "<strong>280 Jam NPT Wait for others work:</strong> DT Standby menunggu Cleaning Area dan Install Geotext.",
+                    "<strong>50 Jam NPT Access road blockage:</strong> Terkendala kondisi atau penutupan akses jalan.",
                 ],
                 chart1Data: [60, 63, 69, 159, 101, 54, null, 123, 157, 76, 173, 173, 0, null, 157, 130, 28, 62, 256, 254, null, 132, 59, 151, 186, 259, 223, 41, 100, 169],
                 issuesDates: ["01Aug26", "02Aug26", "03Aug26", "04Aug26", "05Aug26", "06Aug26", "07Aug26", "09Aug26", "10Aug26", "11Aug26", "12Aug26", "13Aug26", "14Aug26", "15Aug26", "17Aug26", "20Aug26", "27Aug26", "01Sep26", "02Sep26"],
@@ -2308,9 +2304,7 @@
                 change2_text: "▲ +98 (+10,9%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
                 trip_p4: "770", change3_text: "▼ -223 (-22.5%)", change3_color: "#ef3340", change3_bg: "rgba(239, 51, 64, 0.1)",
                 insights: [
-                    "Menunjukkan tren fluktuatif. Sempat naik perlahan hingga mencapai puncaknya pada 18-23 Ags dengan <strong>993</strong> trip.",
-                    "Namun pada periode akhir bulan (24 Ags - 2 Sep), produktivitas mengalami penurunan cukup signifikan menjadi <strong>770</strong> trip (<strong>-22,5%</strong>).",
-                    "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:03:00 AM</strong>."
+                    "<strong>360 Jam NPT SWA-Rain:</strong> Pekerjaan terhenti akibat curah hujan yang tinggi di akhir Agustus."
                 ],
                 chart1Data: [115, 132, 129, 164, 158, 160, null, 158, 114, 165, 154, 169, 135, null, 143, 121, 153, 174, 205, 197, null, 47, 0, 96, 158, 158, 0, 139, 172, 0],
                 issuesDates: ["26Aug26"],
@@ -2335,9 +2329,7 @@
                 change2_text: "▲ +119 (+40,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
                 trip_p4: "260", change3_text: "▼ -155 (-37.3%)", change3_color: "#ef3340", change3_bg: "rgba(239, 51, 64, 0.1)",
                 insights: [
-                    "Sempat menunjukkan <strong>LONJAKAN KINERJA</strong> impresif dengan meroket ke <strong>415</strong> trip pada 18-23 Ags.",
-                    "Sayangnya tren ini tidak bertahan lama, pada periode 24 Ags - 2 Sep produktivitas merosot ke <strong>260</strong> trip (<strong>-37,3%</strong>).",
-                    "Aktivitas harian secara rata-rata dimulai dengan FIRST SWC pada pukul <strong>07:33:00 AM</strong>."
+                    "<strong>152 Jam NPT Wait for Instruction:</strong> DT standby menunggu lokasi pekerjaan berikutnya."
                 ],
                 chart1Data: [24, 26, 44, 54, 50, 77, null, 32, 35, 45, 58, 44, 82, null, 79, 73, 117, 51, 95, 0, null, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21],
                 issuesDates: ["01Aug26", "02Aug26", "10Aug26", "11Aug26", "12Aug26", "13Aug26", "14Aug26", "29Aug26", "30Aug26"],
@@ -2356,14 +2348,13 @@
             },
             {
                 id: 'KPRE01', color: '#8e44ad', title: 'Konsorsium PT PP Presisi - PT Rajawali Emas Ancora Lestari. (KPRE01)', statsTitle: 'Konsorsium PT PP Presisi - PT Rajawali Emas Ancora Lestari.',
-                first_swc: "07:18:00 AM", avg_first_swc: "07:46:00 AM", avg_first_tag: "07:12:20 AM", avg_jam_berangkat: "-",
+                first_swc: "07:18:00 AM", avg_first_swc: "07:46:00 AM", avg_first_tag: "07:12:20 AM", avg_jam_berangkat: "06:15:00 AM",
                 trip_p1: "-", trip_p2: "-", trip_p3: "-",
                 change1_text: "-", change1_color: "#8e44ad", change1_bg: "rgba(142, 68, 173, 0.1)",
                 change2_text: "-", change2_color: "#8e44ad", change2_bg: "rgba(142, 68, 173, 0.1)",
                 trip_p4: "420", change3_text: "-", change3_color: "#8e44ad", change3_bg: "rgba(142, 68, 173, 0.1)",
                 insights: [
-                    "Konsorsium PT PP Presisi - PT Rajawali Emas Ancora Lestari (KPRE01) baru mulai bekerja pada tanggal <strong>24 Agustus</strong>.",
-                    "Hingga saat ini, total perjalanan yang diselesaikan adalah <strong>420</strong> trip."
+                    "<strong>264 Jam NPT SWA-Rain:</strong> Menjadi kendala utama di awal masa kerja akibat curah hujan."
                 ],
                 chart1Data: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, 109, 0, 0, 74, 90, 147, null, null, null, null],
                 issuesDates: ["26Aug26"],
@@ -2381,6 +2372,8 @@
                 }
             }
         ];
+
+
         const issueColors = {
             'SWA/SSWA': '#00B0F0',
             'Access road blockage': '#1F497D',
@@ -2431,11 +2424,11 @@
             </div>
             <div class="message-item" style="padding: 8px 12px; gap: 10px;">
                 <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>264 Jam NPT Wait for Instruction:</strong> dikarenakan dominasi Standby menunggu mobilisasi ke lokasi baru dan Issue Internal Ramping Down team di sebagian besar Mitra Kerja.</p>
+                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>516 Jam NPT Wait for Instruction:</strong> dikarenakan dominasi Standby menunggu mobilisasi ke lokasi baru dan Issue Internal Ramping Down team di sebagian besar Mitra Kerja.</p>
             </div>
             <div class="message-item" style="padding: 8px 12px; gap: 10px;">
                 <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
-                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>2.152 Jam NPT Wait for Others Work:</strong> dikarenakan tingginya angka DT standby menunggu Clearing Area dan penutupan akses jalan akibat pekerjaan lain.</p>
+                <p style="font-size: 11px; line-height: 1.4; margin: 0;"><strong>1.040 Jam NPT Wait for Others Work:</strong> dikarenakan tingginya angka DT standby menunggu Clearing Area dan penutupan akses jalan akibat pekerjaan lain.</p>
             </div>
             <div class="message-item" style="padding: 8px 12px; gap: 10px;">
                 <div class="check-icon" style="margin-top: 1px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg></div>
