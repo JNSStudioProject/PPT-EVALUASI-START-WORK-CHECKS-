@@ -2926,7 +2926,6 @@
                     borderColor: '#00B050',
                     borderWidth: 3,
                     borderDash: [8, 4],
-
                     fill: false,
                     pointRadius: 0,
                     pointHoverRadius: 0,
@@ -2950,7 +2949,8 @@
                 chart.data.datasets.forEach((ds, dsIdx) => {
                     if (ds.type !== 'line' && chart.isDatasetVisible(dsIdx)) {
                         let val = ds.data[i];
-                        if (val !== null && val !== undefined) {
+                        // MENGABAIKAN NILAI 0 AGAR TIDAK MERUSAK TRENDLINE
+                        if (val !== null && val !== undefined && val > 0) {
                             sum += val;
                             hasData = true;
                         }
@@ -2985,7 +2985,6 @@
 
             trendlineDataset.data = trendData;
         };
-
 
 
         // Render main charts for the single page
