@@ -1145,6 +1145,67 @@
             margin: 0;
             cursor: pointer;
         }
+
+        /* CSS DUAL SLIDER */
+        .dual-slider-container {
+            position: relative;
+            width: 100%;
+            height: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .dual-slider-container input[type="range"] {
+            position: absolute;
+            width: 100%;
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            pointer-events: none;
+            z-index: 3;
+            margin: 0;
+            outline: none;
+        }
+
+        .dual-slider-container input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            pointer-events: auto;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .dual-slider-container input[type="range"]::-moz-range-thumb {
+            pointer-events: auto;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid var(--primary);
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .dual-slider-container .slider-track {
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            background: #cbd5e1;
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        .dual-slider-container .slider-fill {
+            position: absolute;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+            z-index: 2;
+        }
     </style>
 </head>
 
@@ -1187,13 +1248,11 @@
             </div>
             <div class="body-content">
                 <div class="left-content">
+
                     <div class="chart-box"
                         style="position: relative; padding-right: 20px; padding-bottom: 25px; flex: 1; min-height: 200px;">
                         <div class="chart-title-row">
-                            <div class="chart-title" style="margin-bottom:6px; margin-top: 5px;">NON PRODUCTIVITY TIME
-                                BY
-                                MITRA KERJA
-                                (3 AGS - 2 SEP)</div>
+                            <div class="chart-title" style="margin-bottom:6px;">TOTAL TRIP HAULING BY MITRA KERJA</div>
                             <div class="chart-controls-group" style="z-index: 50;">
                                 <div class="date-slicer-container">
                                     <div class="date-slicer-header">
@@ -1228,18 +1287,30 @@
                         <div class="canvas-wrapper">
                             <canvas id="chart1_main"></canvas>
                         </div>
-                        <div style="position: absolute; bottom: 2px; left: 16px; right: 28px;">
-                            <input type="range" class="powerbi-slider" min="5" max="19" value="19"
-                                data-target="chart1_main" oninput="slideChartWindowX(this)">
+
+                        <!-- DUAL SLIDER CHART 1 -->
+                        <div style="position: absolute; bottom: 0px; left: 16px; right: 28px;">
+                            <div class="dual-slider-container" data-target="chart1_main">
+                                <div class="slider-track"></div>
+                                <div class="slider-fill" style="left: 0%; width: 100%;"></div>
+                                <input type="range" class="min-slider" min="0" max="29" value="0"
+                                    oninput="slideChartWindowDual(this)">
+                                <input type="range" class="max-slider" min="0" max="29" value="29"
+                                    oninput="slideChartWindowDual(this)">
+                            </div>
                         </div>
+
                         <div style="position: absolute; top: 40px; bottom: 20px; right: 8px;">
                             <input type="range" class="powerbi-slider-v" min="50" max="100" value="100"
                                 orient="vertical" data-target="chart1_main" oninput="slideChartWindowY(this)">
                         </div>
                     </div>
-                    <div class="chart-box" style="flex: 1; min-height: 200px;">
+
+                    <!-- GRAFIK 2: NON PRODUCTIVITY TIME -->
+                    <div class="chart-box"
+                        style="position: relative; padding-right: 20px; padding-bottom: 25px; flex: 1; min-height: 200px;">
                         <div class="chart-title-row">
-                            <div class="chart-title" style="margin-bottom:6px; margin-top: 20px;">NON PRODUCTIVITY TIME
+                            <div class="chart-title" style="margin-bottom:6px; margin-top: 5px;">NON PRODUCTIVITY TIME
                                 BY
                                 MITRA KERJA
                                 (3 AGS - 2 SEP)</div>
@@ -1254,6 +1325,19 @@
                         <div class="canvas-wrapper" id="npt-canvas-wrap">
                             <canvas id="chart2_main"></canvas>
                         </div>
+
+                        <!-- DUAL SLIDER CHART 2 -->
+                        <div style="position: absolute; bottom: 0px; left: 16px; right: 28px;">
+                            <div class="dual-slider-container" data-target="chart2_main">
+                                <div class="slider-track"></div>
+                                <div class="slider-fill" style="left: 0%; width: 100%;"></div>
+                                <input type="range" class="min-slider" min="0" max="30" value="0"
+                                    oninput="slideChartWindowDual(this)">
+                                <input type="range" class="max-slider" min="0" max="30" value="30"
+                                    oninput="slideChartWindowDual(this)">
+                            </div>
+                        </div>
+
                         <div id="npt-no-data-msg"
                             style="display:none; flex:1; align-items:center; justify-content:center; flex-direction:column; gap:8px;">
                             <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1"
@@ -2329,6 +2413,7 @@
                 change2_text: "▲ +119 (+40,2%)", change2_color: "#008751", change2_bg: "rgba(0, 135, 81, 0.1)",
                 trip_p4: "260", change3_text: "▼ -155 (-37.3%)", change3_color: "#ef3340", change3_bg: "rgba(239, 51, 64, 0.1)",
                 insights: [
+                    "<strong>216 Jam NPT SWA Rain:</strong> DT standby lokasi hujan/basah.",
                     "<strong>152 Jam NPT Wait for Instruction:</strong> DT standby menunggu lokasi pekerjaan berikutnya."
                 ],
                 chart1Data: [24, 26, 44, 54, 50, 77, null, 32, 35, 45, 58, 44, 82, null, 79, 73, 117, 51, 95, 0, null, 47, 0, 3, 69, 58, 39, 0, 31, 13, 21],
@@ -2793,7 +2878,44 @@
                 updateNPTFilter(_mksWithNPT);
             }
         };
+        window.slideChartWindowDual = function (sliderEl) {
+            const container = sliderEl.closest('.dual-slider-container');
+            const minSlider = container.querySelector('.min-slider');
+            const maxSlider = container.querySelector('.max-slider');
+            const fill = container.querySelector('.slider-fill');
+            const canvasId = container.dataset.target;
 
+            let minVal = parseInt(minSlider.value);
+            let maxVal = parseInt(maxSlider.value);
+
+            // Mencegah kepala slider saling menyilang
+            if (minVal > maxVal - 1) {
+                if (sliderEl.classList.contains('min-slider')) {
+                    minSlider.value = maxVal - 1;
+                    minVal = maxVal - 1;
+                } else {
+                    maxSlider.value = minVal + 1;
+                    maxVal = minVal + 1;
+                }
+            }
+
+            // Update garis warna di antara 2 kepala slider
+            if (fill) {
+                const maxRange = parseInt(maxSlider.max);
+                const percent1 = (minVal / maxRange) * 100;
+                const percent2 = (maxVal / maxRange) * 100;
+                fill.style.left = percent1 + "%";
+                fill.style.width = (percent2 - percent1) + "%";
+            }
+
+            // Update grafik
+            let chart = getChartByCanvasId(canvasId);
+            if (!chart) return;
+
+            chart.options.scales.x.min = minVal;
+            chart.options.scales.x.max = maxVal;
+            chart.update('none');
+        };
         window.updateTrendline = function (chart) {
             let trendlineDataset = chart.data.datasets.find(ds => ds.label === 'Trendline');
             if (!trendlineDataset) {
